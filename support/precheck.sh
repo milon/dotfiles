@@ -1,7 +1,7 @@
 echo 'Checking dependencies...'
 echo ''
 
-if [ ! -d "$HOME/Dropbox (Personal)" ]
+if [ ! -d "$HOME/Dropbox" ]
 then
     echo "Please link Dropbox first."
     exit
