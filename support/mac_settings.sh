@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Hide the desktop
-defaults write com.apple.finder CreateDesktop -bool false && killall Finder
-
 # hide last login info item2
 touch ~/.hushlogin
 

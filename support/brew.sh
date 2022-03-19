@@ -11,7 +11,6 @@ fi
 echo ''
 echo 'Installing Homebrew dependencies'
 echo '---------------------------------------'
-cd $support_dir
-arch -x86_64 brew bundle
+brew bundle --file $support_dir/Brewfile
 
 echo 'XX -- Homebrew done.'
