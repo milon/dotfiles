@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# weather
+weather() {curl wttr.in/${1:-Berlin}}
+
+# Base64
+encode() {echo -n ${1} | base64}
+decode() {echo -n ${1} | base64 --decode}

@@ -1,0 +1,15 @@
+# load oh-my-zsh library
+antigen use oh-my-zsh
+
+# oh-my-zsh plugins
+antigen bundle git
+
+# custom plugins
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# Theme
+antigen theme milon/arrow-zsh-theme
+
+# Tell Antigen that you're done.
+antigen apply

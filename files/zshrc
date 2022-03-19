@@ -1,0 +1,31 @@
+# source antigen location
+source /usr/local/share/antigen/antigen.zsh
+
+# load oh-my-zsh library
+antigen init $HOME/.antigenrc
+
+# Default editor
+export EDITOR='vim'
+
+# Aliases
+source $HOME/.dotfiles/files/zsh_aliases
+source $HOME/.dotfiles/files/zsh_functions
+
+# Always enable colored `grep` output
+export GREP_OPTIONS="--color=auto"
+
+# PHP
+export PATH="/usr/local/opt/php@7.4/bin:$PATH"
+export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
+
+# Custom Path
+export PATH="$PATH:$HOME/.composer/vendor/bin"
+export PATH="$PATH:$HOME/.symfony/bin"
+
+# Node Version Manager (NVM)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Zsh
+export PATH="/usr/local/opt/ncurses/bin:$PATH"

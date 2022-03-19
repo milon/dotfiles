@@ -1,0 +1,61 @@
+# Taps
+tap 'homebrew/cask'
+tap 'homebrew/cask-fonts'
+tap 'homebrew/cask-versions'
+tap 'homebrew/bundle'
+
+# Binaries
+brew 'awscli'
+brew 'coreutils' # Those that come with macOS are outdated
+brew 'ffmpeg'
+brew 'git'
+brew 'gnupg'
+brew 'grep'
+brew 'httpie'
+brew 'mackup'
+brew 'mas' # Mac App Store manager
+brew 'openssl'
+brew 'pkg-config' # needed for imagick build/install
+brew 'youtube-dl'
+
+# Development
+brew 'antigen'  #zsh plugins manager
+brew 'php'
+brew 'imagemagick'
+brew 'meilisearch'
+brew 'mysql'
+brew 'nginx'
+brew 'node'
+brew 'redis'
+brew 'svn' # Needed to install fonts
+brew 'vim' --with-override-system-vi
+
+# Fonts
+cask 'font-jetbrains-mono'
+cask 'font-roboto'
+cask 'font-source-code-pro-for-powerline'
+cask 'font-source-code-pro'
+
+# Apps
+cask 'atom'
+cask 'bartender'
+cask 'docker'
+cask 'displaylink'  # for docking station
+cask 'google-chrome'
+cask 'imageoptim'
+cask 'iterm2'
+cask 'jetbrains-toolbox'
+cask 'vlc'
+
+# Mac App Store
+mas '1password', id: 1333542190
+mas 'Amphetamine', id: 937984704
+mas 'Forecast Bar - Weather + Radar', id: 982710545
+mas 'Keynote', id: 409183694
+mas 'Numbers', id: 409203825
+mas 'Pages', id: 409201541
+mas 'Sequel Ace', id: 1518036000
+mas 'The Unarchiver', id: 425424353
+mas 'Unsplash Wallpapers', id: 1284863847
+mas 'Whatsapp Desktop', id: 1147396723
+mas 'Xcode', id: 497799835

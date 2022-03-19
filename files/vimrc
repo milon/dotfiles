@@ -1,0 +1,130 @@
+"-------------General Settings---------------"
+syntax enable						" snytax highlighting enable
+set backspace=indent,eol,start  	" backspace works as normal backspace
+set number						    " show line numbers
+set tabstop=4						" tab space set to 4
+set shiftwidth=4                	" number of spaces to use for autoindenting
+set softtabstop=4                   " work tab lenght in normal mode
+set showmatch                   	" set show matching parenthesis
+set autoindent                  	" always set autoindenting on
+set encoding=utf8					" set character encoding
+set visualbell						" use visual bell(no beeping)
+set expandtab						" use spaces instead of tabs
+set smartindent						" enable smart-indent
+set autowriteall                    " autometically save changes of files
+set complete=.,w,b,u                " set desired autocompletion matching
+set ruler                           " always show current position
+
+let mapleader = ','					" map leader key to ','
+
+
+set nocompatible                    " everytime loads the latest vim settings
+
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+else
+    set wildignore+=.git\*,.hg\*,.svn\*
+endif
+
+
+
+
+"-------------vim-plugins--------------"
+so ~/.vim/plugins.vim
+
+
+
+
+"-------------Search---------------"
+set hlsearch                        " highlight search items
+set incsearch                       " increment highlight while searching
+
+
+"-------------Visual Settings---------------"
+set t_CO=256						" set color scheme to 256 for terminal vim
+colorscheme onedark 				" set color scheme
+
+
+
+"-------------Split Management---------------"
+set splitbelow                      " set split below to the current one
+set splitright                      " set vertical split right to the current one
+
+" We'll set simpler mappings to switch between splits.
+nmap <C-J> <C-W><C-J>
+nmap <C-K> <C-W><C-K>
+nmap <C-H> <C-W><C-H>
+nmap <C-L> <C-W><C-L>
+
+
+
+
+"-------------Mappings---------------"
+
+"Make it easy to edit the Vimrc file.
+nmap <Leader>ev :tabedit $MYVIMRC<cr>
+
+"Add simple highlight removal.
+nmap <Leader><space> :nohlsearch<cr>
+
+"make NERDTree easier to toggle
+nmap <Leader><Bslash> :NERDTreeToggle<cr>
+
+"search methods name on a file
+nmap <C-r> :CtrlPBufTag<cr>
+
+"browse most recently visited files
+nmap <D-e> :CtrlPMRUFiles<cr>
+
+"search ctags
+nmap <Leader>f :tag<space>
+
+" tabularize plugin for auto alignment
+nmap <Leader>a :Tabularize /
+vmap <Leader>a :Tabularize /
+
+
+"--------------Plugin Key Binding------------"
+"/
+"/ CtrlP
+"/
+let g:ctrlp_custom_ignore = 'node_modules\DS_Store\|git'
+
+"/
+"/ NERDTree
+"/
+let NERDTreeHijackNetrw = 0
+
+
+
+
+"-------------Auto-Commands--------------"
+
+" Automatically source the Vimrc file on save.
+augroup autosourcing
+	autocmd!
+	autocmd BufWritePost .vimrc source %
+augroup END
+
+" Import PHP namespaces use statement
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php inoremap <Leader>n <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>n :call PhpInsertUse()<CR>
+
+" Inline expantion of full classpath
+function! IPhpExpandClass()
+    call PhpExpandClass()
+    call feedkeys('a', 'n')
+endfunction
+autocmd FileType php inoremap <Leader>nf <Esc>:call IPhpExpandClass()<CR>
+autocmd FileType php noremap <Leader>nf :call PhpExpandClass()<CR>
+
+"Sort PHP use statements
+"http://stackoverflow.com/questions/11531073/how-do-you-sort-a-range-of-lines-by-length
+vmap <Leader>su ! awk '{ print length(), $0 \| "sort -n \| cut -d\\  -f2-" }'<cr>
