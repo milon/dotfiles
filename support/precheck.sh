@@ -1,5 +1,3 @@
-#!/bin/zsh
-
 echo 'Checking dependencies...'
 echo ''
 
