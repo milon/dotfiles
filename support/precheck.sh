@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 echo 'Checking dependencies...'
 echo ''
 
@@ -14,7 +16,7 @@ SSH_FILES=(
     ["$HOME/Dropbox/Mackup/.ssh/id_rsa.pub"]="$HOME/.ssh/id_rsa.pub"
 )
 
-for key val in ${(kv)sym_links}; do
+for key val in ${(kv)SSH_FILES}; do
     if test -f "$val"; then
         echo "$val already exists; skipping symlink."
     else
