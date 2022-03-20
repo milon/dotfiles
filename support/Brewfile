@@ -28,7 +28,7 @@ brew 'nginx'
 brew 'node'
 brew 'redis'
 brew 'svn' # Needed to install fonts
-brew 'vim' --with-override-system-vi
+brew 'vim'
 
 # Fonts
 cask 'font-jetbrains-mono'

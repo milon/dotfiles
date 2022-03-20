@@ -14,9 +14,8 @@ source $HOME/.dotfiles/files/zsh_functions
 # Always enable colored `grep` output
 export GREP_OPTIONS="--color=auto"
 
-# PHP
-export PATH="/usr/local/opt/php@7.4/bin:$PATH"
-export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
+# Path
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 # Custom Path
 export PATH="$PATH:$HOME/.composer/vendor/bin"
