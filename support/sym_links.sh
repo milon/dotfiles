@@ -24,7 +24,7 @@ done
 if test -f "$HOME/.ssh/config"; then
     echo "$HOME/.ssh/config already exists; skipping symlink."
 else
-    ln -s $HOME/Dropbox\ \(Personal\)/Apps/Dotfiles/symlinks/ssh-config $HOME/.ssh/config
+    ln -s $HOME/Dropbox/Apps/Dotfiles/ssh/config $HOME/.ssh/config
 fi
 
 echo 'XX -- Symlinks done.'
