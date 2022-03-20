@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 echo 'Installing Homebrew'
 echo '-------------------'
 
