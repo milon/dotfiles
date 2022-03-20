@@ -4,7 +4,7 @@
 
 set +x
 #my_dir="$(dirname "$0")"
-my_dir="$HOME/dotfiles/bin"
+my_dir="$HOME/.dotfiles/bin"
 support_dir="$my_dir/../support"
 
 cd $my_dir
