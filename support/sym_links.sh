@@ -7,6 +7,7 @@ sym_links=(
     [antigenrc]=$HOME/.antigenrc
     [plugins.vim]=$HOME/.vim/plugins.vim
     [gitignore]=$HOME/.gitignore
+    [mackup.cfg]=$HOME/.mackup.cfg
 )
 
 for key val in ${(kv)sym_links}; do
@@ -24,7 +25,7 @@ done
 if test -f "$HOME/.ssh/config"; then
     echo "$HOME/.ssh/config already exists; skipping symlink."
 else
-    ln -s $HOME/Dropbox/Apps/Dotfiles/ssh/config $HOME/.ssh/config
+    ln -s $HOME/Dropbox/Mackup/.ssh/config $HOME/.ssh/config
 fi
 
 echo 'XX -- Symlinks done.'
