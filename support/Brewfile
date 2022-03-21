@@ -40,6 +40,7 @@ cask 'google-chrome'
 cask 'imageoptim'
 cask 'iterm2'
 cask 'jetbrains-toolbox'
+cask 'postman'
 cask 'skype'
 cask 'vlc'
 
