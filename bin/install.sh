@@ -23,13 +23,10 @@ title 'SYM LINKS'
 source "$support_dir/sym_links.sh" && cd $my_dir
 
 title 'HOMEBREW'
-source "$support_dir/brew.sh"
+source "$support_dir/brew.sh" && cd $my_dir
 
 title 'GIT'
-git config --global user.name "Nuruzzaman Milon"
-git config --global user.email "contact@milon.im"
-git config --global core.excludesfile ~/.gitignore
-echo 'XX -- Git done.'
+source "$support_dir/git.sh" && cd $my_dir
 
 title 'COMPOSER'
 source "$support_dir/composer.sh" && cd $my_dir
@@ -37,16 +34,11 @@ source "$support_dir/composer.sh" && cd $my_dir
 title 'VALET'
 source "$support_dir/valet.sh" && cd $my_dir
 
-title 'NPM'
-if [ ! -d "$HOME/.nvm" ]; then
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
-    export NVM_DIR=$HOME/.nvm;
-    source $NVM_DIR/nvm.sh;
-    nvm install 14
-fi
-# @todo all global npm deps
+title 'GIT CLONE'
+source "$support_dir/git_clone.sh" && cd $my_dir
 
-echo 'XX -- NPM done.'
+title 'NPM'
+source "$support_dir/node.sh" && cd $my_dir
 
 title 'MACOS SETTINGS'
 source "$support_dir/mac_settings.sh"
