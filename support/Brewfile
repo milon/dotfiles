@@ -25,14 +25,10 @@ brew 'imagemagick'
 brew 'meilisearch'
 brew 'mysql'
 brew 'redis'
-brew 'svn' # Needed to install fonts
 brew 'vim'
 
 # Fonts
 cask 'font-jetbrains-mono'
-cask 'font-roboto'
-cask 'font-source-code-pro-for-powerline'
-cask 'font-source-code-pro'
 
 # Apps
 cask 'atom'
