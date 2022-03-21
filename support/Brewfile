@@ -24,8 +24,6 @@ brew 'php'
 brew 'imagemagick'
 brew 'meilisearch'
 brew 'mysql'
-brew 'nginx'
-brew 'node'
 brew 'redis'
 brew 'svn' # Needed to install fonts
 brew 'vim'
