@@ -13,7 +13,7 @@ git_repos=(
 
 cd $CODE_DIR
 for dir repo in ${(kv)git_repos}; do
-    git clone $repo > /dev/null 2>&1
+    git clone $repo $dir > /dev/null 2>&1
     CLONE_SUCCESS=$?
 
     if [[ $CLONE_SUCCESS == 0 ]]

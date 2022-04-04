@@ -43,6 +43,7 @@ cask 'iterm2'
 cask 'jetbrains-toolbox'
 cask 'postman'
 cask 'skype'
+cask 'spotify'
 cask 'vlc'
 
 # Mac App Store
