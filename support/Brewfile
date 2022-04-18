@@ -35,6 +35,7 @@ cask 'air-video-server-hd'
 cask 'appcleaner'
 cask 'atom'
 cask 'bartender'
+cask 'cheatsheet'
 cask 'docker'
 cask 'displaylink'     # for docking station
 cask 'google-chrome'
