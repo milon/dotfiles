@@ -37,15 +37,16 @@ cask 'atom'
 cask 'bartender'
 cask 'cheatsheet'
 cask 'docker'
-cask 'displaylink'     # for docking station
+cask 'displaylink'      # for docking station
 cask 'google-chrome'
 cask 'imageoptim'
-cask 'iina'
+cask 'iina'             # media player
 cask 'iterm2'
 cask 'jetbrains-toolbox'
 cask 'postman'
 cask 'skype'
 cask 'spotify'
+cask 'swish'            # window snapping tool
 
 # Mac App Store
 mas '1password', id: 1333542190
