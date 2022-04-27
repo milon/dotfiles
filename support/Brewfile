@@ -45,8 +45,8 @@ cask 'iterm2'
 cask 'jetbrains-toolbox'
 cask 'postman'
 cask 'skype'
-cask 'spotify'
 cask 'swish'            # window snapping tool
+cask 'yt-music'
 
 # Mac App Store
 mas '1password', id: 1333542190
