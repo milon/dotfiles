@@ -1,6 +1,17 @@
+#!/bin/bash
+
+# zsh aliases
+
+# weather
+function weather() {curl wttr.in/${1:-Berlin}}
+
 # show and hide files
 alias show-files="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app"
 alias hide-files="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app"
 
-# bat
-alias cat="bat --paging=never -p" 
+# Base64
+function encode() {echo -n ${1} | base64}
+function decode() {echo -n ${1} | base64 --decode}
+
+# bat (cat on steroids)
+alias cat="bat --paging=never -p"
