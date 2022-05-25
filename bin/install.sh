@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-# Last updated Brew/app list: March 20, 2022
-
 set +x
 #my_dir="$(dirname "$0")"
 my_dir="$HOME/.dotfiles/bin"
