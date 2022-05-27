@@ -27,6 +27,7 @@ brew 'imagemagick'
 brew 'meilisearch'
 brew 'mysql'
 brew 'redis'
+brew 'sqlite'
 brew 'vim'
 
 # Fonts
