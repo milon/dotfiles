@@ -18,6 +18,26 @@ Dotfiles for my mac, heavily inspired by [Matt Stauffer](https://github.com/matt
 - Go to the directory by `cd ~/.dotfiles`
 - Run the install script- `./install.sh`
 
+## `dotfiles` executable
+
+You will have an executable in your path.
+
+```
+$ dotfiles
+￫ Usage: dotfiles <command>
+
+Commands:
+   help             This help message
+   update           Update packages and pkg managers (brew, mac app store, commposer)
+   clean            Clean up caches (brew, npm, composer)
+   symlinks         Run symlinks script
+   brew             Run brew script
+   node             Run node setup script
+   valet            Run valet script
+   mac              Run MacOS defaults script
+   xcode            Run XCode script
+```
+
 ## Todo
 
 - Backup application config with `mackup`
