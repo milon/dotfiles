@@ -18,7 +18,6 @@ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 # Custom Path
 export PATH="$PATH:$HOME/.composer/vendor/bin"
-export PATH="$PATH:$HOME/.symfony/bin"
 
 # Node Version Manager (NVM)
 export NVM_DIR="$HOME/.nvm"
