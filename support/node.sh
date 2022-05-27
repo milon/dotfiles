@@ -7,7 +7,7 @@ if [ ! -d "$HOME/.nvm" ]; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
     export NVM_DIR=$HOME/.nvm;
     source $NVM_DIR/nvm.sh;
-    nvm install node
+    nvm install --lts --latest-npm
 fi
 
 # @todo all global npm deps

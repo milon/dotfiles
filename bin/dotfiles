@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+
+BIN_NAME=$(basename "$0")
+COMMAND_NAME=$1
+SUB_COMMAND_NAME=$2
+
+ARROW="￫"
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m'
+
+# Get dotfiles dir (so run this script from anywhere)
+my_dir="$HOME/.dotfiles"
+support_dir="$my_dir/support"
+
+sub_help () {
+    echo -e "$ARROW Usage: ${YELLOW}$BIN_NAME <command>${NC}"
+    echo
+    echo "Commands:"
+    echo "   help             This help message"
+    echo "   update           Update packages and pkg managers (OS, brew, node, npm, yarn, commposer)"
+    echo "   clean            Clean up caches (brew, npm, yarn, composer)"
+    echo "   symlinks         Run symlinks script"
+    echo "   brew             Run brew script"
+    echo "   node             Run node setup script"
+    echo "   valet            Run valet script"
+    echo "   mac              Run MacOS defaults script"
+}
+
+sub_update () {
+    sudo softwareupdate --install --all
+    brew update && brew upgrade
+    mas upgrade
+    echo -e "${GREEN}$ARROW Success! Update command finished.${NC}"
+}
+
+sub_clean () {
+    brew cleanup
+    npm cache clean --force
+    yarn cache clean
+    composer clear-cache
+    echo -e "${GREEN}$ARROW Success! Clean command finished.${NC}"
+}
+
+sub_symlinks () {
+    . "$support_dir/sym_links.sh"
+    echo -e "${GREEN}$ARROW Success! Symlinks command finished.${NC}"
+}
+
+sub_brew () {
+    . "$support_dir/brew.sh"
+    echo -e "${GREEN}$ARROW Success! Brew command finished.${NC}"
+}
+
+sub_node () {
+    . "$support_dir/node.sh"
+    echo -e "${GREEN}$ARROW Success! Node setup command finished.${NC}"
+}
+
+sub_valet () {
+    . "$support_dir/valet.sh"
+    echo -e "${GREEN}$ARROW Success! Valet command finished.${NC}"
+}
+
+sub_mac () {
+    . "$support_dir/mac_settings.sh"
+    echo -e "${GREEN}$ARROW Success! MacOS settings command finished.${NC}"
+}
+
+case $COMMAND_NAME in
+    "" | "-h" | "--help")
+        sub_help
+        ;;
+    *)
+        shift
+        sub_${COMMAND_NAME} $@
+        if [ $? = 127 ]; then
+            echo -e "${RED}$ARROW Error: '$COMMAND_NAME' is not a known command or has errors.${NC}" >&2
+            sub_help
+            exit 1
+        fi
+        ;;
+esac
