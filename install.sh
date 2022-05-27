@@ -13,9 +13,11 @@ source "$support_dir/functions.sh"
 # Check and prompt for necessary dependencies
 source "$support_dir/precheck.sh" && cd $my_dir
 
+title 'XCODE'
+source "$support_dir/xcode.sh" && cd $my_dir
+
 title 'DEPENDENCIES'
 source "$support_dir/dependencies.sh" && cd $my_dir
-#@todo install hub
 
 title 'SYM LINKS'
 source "$support_dir/sym_links.sh" && cd $my_dir
