@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 declare -A sym_links
 sym_links=(

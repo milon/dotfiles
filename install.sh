@@ -15,7 +15,6 @@ source "$support_dir/precheck.sh" && cd $my_dir
 
 title 'XCODE'
 source "$support_dir/xcode.sh" && cd $my_dir
-exit
 
 title 'DEPENDENCIES'
 source "$support_dir/dependencies.sh" && cd $my_dir
