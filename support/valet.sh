@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 valet install
 valet trust

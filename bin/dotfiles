@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 
 BIN_NAME=$(basename "$0")
 COMMAND_NAME=$1
@@ -11,8 +11,8 @@ YELLOW='\033[0;33m'
 NC='\033[0m'
 
 # Get dotfiles dir (so run this script from anywhere)
-my_dir="$HOME/.dotfiles"
-support_dir="$my_dir/support"
+export my_dir="$HOME/.dotfiles"
+export support_dir="$my_dir/support"
 
 sub_help () {
     echo -e "$ARROW Usage: ${YELLOW}$BIN_NAME <command>${NC}"
@@ -29,7 +29,7 @@ sub_help () {
 }
 
 sub_update () {
-    sudo softwareupdate --install --all
+    softwareupdate --install --all
     brew update && brew upgrade
     mas upgrade
     echo -e "${GREEN}$ARROW Success! Update command finished.${NC}"

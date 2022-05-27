@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 echo 'Sadly, there are still a few things on your list!'
 echo ''

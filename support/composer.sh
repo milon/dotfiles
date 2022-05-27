@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 brew install composer
 composer global require laravel/valet

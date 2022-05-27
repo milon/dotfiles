@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 echo ''
 echo 'Update existing software'
