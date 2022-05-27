@@ -26,19 +26,28 @@ sub_help () {
     echo "   node             Run node setup script"
     echo "   valet            Run valet script"
     echo "   mac              Run MacOS defaults script"
+    echo "   xcode            Run XCode script"
 }
 
 sub_update () {
-    softwareupdate --install --all
+    echo "Update brew"
     brew update && brew upgrade
+
+    echo ""
+    echo "Update mac app store softwares"
     mas upgrade
+
+    echo ""
+    echo "Update composer and it's global dependencies"
+    composer self-update && composer global update
+
+    echo ""
     echo -e "${GREEN}$ARROW Success! Update command finished.${NC}"
 }
 
 sub_clean () {
     brew cleanup
     npm cache clean --force
-    yarn cache clean
     composer clear-cache
     echo -e "${GREEN}$ARROW Success! Clean command finished.${NC}"
 }
@@ -66,6 +75,11 @@ sub_valet () {
 sub_mac () {
     . "$support_dir/mac_settings.sh"
     echo -e "${GREEN}$ARROW Success! MacOS settings command finished.${NC}"
+}
+
+sub_xcode () {
+    . "$support_dir/xcode.sh"
+    echo -e "${GREEN}$ARROW Success! Xcode command finished.${NC}"
 }
 
 case $COMMAND_NAME in
