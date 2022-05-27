@@ -21,3 +21,7 @@ Dotfiles for my mac, heavily inspired by [Matt Stauffer](https://github.com/matt
 ## Todo
 
 - Backup application config with `mackup`
+
+## Suggestions
+
+Please tweet [@to_milon](https://milon.im/twitter) or email at contact[@]milon[.]im
