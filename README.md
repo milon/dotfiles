@@ -1,6 +1,6 @@
 # .dotfiles
 
-Dotfiles for my mac, heavily inspired by [Matt Stauffer](https://github.com/mattstauffer/dotfiles)'s dotfiles.
+Dotfiles for my mac, got inspirations from [dotfiles](https://dotfiles.github.io/).
 
 ## How to use
 
