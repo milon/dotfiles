@@ -16,7 +16,7 @@ Dotfiles for my mac, heavily inspired by [Matt Stauffer](https://github.com/matt
 - Type `git`, hit enter, and follow the prompts to install the command line developer tools.
 - Clone the repo- `git clone git@github.com:milon/dotfiles.git ~/.dotfiles`
 - Go to the directory by `cd ~/.dotfiles`
-- Run the install script- `./bin/install.sh`
+- Run the install script- `./install.sh`
 
 ## Todo
 
