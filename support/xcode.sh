@@ -1,6 +1,12 @@
 #!/bin/bash
 
 echo ''
+echo 'Update existing software'
+echo '------------------------'
+
+softwareupdate --install --all
+
+echo ''
 echo 'Installing XCode command line tools'
 echo '-----------------------------------'
 
