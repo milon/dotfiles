@@ -14,14 +14,13 @@ source "$support_dir/functions.sh"
 source "$support_dir/precheck.sh" && cd $my_dir
 
 title 'XCODE'
-#source "$support_dir/xcode.sh" && cd $my_dir
+source "$support_dir/xcode.sh" && cd $my_dir
 
 title 'DEPENDENCIES'
 source "$support_dir/dependencies.sh" && cd $my_dir
 
 title 'SYM LINKS'
 source "$support_dir/sym_links.sh" && cd $my_dir
-exit
 
 title 'HOMEBREW'
 source "$support_dir/brew.sh" && cd $my_dir
