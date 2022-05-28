@@ -11,7 +11,7 @@ cd $my_dir
 source "$support_dir/functions.sh"
 
 # Check and prompt for necessary dependencies
-source "$support_dir/precheck.sh" && cd $my_dir
+# source "$support_dir/precheck.sh" && cd $my_dir
 
 title 'XCODE'
 source "$support_dir/xcode.sh" && cd $my_dir
