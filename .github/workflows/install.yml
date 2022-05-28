@@ -1,0 +1,11 @@
+name: dotfiles smoke test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Execute full install
+      run:  ./install.sh
