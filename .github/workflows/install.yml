@@ -9,8 +9,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Symlink to home directory
-      run: ln -s /Users/runner/work/dotfiles/dotfiles ~/.dotfiles
+    - name: Move to home directory
+      run: mv /Users/runner/work/dotfiles/dotfiles /Users/runner/work/.dotfiles
 
     - name: Execute full install
       run:  cd .dotfiles && ./install.sh
