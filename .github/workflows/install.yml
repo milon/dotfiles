@@ -8,10 +8,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-      with:
-        repository: milon/dotfiles
-        ref: master
-        path: /Users/runner/.dotfiles
+
+    - name: Symlink to home directory
+      run: ln -s /Users/runner/work/dotfiles/dotfiles ~/.dotfiles
 
     - name: Execute full install
       run:  cd .dotfiles && ./install.sh
