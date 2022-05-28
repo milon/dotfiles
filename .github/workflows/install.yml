@@ -10,7 +10,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Copy to home directory
-      run: cp /Users/runner/work/dotfiles/dotfiles /Users/runner/.dotfiles
+      run: cp -R /Users/runner/work/dotfiles/dotfiles /Users/runner/.dotfiles
 
     - name: Execute full install
       run: ./install.sh
