@@ -9,9 +9,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       with:
-        repository: milon/docfiles
+        repository: milon/dotfiles
         ref: master
         path: .dotfiles
 
     - name: Execute full install
-      run:  ./install.sh
+      run:  cd .dotfiles && ./install.sh
