@@ -13,6 +13,3 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # iterm use atom onedark theme
 # iterm use jetbrains mono for powerline
 # set caps lock as esc
-
-# install vundle or whatever other vim bundler
-vim +PluginInstall +qall

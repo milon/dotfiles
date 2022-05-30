@@ -40,8 +40,11 @@ source "$support_dir/git_clone.sh" && cd $my_dir
 title 'NPM'
 source "$support_dir/node.sh" && cd $my_dir
 
+title 'VIM'
+source "$support_dir/vim.sh" && cd $my_dir
+
 title 'MACOS SETTINGS'
-source "$support_dir/mac_settings.sh"
+source "$support_dir/mac_settings.sh" && cd $my_dir
 
 title 'MANUAL STEPS'
-source "$support_dir/manual_steps.sh"
+source "$support_dir/manual_steps.sh" && cd $my_dir
