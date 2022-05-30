@@ -25,6 +25,7 @@ sub_help () {
     echo "   ${YELLOW}brew${NC}             Run brew script"
     echo "   ${YELLOW}node${NC}             Run node setup script"
     echo "   ${YELLOW}valet${NC}            Run valet script"
+    echo "   ${YELLOW}git${NC}              Run git config script"
     echo "   ${YELLOW}mac${NC}              Run MacOS defaults script"
     echo "   ${YELLOW}xcode${NC}            Run XCode script"
     echo "   ${YELLOW}vim${NC}              Run vim script"
@@ -71,6 +72,11 @@ sub_node () {
 sub_valet () {
     . "$support_dir/valet.sh"
     echo -e "${GREEN}$ARROW Success! Valet command finished.${NC}"
+}
+
+sub_git () {
+    . "$support_dir/git.sh"
+    echo -e "${GREEN}$ARROW Success! Git config command finished.${NC}"
 }
 
 sub_mac () {
