@@ -10,6 +10,8 @@ sym_links=(
     [mackup.cfg]=$HOME/.mackup.cfg
 )
 
+mkdir $HOME/.vim
+
 for key val in ${(kv)sym_links}; do
     if test -f "$val"; then
         echo "$val already exists; skipping symlink."
@@ -17,7 +19,7 @@ for key val in ${(kv)sym_links}; do
         if [ -d "$val" ]; then
             echo "$val already exists; skipping symlink."
         else
-            ln -s $my_dir/files/$key $val
+            ln -s $dotfiles_dir/files/$key $val
         fi
     fi
 done

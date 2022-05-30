@@ -4,15 +4,15 @@ BIN_NAME=$(basename "$0")
 COMMAND_NAME=$1
 SUB_COMMAND_NAME=$2
 
-ARROW="￫"
+ARROW="➜"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m'
 
 # Get dotfiles dir (so run this script from anywhere)
-export my_dir="$HOME/.dotfiles"
-export support_dir="$my_dir/support"
+export dotfiles_dir="$HOME/.dotfiles"
+export support_dir="$dotfiles_dir/support"
 
 sub_help () {
     echo -e "$ARROW Usage: ${YELLOW}$BIN_NAME <command>${NC}"
@@ -27,6 +27,7 @@ sub_help () {
     echo "   valet            Run valet script"
     echo "   mac              Run MacOS defaults script"
     echo "   xcode            Run XCode script"
+    echo "   vim              Run vim script"
 }
 
 sub_update () {
@@ -80,6 +81,11 @@ sub_mac () {
 sub_xcode () {
     . "$support_dir/xcode.sh"
     echo -e "${GREEN}$ARROW Success! Xcode command finished.${NC}"
+}
+
+sub_vim () {
+    . "$support_dir/vim.sh"
+    echo -e "${GREEN}$ARROW Success! Vim command finished.${NC}"
 }
 
 case $COMMAND_NAME in
