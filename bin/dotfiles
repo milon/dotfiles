@@ -84,6 +84,7 @@ sub_xcode () {
 }
 
 sub_vim () {
+    . "$support_dir/dependencies.sh"
     . "$support_dir/vim.sh"
     echo -e "${GREEN}$ARROW Success! Vim command finished.${NC}"
 }

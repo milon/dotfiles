@@ -10,8 +10,6 @@ sym_links=(
     [mackup.cfg]=$HOME/.mackup.cfg
 )
 
-mkdir $HOME/.vim
-
 for key val in ${(kv)sym_links}; do
     if test -f "$val"; then
         echo "$val already exists; skipping symlink."
