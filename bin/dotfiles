@@ -10,8 +10,8 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m'
 
-# Get dotfiles dir (so run this script from anywhere)
-export dotfiles_dir="$HOME/.dotfiles"
+# load config
+source "$(dirname "$0")/../config.sh"
 export support_dir="$dotfiles_dir/support"
 
 sub_help () {

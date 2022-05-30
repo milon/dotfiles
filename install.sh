@@ -1,9 +1,10 @@
 #!/bin/zsh
 
 set +x
-#dotfiles_dir="$(dirname "$0")"
-dotfiles_dir="$HOME/.dotfiles"
-support_dir="$dotfiles_dir/support"
+
+# load config
+source "$(dirname "$0")/config.sh"
+export support_dir="$dotfiles_dir/support"
 
 cd $dotfiles_dir
 
