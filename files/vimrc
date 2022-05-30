@@ -30,6 +30,8 @@ else
 endif
 
 
+"----------snipMate-deprecation-----------"
+let g:snipMate = { 'snippet_version' : 1 }
 
 
 "-------------vim-plugins--------------"
