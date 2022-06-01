@@ -36,6 +36,7 @@ brew 'vim'
 cask 'font-jetbrains-mono'
 
 # Apps
+cask '1password-cli'
 cask 'air-video-server-hd'
 cask 'appcleaner'
 cask 'atom'
