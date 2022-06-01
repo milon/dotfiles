@@ -6,23 +6,24 @@ tap 'homebrew/bundle'
 
 # Binaries
 brew 'awscli'
-brew 'bat'          # cat on steroids
-brew 'coreutils'    # Those that come with macOS are outdated
+brew 'bat'                  # cat on steroids
+brew 'btop'                 # cli activity monitor
+brew 'coreutils'            # Those that come with macOS are outdated
+brew 'curl'
 brew 'ffmpeg'
 brew 'git'
 brew 'gnupg'
 brew 'grep'
-brew 'htop'         # cli activity monitor
-brew 'httpie'       # cli http client
+brew 'httpie'               # cli http client
 brew 'jq'
 brew 'mackup'
-brew 'mas'          # Mac App Store manager
+brew 'mas'                  # Mac App Store manager
 brew 'openssl'
-brew 'pkg-config'   # needed for imagick build/install
+brew 'pkg-config'           # needed for imagick build/install
 brew 'youtube-dl'
 
 # Development
-brew 'antigen'      #zsh plugins manager
+brew 'antigen'              # zsh plugins manager
 brew 'php'
 brew 'imagemagick'
 brew 'meilisearch'
@@ -42,15 +43,15 @@ cask 'atom'
 cask 'bartender'
 cask 'cheatsheet'
 cask 'docker'
-cask 'displaylink'      # for docking station
+cask 'displaylink'          # for docking station
 cask 'google-chrome'
 cask 'imageoptim'
-cask 'iina'             # media player
+cask 'iina'                 # media player
 cask 'iterm2'
 cask 'jetbrains-toolbox'
 cask 'postman'
 cask 'skype'
-cask 'swish'            # window snapping tool
+cask 'swish'                # window snapping tool
 cask 'yt-music'
 
 # Mac App Store
