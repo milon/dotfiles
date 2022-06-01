@@ -36,7 +36,6 @@ brew 'vim'
 cask 'font-jetbrains-mono'
 
 # Apps
-cask 'alfred'
 cask 'air-video-server-hd'
 cask 'appcleaner'
 cask 'atom'
@@ -50,6 +49,7 @@ cask 'iina'                 # media player
 cask 'iterm2'
 cask 'jetbrains-toolbox'
 cask 'postman'
+cask 'raycast'              # spotlight replacement
 cask 'skype'
 cask 'swish'                # window snapping tool
 cask 'yt-music'
