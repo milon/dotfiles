@@ -1,5 +1,5 @@
 # source antigen location
-source /usr/local/share/antigen/antigen.zsh
+source /opt/homebrew/share/antigen/antigen.zsh
 
 # load oh-my-zsh library
 antigen init $HOME/.antigenrc

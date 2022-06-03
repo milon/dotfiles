@@ -24,6 +24,7 @@ sub_help () {
     echo "   ${YELLOW}symlinks${NC}         Run symlinks script"
     echo "   ${YELLOW}brew${NC}             Run brew script"
     echo "   ${YELLOW}node${NC}             Run node setup script"
+    echo "   ${YELLOW}composer${NC}         Run composer setup script"
     echo "   ${YELLOW}valet${NC}            Run valet script"
     echo "   ${YELLOW}git${NC}              Run git config script"
     echo "   ${YELLOW}mac${NC}              Run MacOS defaults script"
@@ -67,6 +68,11 @@ sub_brew () {
 sub_node () {
     . "$support_dir/node.sh"
     echo -e "${GREEN}$ARROW Success! Node setup command finished.${NC}"
+}
+
+sub_composer () {
+    . "$support_dir/composer.sh"
+    echo -e "${GREEN}$ARROW Success! Composer setup command finished.${NC}"
 }
 
 sub_valet () {
