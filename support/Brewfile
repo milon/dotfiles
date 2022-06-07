@@ -39,6 +39,7 @@ cask 'font-jetbrains-mono'
 # Apps
 cask '1password-cli'
 cask 'air-video-server-hd'
+cask 'aldente'              # charging controller app
 cask 'appcleaner'
 cask 'atom'
 cask 'bartender'
