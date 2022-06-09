@@ -6,7 +6,6 @@ tap 'homebrew/cask-versions'
 tap 'homebrew/bundle'
 
 # Binaries
-brew 'awscli'
 brew 'bat'                  # cat on steroids
 brew 'btop'                 # cli activity monitor
 brew 'coreutils'            # Those that come with macOS are outdated
