@@ -1,11 +1,11 @@
 # Taps
 tap 'homebrew/cask'
+tap 'homebrew/cask-drivers'
 tap 'homebrew/cask-fonts'
 tap 'homebrew/cask-versions'
 tap 'homebrew/bundle'
 
 # Binaries
-brew 'awscli'
 brew 'bat'                  # cat on steroids
 brew 'btop'                 # cli activity monitor
 brew 'coreutils'            # Those that come with macOS are outdated
@@ -38,6 +38,7 @@ cask 'font-jetbrains-mono'
 # Apps
 cask '1password-cli'
 cask 'air-video-server-hd'
+cask 'aldente'              # charging controller app
 cask 'appcleaner'
 cask 'bartender'
 cask 'cheatsheet'
@@ -53,6 +54,7 @@ cask 'raycast'              # spotlight replacement
 cask 'skype'
 cask 'swish'                # window snapping tool
 cask 'visual-studio-code'
+cask 'topnotch'             # hide notch
 cask 'yt-music'
 
 # Mac App Store
