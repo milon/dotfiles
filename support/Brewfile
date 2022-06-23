@@ -39,7 +39,6 @@ cask 'font-jetbrains-mono'
 cask '1password-cli'
 cask 'air-video-server-hd'
 cask 'appcleaner'
-cask 'atom'
 cask 'bartender'
 cask 'cheatsheet'
 cask 'docker'
@@ -53,6 +52,7 @@ cask 'postman'
 cask 'raycast'              # spotlight replacement
 cask 'skype'
 cask 'swish'                # window snapping tool
+cask 'visual-studio-code'
 cask 'yt-music'
 
 # Mac App Store
