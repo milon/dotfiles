@@ -1,12 +1,12 @@
 #!/bin/zsh
 
-echo ''
+echo 
 echo 'Update existing software'
 echo '------------------------'
 
 softwareupdate --install --all
 
-echo ''
+echo 
 echo 'Installing XCode command line tools'
 echo '-----------------------------------'
 

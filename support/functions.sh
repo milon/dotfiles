@@ -4,10 +4,10 @@
 
 prompt_quit_if_no () {
     if read -q "choice?$1 (y/n)"; then
-        echo ''
+        echo 
     else
-        echo ''
-        echo ''
+        echo 
+        echo 
         echo 'Quitting...'
         exit
     fi
@@ -18,9 +18,9 @@ title () {
     title_length=${#title}
     leftover=$(expr 30 - $title_length)
 
-    echo ''
+    echo 
     printf "$title "
     printf '=%.0s' {1..$leftover}
-    echo ''
-    echo ''
+    echo 
+    echo 
 }

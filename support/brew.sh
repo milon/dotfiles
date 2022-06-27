@@ -13,7 +13,7 @@ else
     echo 'Already installed; skipping.'
 fi
 
-echo ''
+echo 
 echo 'Installing Homebrew dependencies'
 echo '---------------------------------------'
 brew bundle --file $support_dir/Brewfile

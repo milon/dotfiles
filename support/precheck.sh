@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 echo 'Checking dependencies...'
-echo ''
+echo 
 
 if [ ! -d "$HOME/Dropbox" ]
 then

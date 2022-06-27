@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 echo 'Installing NVM and Node'
-echo ''
+echo 
 
 if [ ! -d "$HOME/.nvm" ]; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash

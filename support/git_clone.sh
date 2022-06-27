@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 echo 'Cloning git repositories'
-echo ''
+echo 
 
 CODE_DIR=$HOME/Code
 
