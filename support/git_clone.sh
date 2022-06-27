@@ -23,10 +23,10 @@ for dir repo in ${(kv)git_repos}; do
 
     if [[ $CLONE_SUCCESS == 128 ]]
     then
-        echo "Clone fail - $repo (sorry, can't handle that case right now)"
-        # If folder already exists, CD in and pull the latest?
-        # @todo figure out the folder by parsing the repo :grimace:
-        # @todo cd into that folder and git pull
+        cd $dir
+        git pull
+        echo "Pull successful - ($repo)"
+        cd $CODE_DIR
     fi
 done
 
