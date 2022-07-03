@@ -15,3 +15,6 @@ function decode() {echo -n ${1} | base64 --decode}
 
 # bat (cat on steroids)
 alias cat="bat --paging=never --plain"
+
+# python
+alias python="python3"
