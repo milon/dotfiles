@@ -9,6 +9,7 @@ declare -A git_repos
 git_repos=(
     [resume]="git@github.com:milon/milon.github.io.git"
     [recipe]="git@github.com:milon/recipe.git"
+    [one-problem-a-day]="git@github.com:milon/one-problem-a-day.git"
 )
 
 cd $CODE_DIR
