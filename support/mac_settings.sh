@@ -6,6 +6,11 @@ touch ~/.hushlogin
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
+# Disable annoying disk eject warning
+defaults write /Library/Preferences/SystemConfiguration/com.apple.DiskArbitration.diskarbitrationd.plist DADisableEjectNotification -bool YES && sudo pkill diskarbitrationd
+
+# Change screenshot type to JPG
+defaults write com.apple.screencapture type jpg
 
 # choosy as browser
 # disable spotlight suggestions
