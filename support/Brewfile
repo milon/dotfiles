@@ -38,10 +38,10 @@ cask 'font-jetbrains-mono'
 # Apps
 cask '1password-cli'
 cask 'air-video-server-hd'
+cask 'alt-tab'
 cask 'aldente'              # charging controller app
 cask 'appcleaner'
 cask 'bartender'
-cask 'cheatsheet'
 cask 'docker'
 cask 'displaylink'          # for docking station
 cask 'google-chrome'
