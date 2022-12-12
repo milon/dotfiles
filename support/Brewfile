@@ -20,7 +20,7 @@ brew 'mackup'
 brew 'mas'                  # Mac App Store manager
 brew 'openssl'
 brew 'pkg-config'           # needed for imagick build/install
-brew 'youtube-dl'
+brew 'yt-dlp'               # youtube-dl fork
 
 # Development
 brew 'antigen'              # zsh plugins manager
