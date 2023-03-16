@@ -14,4 +14,6 @@ git config --global init.defaultBranch master
 git config --global pull.rebase false
 git config --global push.default current
 
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
 echo 'XX -- Git done.'
