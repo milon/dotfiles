@@ -24,11 +24,12 @@ brew 'yt-dlp'               # youtube-dl fork
 
 # Development
 brew 'antigen'              # zsh plugins manager
-brew 'php'
 brew 'imagemagick'
+brew 'jenv'
 brew 'meilisearch'
 brew 'mysql'
 brew 'nvm'
+brew 'php'
 brew 'pyenv'
 brew 'redis'
 brew 'sqlite'
