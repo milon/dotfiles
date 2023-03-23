@@ -41,6 +41,9 @@ source "$support_dir/git_clone.sh" && cd $dotfiles_dir
 title 'NPM'
 source "$support_dir/node.sh" && cd $dotfiles_dir
 
+title 'PYENV'
+source "$support_dir/python.sh" && cd $dotfiles_dir
+
 title 'VIM'
 source "$support_dir/vim.sh" && cd $dotfiles_dir
 
