@@ -1,15 +1,14 @@
 #!/bin/zsh
 
-echo 'Installing NVM and Node'
-echo 
+echo 'Configuring node'
 
 if [ ! -d "$HOME/.nvm" ]; then
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
-    export NVM_DIR=$HOME/.nvm;
-    source $NVM_DIR/nvm.sh;
-    nvm install --lts --latest-npm
+    mkdir .nvm
 fi
 
-# @todo all global npm deps
+source $(brew --prefix nvm)/nvm.sh
+export NVM_DIR="$HOME/.nvm"
 
-echo 'XX -- NVM and Node done.'
+nvm install node
+
+echo 'Node done.'
