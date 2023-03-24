@@ -25,6 +25,7 @@ sub_help () {
     echo "   ${YELLOW}brew${NC}             Run brew script"
     echo "   ${YELLOW}node${NC}             Run node setup script"
     echo "   ${YELLOW}python${NC}           Run python setup script"
+    echo "   ${YELLOW}java${NC}             Run java setup script"
     echo "   ${YELLOW}composer${NC}         Run composer setup script"
     echo "   ${YELLOW}valet${NC}            Run valet script"
     echo "   ${YELLOW}git${NC}              Run git config script"
@@ -32,6 +33,7 @@ sub_help () {
     echo "   ${YELLOW}mac${NC}              Run MacOS defaults script"
     echo "   ${YELLOW}xcode${NC}            Run XCode script"
     echo "   ${YELLOW}vim${NC}              Run vim script"
+    echo
 }
 
 sub_update () {
@@ -75,6 +77,11 @@ sub_node () {
 sub_python () {
     . "$support_dir/python.sh"
     echo -e "${GREEN}$ARROW Success! Python setup command finished.${NC}"
+}
+
+sub_java () {
+    . "$support_dir/java.sh"
+    echo -e "${GREEN}$ARROW Success! Java setup command finished.${NC}"
 }
 
 sub_composer () {

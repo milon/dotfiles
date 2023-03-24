@@ -41,12 +41,10 @@ cask 'font-jetbrains-mono'
 # Apps
 cask '1password-cli'
 cask 'air-video-server-hd'
-cask 'alt-tab'
 cask 'aldente'              # charging controller app
 cask 'appcleaner'
 cask 'bartender'
 cask 'docker'
-cask 'displaylink'          # for docking station
 cask 'google-chrome'
 cask 'imageoptim'
 cask 'iina'                 # media player
@@ -63,7 +61,6 @@ cask 'yt-music'
 # Mac App Store
 mas '1password', id: 1333542190
 mas 'Amphetamine', id: 937984704
-mas 'Forecast Bar - Weather + Radar', id: 982710545
 mas 'Keynote', id: 409183694
 mas 'Messenger', id: 1480068668    # facebook messenger
 mas 'Numbers', id: 409203825

@@ -35,8 +35,12 @@ Commands:
    symlinks         Run symlinks script
    brew             Run brew script
    node             Run node setup script
+   python           Run python setup script
+   java             Run java setup script
+   composer         Run composer setup script
    valet            Run valet script
    git              Run git config script
+   clone            Run git clone script
    mac              Run MacOS defaults script
    xcode            Run XCode script
    vim              Run vim script

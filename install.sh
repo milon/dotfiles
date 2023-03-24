@@ -44,6 +44,9 @@ source "$support_dir/node.sh" && cd $dotfiles_dir
 title 'PYENV'
 source "$support_dir/python.sh" && cd $dotfiles_dir
 
+title 'JENV'
+source "$support_dir/java.sh" && cd $dotfiles_dir
+
 title 'VIM'
 source "$support_dir/vim.sh" && cd $dotfiles_dir
 
