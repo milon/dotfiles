@@ -16,7 +16,7 @@ brew 'gnupg'
 brew 'grep'
 brew 'httpie'               # cli http client
 brew 'jq'
-brew 'mackup'
+brew 'mackup'               # backup app settings
 brew 'mas'                  # Mac App Store manager
 brew 'openssl'
 brew 'pkg-config'           # needed for imagick build/install
@@ -37,6 +37,8 @@ brew 'vim'
 
 # Fonts
 cask 'font-jetbrains-mono'
+cask 'font-noto-sans-bengali'
+cask 'font-noto-sans-bengali-ui'
 
 # Apps
 cask '1password-cli'
