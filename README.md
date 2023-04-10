@@ -26,6 +26,11 @@ You will have an executable in your path.
 
 ```
 $ dotfiles
+   _     _   ___ _ _         
+ _| |___| |_|  _|_| |___ ___ 
+| . | . |  _|  _| | | -_|_ -|
+|___|___|_| |_| |_|_|___|___|
+
 ➜ Usage: dotfiles <command>
 
 Commands:
