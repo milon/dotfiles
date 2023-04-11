@@ -2,17 +2,12 @@
 
 set +x
 
-cat << 'EOF'
-   _     _   ___ _ _         
- _| |___| |_|  _|_| |___ ___ 
-| . | . |  _|  _| | | -_|_ -|
-|___|___|_| |_| |_|_|___|___|
-EOF
-
 # load config
 source "$(dirname "$0")/config.sh"
 export support_dir="$dotfiles_dir/support"
 
+source "$support_dir/ascii_art.sh"
+exit
 cd $dotfiles_dir
 
 # Load functions

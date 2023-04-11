@@ -15,12 +15,7 @@ source "$(dirname "$0")/../config.sh"
 export support_dir="$dotfiles_dir/support"
 
 sub_help () {
-    cat << 'EOF'
-   _     _   ___ _ _         
- _| |___| |_|  _|_| |___ ___ 
-| . | . |  _|  _| | | -_|_ -|
-|___|___|_| |_| |_|_|___|___|
-EOF
+    source "$support_dir/ascii_art.sh"
     echo
     echo -e "$ARROW Usage: ${YELLOW}$BIN_NAME <command>${NC}"
     echo
