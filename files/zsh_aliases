@@ -13,6 +13,18 @@ alias hide-files="defaults write com.apple.finder AppleShowAllFiles NO; killall 
 function encode() {echo -n ${1} | base64}
 function decode() {echo -n ${1} | base64 --decode}
 
+# kill all processes on a port
+function kill-port() {
+    local port=$1
+    local pid=$(lsof -t -i:$port | awk 'NR==2 {print $2}')
+    if [[ -z $pid ]]; then
+        echo "No process found on port $port"
+    else
+        kill -9 $pid
+        echo "Killed process $pid on port $port"
+    fi
+}
+
 # bat (cat on steroids)
 alias cat="bat --paging=never --plain"
 

@@ -14,8 +14,10 @@ NC='\033[0m'
 source "$(dirname "$0")/../config.sh"
 export support_dir="$dotfiles_dir/support"
 
+source "$support_dir/functions.sh"
+
 sub_help () {
-    source "$support_dir/ascii_art.sh"
+    ascii_art
     echo
     echo -e "$ARROW Usage: ${YELLOW}$BIN_NAME <command>${NC}"
     echo

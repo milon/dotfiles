@@ -6,12 +6,11 @@ set +x
 source "$(dirname "$0")/config.sh"
 export support_dir="$dotfiles_dir/support"
 
-source "$support_dir/ascii_art.sh"
-exit
-cd $dotfiles_dir
-
 # Load functions
 source "$support_dir/functions.sh"
+
+# Load ascii art
+ascii_art
 
 # Check and prompt for necessary dependencies
 source "$support_dir/precheck.sh" && cd $dotfiles_dir
