@@ -41,7 +41,7 @@ cask 'font-noto-sans-bengali'
 cask 'font-noto-sans-bengali-ui'
 
 # Apps
-cask '1password-cli'
+cask '1password'
 cask 'air-video-server-hd'
 cask 'aldente'              # charging controller app
 cask 'appcleaner'
@@ -61,7 +61,6 @@ cask 'topnotch'             # hide notch
 cask 'yt-music'
 
 # Mac App Store
-mas '1password', id: 1333542190
 mas 'Amphetamine', id: 937984704
 mas 'Keynote', id: 409183694
 mas 'Messenger', id: 1480068668    # facebook messenger
