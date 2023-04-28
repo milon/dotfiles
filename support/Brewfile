@@ -57,7 +57,6 @@ cask 'raycast'              # spotlight replacement
 cask 'skype'
 cask 'swish'                # window snapping tool
 cask 'visual-studio-code'
-cask 'topnotch'             # hide notch
 cask 'yt-music'
 
 # Mac App Store

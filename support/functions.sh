@@ -16,7 +16,6 @@ prompt_quit_if_no () {
         echo 
     else
         echo 
-        echo 
         echo 'Quitting...'
         exit
     fi
