@@ -39,6 +39,8 @@ brew 'vim'
 cask 'font-jetbrains-mono'
 cask 'font-noto-sans-bengali'
 cask 'font-noto-sans-bengali-ui'
+cask 'font-source-code-pro-for-powerline'
+cask 'font-source-code-pro'
 
 # Apps
 cask '1password'
