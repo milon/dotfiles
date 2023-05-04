@@ -60,6 +60,7 @@ cask 'skype'
 cask 'swish'                # window snapping tool
 cask 'visual-studio-code'
 cask 'yt-music'
+cask 'zoom'
 
 # Mac App Store
 mas 'Amphetamine', id: 937984704
