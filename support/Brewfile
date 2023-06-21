@@ -54,6 +54,7 @@ cask 'imageoptim'
 cask 'iina'                 # media player
 cask 'iterm2'
 cask 'jetbrains-toolbox'
+cask 'latest'               # tool to check for latest releases
 cask 'postman'
 cask 'raycast'              # spotlight replacement
 cask 'skype'
