@@ -31,7 +31,6 @@ sub_help () {
     echo "   ${YELLOW}python${NC}           Run python setup script"
     echo "   ${YELLOW}java${NC}             Run java setup script"
     echo "   ${YELLOW}composer${NC}         Run composer setup script"
-    echo "   ${YELLOW}valet${NC}            Run valet script"
     echo "   ${YELLOW}git${NC}              Run git config script"
     echo "   ${YELLOW}clone${NC}            Run git clone script"
     echo "   ${YELLOW}mac${NC}              Run MacOS defaults script"
@@ -91,11 +90,6 @@ sub_java () {
 sub_composer () {
     . "$support_dir/composer.sh"
     echo -e "${GREEN}$ARROW Success! Composer setup command finished.${NC}"
-}
-
-sub_valet () {
-    . "$support_dir/valet.sh"
-    echo -e "${GREEN}$ARROW Success! Valet command finished.${NC}"
 }
 
 sub_git () {

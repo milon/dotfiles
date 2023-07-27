@@ -25,11 +25,8 @@ brew 'antigen'              # zsh plugins manager
 brew 'imagemagick'
 brew 'jenv'
 brew 'meilisearch'
-brew 'mysql'
 brew 'nvm'
-brew 'php'
 brew 'pyenv'
-brew 'redis'
 brew 'sqlite'
 brew 'vim'
 
@@ -47,9 +44,10 @@ cask 'air-video-server-hd'
 cask 'aldente'              # charging controller app
 cask 'appcleaner'
 cask 'bartender'
-cask 'dbngin'
+cask 'dbngin'               # mysql, postgresql, redis
 cask 'docker'
 cask 'google-chrome'
+cask 'herd'                 # php development environment
 cask 'imageoptim'
 cask 'iina'                 # media player
 cask 'iterm2'
