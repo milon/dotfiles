@@ -37,6 +37,7 @@ cask 'font-noto-sans-bengali'
 cask 'font-noto-sans-bengali-ui'
 cask 'font-source-code-pro-for-powerline'
 cask 'font-source-code-pro'
+cask 'font-computer-modern'
 
 # Apps
 cask '1password'
