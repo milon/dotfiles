@@ -36,6 +36,7 @@ sub_help () {
     echo "   ${YELLOW}mac${NC}              Run MacOS defaults script"
     echo "   ${YELLOW}xcode${NC}            Run XCode script"
     echo "   ${YELLOW}vim${NC}              Run vim script"
+    echo "   ${YELLOW}neovim${NC}           Run neovim script"
     echo
 }
 
@@ -116,6 +117,12 @@ sub_vim () {
     . "$support_dir/dependencies.sh"
     . "$support_dir/vim.sh"
     echo -e "${GREEN}$ARROW Success! Vim command finished.${NC}"
+}
+
+sub_neovim () {
+    . "$support_dir/dependencies.sh"
+    . "$support_dir/neovim.sh"
+    echo -e "${GREEN}$ARROW Success! Neovim command finished.${NC}"
 }
 
 case $COMMAND_NAME in

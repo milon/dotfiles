@@ -48,6 +48,9 @@ source "$support_dir/java.sh" && cd $dotfiles_dir
 title 'VIM'
 source "$support_dir/vim.sh" && cd $dotfiles_dir
 
+title 'NEOVIM'
+source "$support_dir/neovim.sh" && cd $dotfiles_dir
+
 title 'MACOS SETTINGS'
 source "$support_dir/mac_settings.sh" && cd $dotfiles_dir
 

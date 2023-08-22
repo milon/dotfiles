@@ -25,6 +25,7 @@ brew 'antigen'              # zsh plugins manager
 brew 'imagemagick'
 brew 'jenv'
 brew 'meilisearch'
+brew 'nvim'
 brew 'nvm'
 brew 'pyenv'
 brew 'sqlite'

@@ -3,6 +3,7 @@
 declare -A GIT_DEPENDENCIES
 GIT_DEPENDENCIES=(
     ["$HOME/.vim/bundle"]="https://github.com/VundleVim/Vundle.vim.git"
+    ["$Home/.config/nvim"]="https://github.com/NvChad/NvChad.git"
 )
 
 for dir repo in ${(kv)GIT_DEPENDENCIES}; do
