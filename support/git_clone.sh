@@ -8,8 +8,9 @@ CODE_DIR=$HOME/Code
 declare -A git_repos
 git_repos=(
     [resume]="git@github.com:milon/milon.github.io.git"
-    [recipe]="git@github.com:milon/recipe.git"
+    [recipes]="git@github.com:milon/recipes.git"
     [one-problem-a-day]="git@github.com:milon/one-problem-a-day.git"
+    [system-design]="git@github.com:milon/system-design.git"
 )
 
 cd $CODE_DIR
