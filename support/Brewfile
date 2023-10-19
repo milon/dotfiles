@@ -17,6 +17,7 @@ brew 'jq'
 brew 'mackup'               # backup app settings
 brew 'mas'                  # Mac App Store manager
 brew 'openssl'
+brew 'php'
 brew 'pkg-config'           # needed for imagick build/install
 brew 'yt-dlp'               # youtube-dl fork
 
@@ -50,7 +51,6 @@ cask 'bartender'
 cask 'dbngin'               # mysql, postgresql, redis
 cask 'docker'
 cask 'google-chrome'
-cask 'herd'                 # php development environment
 cask 'imageoptim'
 cask 'iina'                 # media player
 cask 'iterm2'

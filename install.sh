@@ -33,6 +33,9 @@ source "$support_dir/git.sh" && cd $dotfiles_dir
 title 'COMPOSER'
 source "$support_dir/composer.sh" && cd $dotfiles_dir
 
+title 'VALET'
+source "$support_dir/valet.sh" && cd $dotfiles_dir
+
 title 'GIT CLONE'
 source "$support_dir/git_clone.sh" && cd $dotfiles_dir
 
