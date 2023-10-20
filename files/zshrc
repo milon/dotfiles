@@ -14,7 +14,7 @@ source $HOME/.dotfiles/files/zsh_aliases
 export GREP_OPTIONS="--color=auto"
 
 # Path
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
 # Custom Path
 export PATH="$PATH:$HOME/.composer/vendor/bin"
