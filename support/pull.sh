@@ -17,7 +17,8 @@ cd $CODE_DIR
 for dir repo in ${(kv)git_repos}; do
     cd $repo
     git pull
-    echo "Pull successful - ($dir)"
+    echo "${GREEN}Pull successful - ($dir)${NC}"
+    echo
     cd $CODE_DIR
 done
 
