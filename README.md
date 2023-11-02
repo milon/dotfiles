@@ -17,7 +17,6 @@ Dotfiles for my mac, took inspirations from [dotfiles](https://dotfiles.github.i
 - It assumes the dotfiles will be in `~/.dotfiles` directory. If you want to change this, you can change it in `config.sh` file in the root of the repository.
 - Clone the repo- `git clone git@github.com:milon/dotfiles.git ~/.dotfiles`
 - Go to the directory by `cd ~/.dotfiles`
-- Update git configuration in `config.sh` file
 - Run the install script- `./install.sh`
 
 ## `dotfiles` executable
@@ -26,8 +25,8 @@ You will have an executable in your path.
 
 ```
 $ dotfiles
-   _     _   ___ _ _         
- _| |___| |_|  _|_| |___ ___ 
+   _     _   ___ _ _
+ _| |___| |_|  _|_| |___ ___
 | . | . |  _|  _| | | -_|_ -|
 |___|___|_| |_| |_|_|___|___|
 
@@ -46,9 +45,11 @@ Commands:
    valet            Run valet script
    git              Run git config script
    clone            Run git clone script
+   pull             Run git pull script to update all repos
    mac              Run MacOS defaults script
    xcode            Run XCode script
    vim              Run vim script
+   neovim           Run neovim script
 ```
 
 ## Todo

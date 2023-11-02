@@ -3,8 +3,15 @@
 echo 'Configuring git'
 echo 
 
-git config --global user.name $git_user_name
-git config --global user.email $git_user_email
+echo -e 'What is your github author name?'
+read git_author_name
+echo -e 'What is your github user email?'
+read git_author_email
+
+echo
+
+git config --global user.name $git_author_name
+git config --global user.email $git_author_email
 
 git config --global core.excludesfile $HOME/.gitignore
 git config --global core.editor vim
@@ -16,4 +23,4 @@ git config --global push.default current
 
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
-echo 'XX -- Git done.'
+echo -e '${GREEN}XX -- Git done.${NC}'
