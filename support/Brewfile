@@ -50,6 +50,7 @@ cask 'air-video-server-hd'
 cask 'aldente'              # charging controller app
 cask 'appcleaner'
 cask 'bartender'
+cask 'command-x'            # cut and paste functionality
 cask 'dbngin'               # mysql, postgresql, redis
 cask 'docker'
 cask 'google-chrome'
