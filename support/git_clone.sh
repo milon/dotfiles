@@ -11,6 +11,7 @@ git_repos=(
     [recipes]="git@github.com:milon/recipes.git"
     [one-problem-a-day]="git@github.com:milon/one-problem-a-day.git"
     [system-design]="git@github.com:milon/system-design.git"
+    [cv]="git@github.com:milon/cv.git"
 )
 
 cd $CODE_DIR

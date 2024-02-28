@@ -11,6 +11,7 @@ git_repos=(
     [recipes]=$CODE_DIR/recipes
     [one-problem-a-day]=$CODE_DIR/one-problem-a-day
     [system-design]=$CODE_DIR/system-design
+    [cv]=$CODE_DIR/cv
 )
 
 cd $CODE_DIR
