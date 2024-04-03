@@ -33,5 +33,8 @@ eval "$(pyenv init -)"
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 
+# Ruby version manager
+eval "$(frum init)"
+
 # Zsh
 export PATH="/usr/local/opt/ncurses/bin:$PATH"
