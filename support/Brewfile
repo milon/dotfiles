@@ -24,8 +24,9 @@ brew 'yt-dlp'               # youtube-dl fork
 
 # Development
 brew 'antigen'              # zsh plugins manager
+brew 'frum'                 # ruby version manager
 brew 'imagemagick'
-brew 'jenv'
+brew 'jenv'                 # java version manager
 brew 'mailpit'              # mail catcher
 brew 'meilisearch'
 brew 'nvim'

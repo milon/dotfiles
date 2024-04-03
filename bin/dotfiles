@@ -30,6 +30,7 @@ sub_help () {
     echo "   ${YELLOW}node${NC}             Run node setup script"
     echo "   ${YELLOW}python${NC}           Run python setup script"
     echo "   ${YELLOW}java${NC}             Run java setup script"
+    echo "   ${YELLOW}ruby${NC}             Run ruby setup script"
     echo "   ${YELLOW}composer${NC}         Run composer setup script"
     echo "   ${YELLOW}valet${NC}            Run valet script"
     echo "   ${YELLOW}git${NC}              Run git config script"
@@ -88,6 +89,11 @@ sub_python () {
 sub_java () {
     . "$support_dir/java.sh"
     echo -e "${GREEN}$ARROW Success! Java setup command finished.${NC}"
+}
+
+sub_ruby () {
+    . "$support_dir/ruby.sh"
+    echo -e "${GREEN}$ARROW Success! Ruby setup command finished.${NC}"
 }
 
 sub_composer () {

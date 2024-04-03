@@ -48,6 +48,9 @@ source "$support_dir/python.sh" && cd $dotfiles_dir
 title 'JENV'
 source "$support_dir/java.sh" && cd $dotfiles_dir
 
+title 'Ruby'
+source "$support_dir/ruby.sh" && cd $dotfiles_dir
+
 title 'VIM'
 source "$support_dir/vim.sh" && cd $dotfiles_dir
 
