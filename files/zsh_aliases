@@ -28,5 +28,8 @@ function kill-port() {
 # bat (cat on steroids)
 alias cat="bat --paging=never --plain"
 
+# eza (ls on steroids)
+alias ls="eza"
+
 # python
 alias python="python3"

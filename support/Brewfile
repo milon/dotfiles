@@ -9,6 +9,7 @@ brew 'btop'                 # cli activity monitor
 brew 'coreutils'            # Those that come with macOS are outdated
 brew 'curl'
 brew 'd2'                   # diagram language
+brew 'eza'                  # ls replacement
 brew 'ffmpeg'
 brew 'git'
 brew 'gnupg'
