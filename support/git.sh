@@ -18,7 +18,7 @@ git config --global core.editor vim
 git config --global core.autocrlf input
 
 git config --global init.defaultBranch master
-git config --global pull.rebase false
+git config --global pull.rebase true
 git config --global push.default current
 
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
