@@ -53,6 +53,7 @@ cask 'air-video-server-hd'
 cask 'aldente'              # charging controller app
 cask 'appcleaner'
 cask 'bartender'
+cask 'bruno'                # api client
 cask 'command-x'            # cut and paste functionality
 cask 'dbngin'               # mysql, postgresql, redis
 cask 'docker'
@@ -63,7 +64,6 @@ cask 'iterm2'
 cask 'jetbrains-toolbox'
 cask 'latest'               # tool to check for latest releases
 cask 'obsidian'
-cask 'postman'
 cask 'raycast'              # spotlight replacement
 cask 'skype'
 cask 'swish'                # window snapping tool
