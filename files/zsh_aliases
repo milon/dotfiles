@@ -33,3 +33,7 @@ alias ls="eza"
 
 # python
 alias python="python3"
+
+# laravel
+alias art="php artisan" 
+alias fresh="php artisan migrate:fresh --seed"
