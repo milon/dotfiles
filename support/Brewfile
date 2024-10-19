@@ -51,7 +51,6 @@ cask 'font-computer-modern'
 cask '1password'
 cask 'air-video-server-hd'
 cask 'aldente'              # charging controller app
-cask 'appcleaner'
 cask 'bartender'
 cask 'bruno'                # api client
 cask 'command-x'            # cut and paste functionality
@@ -64,6 +63,7 @@ cask 'iterm2'
 cask 'jetbrains-toolbox'
 cask 'latest'               # tool to check for latest releases
 cask 'obsidian'
+cask 'pearcleaner'
 cask 'raycast'              # spotlight replacement
 cask 'skype'
 cask 'swish'                # window snapping tool
