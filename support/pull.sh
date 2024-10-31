@@ -9,6 +9,7 @@ declare -A git_repos
 git_repos=(
     [resume]=$CODE_DIR/resume
     [recipes]=$CODE_DIR/recipes
+    [takakori]=$CODE_DIR/takakori
     [one-problem-a-day]=$CODE_DIR/one-problem-a-day
     [system-design]=$CODE_DIR/system-design
     [cv]=$CODE_DIR/cv

@@ -9,6 +9,7 @@ declare -A git_repos
 git_repos=(
     [resume]="git@github.com:milon/milon.github.io.git"
     [recipes]="git@github.com:milon/recipes.git"
+    [takakori]="git@github.com:milon/takakori.git"
     [one-problem-a-day]="git@github.com:milon/one-problem-a-day.git"
     [system-design]="git@github.com:milon/system-design.git"
     [cv]="git@github.com:milon/cv.git"
