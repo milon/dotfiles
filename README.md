@@ -7,7 +7,7 @@ Dotfiles for my mac, took inspirations from [dotfiles](https://dotfiles.github.i
 - Open the App store and sign in with AppleId.
 - Update macOS with the latest version.
 - Install [Dropbox](https://www.dropbox.com/install).
-- Allow the computer to install Rosetta, if you're on a M1 mac.
+- Allow the computer to install Rosetta, if you're on a M1 mac. Run the following command- `softwareupdate --install-rosetta`
 - Give Dropbox permissions via accessibility, and allow it to send notifications.
 - Sign into Dropbox and sync the files.
 - Open terminl and `mkdir ~/.ssh && cd ~/.ssh`
