@@ -37,3 +37,4 @@ alias python="python3"
 # laravel
 alias art="php artisan" 
 alias fresh="php artisan migrate:fresh --seed"
+alias sail="sh $([ -f sail ] && echo sail || echo vendor/bin/sail)"
