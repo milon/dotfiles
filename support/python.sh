@@ -2,9 +2,8 @@
 
 echo 'Configuring python'
 
-pyenv install 3.11
-pyenv install 2.7
+pyenv install 3.12
 
-pyenv global 3.11 2.7
+pyenv global 3.12
 
 echo 'Python done.'
