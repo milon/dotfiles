@@ -47,7 +47,7 @@ set incsearch                       " increment highlight while searching
 
 "-------------Visual Settings---------------"
 set t_CO=256						" set color scheme to 256 for terminal vim
-colorscheme onedark 				" set color scheme
+colorscheme catppuccin_mocha 		" set color scheme
 
 
 
