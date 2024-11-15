@@ -32,6 +32,7 @@ brew 'nvim'
 brew 'nvm'
 brew 'pyenv'
 brew 'sqlite'
+brew 'starship'             # zsh prompt
 brew 'vim'
 
 # Fonts

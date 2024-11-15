@@ -10,7 +10,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle jessarcher/zsh-artisan
 
 # Theme
-antigen theme milon/arrow-zsh-theme
+antigen bundle axieax/zsh-starship
 
 # Tell Antigen that you're done.
 antigen apply

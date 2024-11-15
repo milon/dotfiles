@@ -7,6 +7,9 @@ antigen init $HOME/.antigenrc
 # Default editor
 export EDITOR='vim'
 
+# Starship prompt config
+export STARSHIP_CONFIG="$HOME/.dotfiles/files/starship.toml"
+
 # Aliases
 source $HOME/.dotfiles/files/zsh_aliases
 
