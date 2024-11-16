@@ -3,6 +3,7 @@ antigen use oh-my-zsh
 
 # oh-my-zsh plugins
 antigen bundle git
+antigen bundle fzf
 
 # custom plugins
 antigen bundle zsh-users/zsh-autosuggestions

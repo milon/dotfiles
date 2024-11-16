@@ -24,6 +24,7 @@ brew 'yt-dlp'               # youtube-dl fork
 # Development
 brew 'antigen'              # zsh plugins manager
 brew 'frum'                 # ruby version manager
+brew 'fzf'
 brew 'imagemagick'
 brew 'jenv'                 # java version manager
 brew 'mailpit'              # mail catcher
@@ -75,6 +76,5 @@ mas 'Messenger', id: 1480068668    # facebook messenger
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
 mas 'pap.er', id: 1639052102       # great wallpapers
-mas 'Sequel Ace', id: 1518036000
 mas 'The Unarchiver', id: 425424353
 mas 'Xcode', id: 497799835

@@ -41,3 +41,7 @@ eval "$(frum init)"
 
 # Zsh
 export PATH="/usr/local/opt/ncurses/bin:$PATH"
+
+# FZF
+eval "$(fzf --zsh)"
+
