@@ -58,17 +58,15 @@ cask 'docker'
 cask 'google-chrome'
 cask 'imageoptim'
 cask 'iina'                 # media player
-cask 'iterm2'
 cask 'jetbrains-toolbox'
 cask 'latest'               # tool to check for latest releases
 cask 'obsidian'
 cask 'pearcleaner'
 cask 'raycast'              # spotlight replacement
-cask 'skype'
 cask 'swish'                # window snapping tool
 cask 'visual-studio-code'
+cask 'warp'                 # terminal
 cask 'yt-music'
-cask 'zoom'
 
 # Mac App Store
 mas 'Amphetamine', id: 937984704
