@@ -44,4 +44,8 @@ export PATH="/usr/local/opt/ncurses/bin:$PATH"
 
 # FZF
 eval "$(fzf --zsh)"
+source $HOME/.dotfiles/files/fzf.sh
+
+# zoxide
+eval "$(zoxide init zsh)"
 
