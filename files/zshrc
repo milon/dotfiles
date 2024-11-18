@@ -1,6 +1,9 @@
 # source antigen location
 source /opt/homebrew/share/antigen/antigen.zsh
 
+# Path
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+
 # load oh-my-zsh library
 antigen init $HOME/.antigenrc
 
@@ -15,9 +18,6 @@ source $HOME/.dotfiles/files/zsh_aliases
 
 # Always enable colored `grep` output
 export GREP_OPTIONS="--color=auto"
-
-# Path
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
 # Custom Path
 export PATH="$PATH:$HOME/.composer/vendor/bin"
