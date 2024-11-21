@@ -2,8 +2,9 @@
 
 set +x
 
+export dotfiles_dir=$(dirname "$(realpath "$0")")
+
 # load config
-source "$(dirname "$0")/config.sh"
 export support_dir="$dotfiles_dir/support"
 
 # Load functions

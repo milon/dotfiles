@@ -11,7 +11,9 @@ YELLOW='\033[0;33m'
 NC='\033[0m'
 
 # load config
-source "$(dirname "$0")/../config.sh"
+export bin_dir=$(dirname "$(realpath "$0")")
+export dotfiles_dir=$(dirname $bin_dir)
+
 export support_dir="$dotfiles_dir/support"
 
 source "$support_dir/functions.sh"
