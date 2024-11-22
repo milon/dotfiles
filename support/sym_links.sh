@@ -8,6 +8,7 @@ sym_links=(
     [plugins.vim]=$HOME/.vim/plugins.vim
     [gitignore]=$HOME/.gitignore
     [mackup.cfg]=$HOME/.mackup.cfg
+    [nvim]=$HOME/.config/nvim
 )
 
 for key val in ${(kv)sym_links}; do
