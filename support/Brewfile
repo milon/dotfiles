@@ -4,6 +4,7 @@ tap 'homebrew/bundle'
 # Binaries
 brew 'bat'                  # cat on steroids
 brew 'btop'                 # cli activity monitor
+brew 'cmake'
 brew 'coreutils'            # Those that come with macOS are outdated
 brew 'curl'
 brew 'd2'                   # diagram language

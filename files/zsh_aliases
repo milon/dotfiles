@@ -34,6 +34,9 @@ function nah() {
     fi
 }
 
+# nvim to vim
+alias vim="nvim"
+
 # bat (cat on steroids)
 alias cat="bat --paging=never --theme=Coldark-Dark --plain"
 
