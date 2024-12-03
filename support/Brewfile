@@ -51,7 +51,6 @@ cask 'font-computer-modern'
 
 # Apps
 cask '1password'
-cask 'air-video-server-hd'
 cask 'aldente'              # charging controller app
 cask 'bartender'
 cask 'bruno'                # api client
