@@ -68,6 +68,7 @@ cask 'raycast'              # spotlight replacement
 cask 'swish'                # window snapping tool
 cask 'visual-studio-code'
 cask 'warp'                 # terminal
+cask 'wezterm'
 cask 'yt-music'
 
 # Mac App Store
