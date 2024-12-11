@@ -15,6 +15,7 @@ export STARSHIP_CONFIG="$HOME/.dotfiles/files/starship.toml"
 
 # Aliases
 source $HOME/.dotfiles/files/zsh_aliases
+source $HOME/.custom_aliases
 
 # Always enable colored `grep` output
 export GREP_OPTIONS="--color=auto"

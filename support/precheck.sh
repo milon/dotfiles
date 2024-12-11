@@ -3,6 +3,11 @@
 echo 'Checking dependencies...'
 echo 
 
+if [! -f "$HOME/.custom_aliases"]
+then
+    touch "$HOME/.custom_aliases"
+fi
+
 if [ ! -d "$HOME/Dropbox" ]
 then
     echo "Please link Dropbox first."
