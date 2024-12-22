@@ -12,9 +12,11 @@ defaults write /Library/Preferences/SystemConfiguration/com.apple.DiskArbitratio
 # Change screenshot type to JPG
 defaults write com.apple.screencapture type jpg
 
+# Disable autohide animation for dock 
+defaults write com.apple.dock autohide-delay -float 0; killall Dock
+
 # choosy as browser
 # disable spotlight suggestions
 # full keyboard access; all controls
-# iterm use atom onedark theme
 # iterm use jetbrains mono for powerline
 # set caps lock as esc

@@ -57,7 +57,6 @@ cask 'bruno'                # api client
 cask 'command-x'            # cut and paste functionality
 cask 'dbngin'               # mysql, postgresql, redis
 cask 'docker'
-cask 'dockey'               # dock customizer
 cask 'google-chrome'
 cask 'imageoptim'
 cask 'iina'                 # media player
