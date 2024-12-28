@@ -9,7 +9,6 @@ sym_links=(
     [gitignore]=$HOME/.gitignore
     [mackup.cfg]=$HOME/.mackup.cfg
     [nvim]=$HOME/.config/nvim
-    [wezterm.lua]=$HOME/.wezterm.lua
     [ghostty]=$HOME/.config/ghostty/config
 )
 

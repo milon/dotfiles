@@ -57,6 +57,7 @@ cask 'bruno'                # api client
 cask 'command-x'            # cut and paste functionality
 cask 'dbngin'               # mysql, postgresql, redis
 cask 'docker'
+cask 'ghostty'              # terminal
 cask 'google-chrome'
 cask 'imageoptim'
 cask 'iina'                 # media player
@@ -67,8 +68,6 @@ cask 'pearcleaner'
 cask 'raycast'              # spotlight replacement
 cask 'swish'                # window snapping tool
 cask 'visual-studio-code'
-cask 'warp'                 # terminal
-cask 'wezterm'
 cask 'yt-music'
 
 # Mac App Store
