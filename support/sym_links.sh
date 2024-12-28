@@ -10,6 +10,7 @@ sym_links=(
     [mackup.cfg]=$HOME/.mackup.cfg
     [nvim]=$HOME/.config/nvim
     [ghostty]=$HOME/.config/ghostty/config
+    [skhdrc]=$HOME/.skhdrc
 )
 
 for key val in ${(kv)sym_links}; do

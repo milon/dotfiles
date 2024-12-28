@@ -1,5 +1,6 @@
 # Taps
 tap 'homebrew/bundle'
+tap 'koekeishiya/formulae'
 
 # Binaries
 brew 'bat'                  # cat on steroids
@@ -20,6 +21,7 @@ brew 'mas'                  # Mac App Store manager
 brew 'openssl'
 brew 'php'
 brew 'pkg-config'           # needed for imagick build/install
+brew 'skhd'                 # hotkey daemon
 brew 'yt-dlp'               # youtube-dl fork
 brew 'zoxide'               # better cd
 
@@ -50,7 +52,6 @@ cask 'font-source-code-pro'
 cask 'font-computer-modern'
 
 # Apps
-cask '1password'
 cask 'aldente'              # charging controller app
 cask 'bartender'
 cask 'bruno'                # api client
