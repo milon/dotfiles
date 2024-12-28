@@ -5,6 +5,6 @@ font-size = 16
 font-feature = liga
 adjust-cell-height = 30%
 
-window-padding-x = 5
+window-padding-x = 8
 background-opacity = 0.9
 background-blur-radius=2
