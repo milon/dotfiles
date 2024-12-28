@@ -10,6 +10,7 @@ sym_links=(
     [mackup.cfg]=$HOME/.mackup.cfg
     [nvim]=$HOME/.config/nvim
     [wezterm.lua]=$HOME/.wezterm.lua
+    [ghostty]=$HOME/.config/ghostty/config
 )
 
 for key val in ${(kv)sym_links}; do
@@ -19,6 +20,7 @@ for key val in ${(kv)sym_links}; do
         if [ -d "$val" ]; then
             echo "$val already exists; skipping symlink."
         else
+            mkdir -p "$(dirname "$val")"
             ln -s $dotfiles_dir/files/$key $val
         fi
     fi
