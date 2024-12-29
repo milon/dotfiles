@@ -5,3 +5,4 @@ rcmd - c : open -a "Visual Studio Code"
 rcmd - m : open -a "Messenger"
 rcmd - w : open -a "WhatsApp"
 rcmd - s : open -a "Slack"
+rcmd - f : open ~
