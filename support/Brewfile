@@ -52,6 +52,7 @@ cask 'font-source-code-pro'
 cask 'font-computer-modern'
 
 # Apps
+cask '1password'
 cask 'aldente'              # charging controller app
 cask 'bartender'
 cask 'bruno'                # api client
