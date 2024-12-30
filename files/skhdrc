@@ -5,4 +5,8 @@ rcmd - c : open -a "Visual Studio Code"
 rcmd - m : open -a "Messenger"
 rcmd - w : open -a "WhatsApp"
 rcmd - s : open -a "Slack"
+rcmd - a : open -a "ChatGPT" 
+rcmd - l : open -a "Linear"
+rcmd - p : open -a "PhpStorm" 
+rcmd - n : open -a "Notion"
 rcmd - f : open ~
