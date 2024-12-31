@@ -65,6 +65,7 @@ cask 'imageoptim'
 cask 'iina'                 # media player
 cask 'jetbrains-toolbox'
 cask 'latest'               # tool to check for latest releases
+cask 'monitorcontrol'       # control external monitor settings
 cask 'obsidian'
 cask 'pearcleaner'
 cask 'raycast'              # spotlight replacement
