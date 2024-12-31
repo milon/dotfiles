@@ -21,7 +21,7 @@ source $HOME/.custom_aliases
 export GREP_OPTIONS="--color=auto"
 
 # Custom Path
-export PATH="$PATH:$HOME/.composer/vendor/bin"
+export PATH="$PATH:$HOME/.composer/vendor/bin:$HOME/.config/composer/vendor/bin"
 export PATH="$PATH:$HOME/.dotfiles/bin"
 
 # Node Version Manager (NVM)
