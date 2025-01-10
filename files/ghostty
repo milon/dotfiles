@@ -1,6 +1,9 @@
 # themes
 theme = catppuccin-mocha
 
+# term environment
+term=xterm-256color
+
 # fonts
 font-size = 16
 adjust-cell-height = 20%
