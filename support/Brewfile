@@ -58,7 +58,6 @@ cask 'bartender'
 cask 'bruno'                # api client
 cask 'command-x'            # cut and paste functionality
 cask 'dbngin'               # mysql, postgresql, redis
-cask 'docker'
 cask 'ghostty'              # terminal
 cask 'google-chrome'
 cask 'imageoptim'
@@ -67,6 +66,7 @@ cask 'jetbrains-toolbox'
 cask 'latest'               # tool to check for latest releases
 cask 'monitorcontrol'       # control external monitor settings
 cask 'obsidian'
+cask 'orbstack'             # docker replacement
 cask 'pearcleaner'
 cask 'raycast'              # spotlight replacement
 cask 'swish'                # window snapping tool
