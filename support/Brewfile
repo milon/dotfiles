@@ -67,9 +67,7 @@ cask 'latest'               # tool to check for latest releases
 cask 'monitorcontrol'       # control external monitor settings
 cask 'obsidian'
 cask 'orbstack'             # docker replacement
-cask 'pearcleaner'
 cask 'raycast'              # spotlight replacement
-cask 'swish'                # window snapping tool
 cask 'visual-studio-code'
 cask 'yt-music'
 
