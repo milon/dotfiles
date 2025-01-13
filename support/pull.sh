@@ -13,6 +13,7 @@ git_repos=(
     [one-problem-a-day]=$CODE_DIR/one-problem-a-day
     [system-design]=$CODE_DIR/system-design
     [cv]=$CODE_DIR/cv
+    [dotfiles]=$HOME/.dotfiles
 )
 
 cd $CODE_DIR
