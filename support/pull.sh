@@ -16,6 +16,11 @@ git_repos=(
     [dotfiles]=$HOME/.dotfiles
 )
 
+UPDATE=false
+if [[ "$1" == "--update" || "$1" == "-u" ]]; then
+    UPDATE=true
+fi
+
 cd $CODE_DIR
 for dir repo in ${(kv)git_repos}; do
     cd $repo
@@ -26,3 +31,25 @@ for dir repo in ${(kv)git_repos}; do
 done
 
 echo 'XX -- Git repositories pull done.'
+
+if [ "$UPDATE" = true ]; then
+    for dir repo in ${(kv)git_repos}; do
+        cd $repo
+        if [ -f "composer.json" ]; then
+            composer update
+            if [ -n "$(git status --porcelain)" ]; then
+                git add .
+                git commit -m "Updates dependencies"
+                echo "${GREEN}Dependencies updated and committed - ($dir)${NC}"
+            else
+                echo "${GREEN}No dependency updates - ($dir)${NC}"
+            fi
+        else
+            echo "${YELLOW}Not a php project, no composer.json found - ($dir)${NC}"
+        fi
+        echo
+        cd $CODE_DIR
+    done
+
+    echo 'XX -- Composer update and commit done.'
+fi
