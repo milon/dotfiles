@@ -3,6 +3,7 @@ tap 'homebrew/bundle'
 tap 'koekeishiya/formulae'
 
 # Binaries
+brew 'antigen'              # zsh plugins manager
 brew 'bat'                  # cat on steroids
 brew 'btop'                 # cli activity monitor
 brew 'cmake'
@@ -11,6 +12,7 @@ brew 'curl'
 brew 'd2'                   # diagram language
 brew 'eza'                  # ls replacement
 brew 'ffmpeg'
+brew 'fzf'
 brew 'git'
 brew 'gnupg'
 brew 'grep'
@@ -19,22 +21,21 @@ brew 'jq'
 brew 'mackup'               # backup app settings
 brew 'mas'                  # Mac App Store manager
 brew 'openssl'
-brew 'php'
 brew 'pkg-config'           # needed for imagick build/install
 brew 'skhd'                 # hotkey daemon
+brew 'viu'                  # terminal image viewer
 brew 'yt-dlp'               # youtube-dl fork
 brew 'zoxide'               # better cd
 
 # Development
-brew 'antigen'              # zsh plugins manager
 brew 'frum'                 # ruby version manager
-brew 'fzf'
 brew 'imagemagick'
 brew 'jenv'                 # java version manager
 brew 'mailpit'              # mail catcher
 brew 'meilisearch'
 brew 'nvim'
 brew 'nvm'
+brew 'php'
 brew 'pyenv'
 brew 'sqlite'
 brew 'starship'             # zsh prompt
