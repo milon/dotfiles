@@ -47,7 +47,7 @@ sub_help () {
 
 sub_update () {
     echo "Update brew"
-    brew cu --all --force --include-mas --yes --cleanup
+    brew cu --all --include-mas --yes --cleanup
 
     echo ""
     echo "Update composer and it's global dependencies"
