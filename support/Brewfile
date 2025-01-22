@@ -1,6 +1,7 @@
 # Taps
 tap 'homebrew/bundle'
 tap 'homebrew/services'
+tap 'buo/cask-upgrade'
 tap 'shivammathur/php'
 tap 'koekeishiya/formulae'
 

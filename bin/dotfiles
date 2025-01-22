@@ -47,11 +47,7 @@ sub_help () {
 
 sub_update () {
     echo "Update brew"
-    brew update && brew upgrade
-
-    echo ""
-    echo "Update mac app store softwares"
-    mas upgrade
+    brew cu --all --force --include-mas --yes --cleanup
 
     echo ""
     echo "Update composer and it's global dependencies"
