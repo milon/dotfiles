@@ -1,5 +1,7 @@
 # Taps
 tap 'homebrew/bundle'
+tap 'homebrew/services'
+tap 'shivammathur/php'
 tap 'koekeishiya/formulae'
 
 # Binaries
@@ -22,7 +24,7 @@ brew 'mackup'               # backup app settings
 brew 'mas'                  # Mac App Store manager
 brew 'openssl'
 brew 'pkg-config'           # needed for imagick build/install
-brew 'skhd'                 # hotkey daemon
+brew 'koekeishiya/formulae/skhd'                 # hotkey daemon
 brew 'viu'                  # terminal image viewer
 brew 'yt-dlp'               # youtube-dl fork
 brew 'zoxide'               # better cd
