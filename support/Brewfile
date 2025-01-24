@@ -24,7 +24,6 @@ brew 'jq'
 brew 'mackup'               # backup app settings
 brew 'mas'                  # Mac App Store manager
 brew 'ollama'               # cli for running LLM locally
-brew 'openssh'
 brew 'openssl'
 brew 'pkg-config'           # needed for imagick build/install
 brew 'koekeishiya/formulae/skhd'                 # hotkey daemon
