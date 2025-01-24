@@ -23,6 +23,8 @@ brew 'httpie'               # cli http client
 brew 'jq'
 brew 'mackup'               # backup app settings
 brew 'mas'                  # Mac App Store manager
+brew 'ollama'               # cli for running LLM locally
+brew 'openssh'
 brew 'openssl'
 brew 'pkg-config'           # needed for imagick build/install
 brew 'koekeishiya/formulae/skhd'                 # hotkey daemon
@@ -60,7 +62,6 @@ cask '1password'
 cask 'aldente'              # charging controller app
 cask 'bartender'
 cask 'bruno'                # api client
-cask 'command-x'            # cut and paste functionality
 cask 'dbngin'               # mysql, postgresql, redis
 cask 'ghostty'              # terminal
 cask 'google-chrome'
