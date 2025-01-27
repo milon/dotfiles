@@ -40,6 +40,7 @@ if [ "$UPDATE" = true ]; then
             if [ -n "$(git status --porcelain)" ]; then
                 git add .
                 git commit -m "Updates dependencies"
+                git push
                 echo "${GREEN}Dependencies updated and committed - ($dir)${NC}"
             else
                 echo "${GREEN}No dependency updates - ($dir)${NC}"
