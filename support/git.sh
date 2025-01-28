@@ -25,6 +25,6 @@ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Crese
 git config --global alias.undo "reset HEAD~1 --mixed"
 git config --global alias.branches "branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate"
 git config --global alias.last "log -1 HEAD --stat"
-git config --global alias.last "git add --all && git commit -m 'work in progress'"
+git config --global alias.wip "git add --all && git commit -m 'work in progress'"
 
 echo -e '${GREEN}XX -- Git done.${NC}'
