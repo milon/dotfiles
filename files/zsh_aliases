@@ -3,7 +3,7 @@
 # zsh aliases
 
 # weather
-function weather() {curl wttr.in/${1:-Toronto}}
+function weather() {curl wttr.in/${1:-Vancouver}}
 
 # show and hide files
 alias show-files="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app"
@@ -22,15 +22,6 @@ function kill-port() {
     else
         kill -9 $pid
         echo "Killed process $pid on port $port"
-    fi
-}
-
-# scratch code
-function nah() {
-    git reset --hard
-
-    if [[ $1 == "-f" ]]; then
-        git clean -df
     fi
 }
 
