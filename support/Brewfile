@@ -21,6 +21,7 @@ brew 'gnupg'
 brew 'grep'
 brew 'httpie'               # cli http client
 brew 'jq'
+brew 'less'
 brew 'mackup'               # backup app settings
 brew 'mas'                  # Mac App Store manager
 brew 'ollama'               # cli for running LLM locally
