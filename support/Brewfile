@@ -1,10 +1,10 @@
 # Taps
 tap 'homebrew/bundle'
 tap 'homebrew/services'
-tap 'buo/cask-upgrade'
-tap 'shivammathur/php'
-tap 'koekeishiya/formulae'
-tap 'nicoverbruggen/homebrew-cask'
+tap 'buo/cask-upgrade'                  # for upgrading casks
+tap 'shivammathur/php'                  # for php    
+tap 'koekeishiya/formulae'              # for skhd
+tap 'nicoverbruggen/homebrew-cask'      # for phpmon
 
 # Binaries
 brew 'antigen'              # zsh plugins manager
