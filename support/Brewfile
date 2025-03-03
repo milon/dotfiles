@@ -2,7 +2,8 @@
 tap 'homebrew/bundle'
 tap 'homebrew/services'
 tap 'buo/cask-upgrade'                  # for upgrading casks
-tap 'shivammathur/php'                  # for php    
+tap 'shivammathur/php'                  # for php
+tap 'shivammathur/extensions'           # for php-extensions
 tap 'koekeishiya/formulae'              # for skhd
 tap 'nicoverbruggen/homebrew-cask'      # for phpmon
 
