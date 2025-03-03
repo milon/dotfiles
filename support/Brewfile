@@ -4,6 +4,7 @@ tap 'homebrew/services'
 tap 'buo/cask-upgrade'
 tap 'shivammathur/php'
 tap 'koekeishiya/formulae'
+tap 'nicoverbruggen/homebrew-cask'
 
 # Binaries
 brew 'antigen'              # zsh plugins manager
@@ -73,6 +74,7 @@ cask 'latest'               # tool to check for latest releases
 cask 'monitorcontrol'       # control external monitor settings
 cask 'obsidian'
 cask 'orbstack'             # docker replacement
+cask 'phpmon'               # php/valet monitoring tool
 cask 'raycast'              # spotlight replacement
 cask 'visual-studio-code'
 cask 'yt-music'
