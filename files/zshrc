@@ -23,6 +23,7 @@ export GREP_OPTIONS="--color=auto"
 # Custom Path
 export PATH="$PATH:$HOME/.composer/vendor/bin:$HOME/.config/composer/vendor/bin"
 export PATH="$PATH:$HOME/.dotfiles/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.config/phpmon/bin"
 
 # Node Version Manager (NVM)
 source $(brew --prefix nvm)/nvm.sh
