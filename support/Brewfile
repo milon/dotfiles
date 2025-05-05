@@ -15,6 +15,7 @@ brew 'cmake'
 brew 'coreutils'            # Those that come with macOS are outdated
 brew 'curl'
 brew 'd2'                   # diagram language
+brew 'diff-so-fancy'        # git diff tool
 brew 'eza'                  # ls replacement
 brew 'ffmpeg'
 brew 'fzf'
