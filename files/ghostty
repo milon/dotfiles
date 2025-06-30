@@ -1,6 +1,9 @@
 # themes
 theme = catppuccin-mocha
 
+# fonts
+font-family="RecMonoCasual Nerd Font"
+
 # term environment
 term=xterm-256color
 
