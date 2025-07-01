@@ -57,8 +57,8 @@ cask 'font-noto-sans'
 cask 'font-noto-sans-bengali'
 cask 'font-noto-sans-bengali-ui'
 cask 'font-noto-serif-bengali'
-cask 'font-source-code-pro-for-powerline'
-cask 'font-source-code-pro'
+cask 'font-recursive-mono-nerd-font'
+cask 'font-sauce-code-pro-nerd-font'
 cask 'font-computer-modern'
 
 # Apps
