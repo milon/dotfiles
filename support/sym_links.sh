@@ -22,6 +22,7 @@ for key val in ${(kv)sym_links}; do
         else
             mkdir -p "$(dirname "$val")"
             ln -s $dotfiles_dir/files/$key $val
+            echo "Created symlink: $val"
         fi
     fi
 done
