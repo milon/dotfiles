@@ -2,14 +2,14 @@
 theme = catppuccin-mocha
 
 # font
-font-family="JetBrainsMonoNL Nerd Font Mono"
+font-family="Annotation Mono Medium"
 
 # term environment
 term=xterm-256color
 
 # fonts
 font-size = 16
-adjust-cell-height = 20%
+adjust-cell-height = 30%
 
 # macos
 macos-titlebar-style = tabs
