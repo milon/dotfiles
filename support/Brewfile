@@ -52,6 +52,7 @@ brew 'vim'
 
 # Fonts
 cask 'font-annotation-mono'
+cask 'font-fantasque-sans-mono-nerd-font'
 cask 'font-jetbrains-mono-nerd-font'
 cask 'font-monaspace'
 cask 'font-noto-sans'

@@ -2,13 +2,13 @@
 theme = catppuccin-mocha
 
 # font
-font-family="Annotation Mono Medium"
+font-family="FantasqueSansM Nerd Font"
 
 # term environment
 term=xterm-256color
 
 # fonts
-font-size = 16
+font-size = 18
 adjust-cell-height = 30%
 
 # macos
