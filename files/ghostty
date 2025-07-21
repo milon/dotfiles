@@ -25,7 +25,7 @@ window-new-tab-position = end
 window-save-state = never
 
 window-width = 100
-window-height =2 5
+window-height = 25
 
 # Keybindings(super==cmd, alt==opt)
 # move between tabs is cmd+alt+arrow
