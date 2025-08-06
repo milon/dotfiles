@@ -1,5 +1,29 @@
 palette = "catppuccin_mocha"
 
+format = """
+$directory\
+$git_branch\
+$git_status\
+
+$fill \
+
+$php\
+$nodejs\
+$python\
+$java\
+$ruby\
+$golang\
+$lua\
+$rust\
+
+$docker_context\
+$cmd_duration\
+
+$line_break\
+
+$sudo\
+$character"""
+
 [character]
 success_symbol = '[➜](bold green)'
 error_symbol = "[➜](bold red)"
@@ -8,38 +32,23 @@ error_symbol = "[➜](bold red)"
 symbol = "  "
 disabled = true
 
-[buf]
-symbol = " "
-
-[c]
-symbol = " "
-
-[conda]
-symbol = " "
-
-[crystal]
-symbol = " "
-
-[dart]
-symbol = " "
+[cmd_duration]
+format = "[⏱ $duration]($style) "
+disabled = false
+style = "yellow"
+show_notifications = false
+min_time = 5_000
+min_time_to_notify = 1000
 
 [directory]
 read_only = " 󰌾"
 
 [docker_context]
+format = "[$symbol$context]($style) "
 symbol = " "
 
-[elixir]
-symbol = " "
-
-[elm]
-symbol = " "
-
-[fennel]
-symbol = " "
-
-[fossil_branch]
-symbol = " "
+[fill]
+symbol = "ㆍ"
 
 [git_branch]
 symbol = " "
@@ -48,133 +57,42 @@ symbol = " "
 tag_symbol = '  '
 
 [golang]
+format = "[$symbol($version )]($style)"
 symbol = " "
 
-[guix_shell]
-symbol = " "
-
-[haskell]
-symbol = " "
-
-[haxe]
-symbol = " "
-
-[hg_branch]
-symbol = " "
-
-[hostname]
-ssh_symbol = " "
-
 [java]
+format = "[$symbol($version )]($style)"
 symbol = " "
 
-[julia]
-symbol = " "
-
-[kotlin]
-symbol = " "
-
 [lua]
+format = "[$symbol($version )]($style)"
 symbol = " "
 
-[memory_usage]
-symbol = "󰍛 "
-
-[meson]
-symbol = "󰔷 "
-
-[nim]
-symbol = "󰆥 "
-
-[nix_shell]
-symbol = " "
-
 [nodejs]
+format = "[$symbol($version )]($style)"
 symbol = " "
 
-[ocaml]
-symbol = " "
-
-[os.symbols]
-Alpaquita = " "
-Alpine = " "
-AlmaLinux = " "
-Amazon = " "
-Android = " "
-Arch = " "
-Artix = " "
-CentOS = " "
-Debian = " "
-DragonFly = " "
-Emscripten = " "
-EndeavourOS = " "
-Fedora = " "
-FreeBSD = " "
-Garuda = "󰛓 "
-Gentoo = " "
-HardenedBSD = "󰞌 "
-Illumos = "󰈸 "
-Kali = " "
-Linux = " "
-Mabox = " "
-Macos = " "
-Manjaro = " "
-Mariner = " "
-MidnightBSD = " "
-Mint = " "
-NetBSD = " "
-NixOS = " "
-OpenBSD = "󰈺 "
-openSUSE = " "
-OracleLinux = "󰌷 "
-Pop = " "
-Raspbian = " "
-Redhat = " "
-RedHatEnterprise = " "
-RockyLinux = " "
-Redox = "󰀘 "
-Solus = "󰠳 "
-SUSE = " "
-Ubuntu = " "
-Unknown = " "
-Void = " "
-Windows = "󰍲 "
-
-[package]
-symbol = "󰏗 "
-
-[perl]
-symbol = " "
-
 [php]
+format = "[$symbol($version )]($style)"
 symbol = " "
 
-[pijul_channel]
-symbol = " "
-
 [python]
+format = "[${symbol}${pyenv_prefix}(${version} )(($virtualenv) )]($style)"
 symbol = " "
 
-[rlang]
-symbol = "󰟔 "
-
 [ruby]
+format = "[$symbol($version )]($style)"
 symbol = " "
 
 [rust]
+format = "[$symbol($version )]($style)"
 symbol = "󱘗 "
 
-[scala]
-symbol = " "
-
-[swift]
-symbol = " "
-
-[zig]
-symbol = " "
-
-[gradle]
-symbol = " "
+[sudo]
+style = 'bold green'
+format = "[$symbol]($style)"
+symbol = '🧑‍💻 '
+disabled = false
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
