@@ -33,7 +33,7 @@ symbol = "  "
 disabled = true
 
 [cmd_duration]
-format = "[⏱ $duration]($style) "
+format = "[ $duration]($style) "
 disabled = false
 style = "yellow"
 show_notifications = false
@@ -42,6 +42,8 @@ min_time_to_notify = 1000
 
 [directory]
 read_only = " 󰌾"
+truncation_length = 0
+truncate_to_repo = false
 
 [docker_context]
 format = "[$symbol$context]($style) "
@@ -70,7 +72,7 @@ symbol = " "
 
 [nodejs]
 format = "[$symbol($version )]($style)"
-symbol = " "
+symbol = "󰎙 "
 
 [php]
 format = "[$symbol($version )]($style)"
@@ -78,7 +80,7 @@ symbol = " "
 
 [python]
 format = "[${symbol}${pyenv_prefix}(${version} )(($virtualenv) )]($style)"
-symbol = " "
+symbol = " "
 
 [ruby]
 format = "[$symbol($version )]($style)"
@@ -90,8 +92,8 @@ symbol = "󱘗 "
 
 [sudo]
 style = 'bold green'
-format = "[$symbol]($style)"
-symbol = '🧑‍💻 '
+format = "[$symbol ]($style)"
+symbol = ' '
 disabled = false
 
 [palettes.catppuccin_mocha]
