@@ -5,7 +5,7 @@ $directory\
 $git_branch\
 $git_status\
 
-$fill \
+$fill\
 
 $php\
 $nodejs\
@@ -72,7 +72,7 @@ symbol = " "
 
 [nodejs]
 format = "[$symbol($version )]($style)"
-symbol = "󰎙 "
+symbol = " "
 
 [php]
 format = "[$symbol($version )]($style)"
