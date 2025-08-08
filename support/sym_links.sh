@@ -11,6 +11,7 @@ sym_links=(
     [nvim]=$HOME/.config/nvim
     [ghostty]=$HOME/.config/ghostty/config
     [skhdrc]=$HOME/.skhdrc
+    [fastfetch.jsonc]=$HOME/.config/fastfetch/config.jsonc
 )
 
 for key val in ${(kv)sym_links}; do
