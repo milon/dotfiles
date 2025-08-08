@@ -92,12 +92,12 @@
         },
         {
             "type": "disk",
-            "key": "├",
+            "key": "├",
             "keyColor": "green"
         },
         {
             "type": "memory",
-            "key": "├󰑭",
+            "key": "├",
             "keyColor": "green"
         },
         {
@@ -144,10 +144,19 @@
         },
         {
             "type": "media",
-            "key": "└󰝚",
+            "key": "├󰝚",
             "keyColor": "cyan"
         },
-        "break",
-        "colors"
+        {
+            "type": "bluetooth",
+            "key": "├󰂰",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "colors",
+            "key": "└",
+            "keyColor": "cyan",
+            "symbol": "square"
+        }
     ]
 }
