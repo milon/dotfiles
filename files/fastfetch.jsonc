@@ -14,7 +14,7 @@
         "separator",
         {
             "type": "os",
-            "key": " OS",
+            "key": " OS",
             "keyColor": "yellow",
             "format": "{2}"
         },
@@ -65,6 +65,11 @@
             "keyColor": "blue"
         },
         {
+            "type": "terminalfont",
+            "key": "├",
+            "keyColor": "blue"
+        },
+        {
             "type": "wallpaper",
             "key": "└󰸉",
             "keyColor": "blue"
@@ -98,6 +103,22 @@
         {
             "type": "swap",
             "key": "├󰓡",
+            "keyColor": "green"
+        },
+        {
+            "type": "publicip",
+            "key": "├󰩠",
+            "keyColor": "green",
+            "timeout": 1000
+        },
+        {
+            "type": "battery",
+            "key": "├",
+            "keyColor": "green"
+        },
+        {
+            "type": "poweradapter",
+            "key": "├",
             "keyColor": "green"
         },
         {
