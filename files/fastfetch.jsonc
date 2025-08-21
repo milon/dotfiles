@@ -21,13 +21,13 @@
         "separator",
         {
             "type": "os",
-            "key": " OS",
+            "key": " OS",
             "keyColor": "yellow",
             "format": "{2}"
         },
         {
             "type": "os",
-            "key": "├{icon}", // Just get your distro's logo off nerdfonts.com
+            "key": "├󰀶", // Just get your distro's logo off nerdfonts.com
             "keyColor": "yellow"
         },
         {
