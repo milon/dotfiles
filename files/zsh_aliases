@@ -25,6 +25,9 @@ function kill-port() {
     fi
 }
 
+# xh (httpie replacement, cli http client)
+alias http="xh"
+
 # nvim to vim
 alias vim="nvim"
 

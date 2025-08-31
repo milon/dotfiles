@@ -23,7 +23,6 @@ brew 'fzf'
 brew 'git'
 brew 'gnupg'
 brew 'grep'
-brew 'httpie'               # cli http client
 brew 'jq'
 brew 'less'
 brew 'mackup'               # backup app settings
@@ -34,6 +33,7 @@ brew 'openssl'
 brew 'pkg-config'           # needed for imagick build/install
 brew 'koekeishiya/formulae/skhd'                 # hotkey daemon
 brew 'viu'                  # terminal image viewer
+brew 'xh'                   # httpie replacement, cli http client
 brew 'yt-dlp'               # youtube-dl fork
 brew 'zoxide'               # better cd
 
