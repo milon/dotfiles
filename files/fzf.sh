@@ -1,5 +1,6 @@
 # Theme catpucchin mocha
 export FZF_DEFAULT_OPTS=" \
+--style=full \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
@@ -8,8 +9,9 @@ export FZF_DEFAULT_OPTS=" \
 
 show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
 
-export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
-export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview' --preview-window=right:60%"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200' --preview-window=right:60%"
+export FZF_CTRL_R_OPTS="--preview 'echo {2..} | bat --color=always -pl sh' --preview-window up:3 --bind 'ctrl-/:toggle-preview'"
 
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
@@ -19,9 +21,9 @@ _fzf_comprun() {
   shift
 
   case "$command" in
-    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
-    export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
-    ssh)          fzf --preview 'dig {}'                   "$@" ;;
-    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' --preview-window=right:60% "$@" ;;
+    export|unset) fzf --preview "eval 'echo ${}'" --preview-window=right:60% "$@" ;;
+    ssh)          fzf --preview 'dig {}' --preview-window=right:60% "$@" ;;
+    *)            fzf --preview "$show_file_or_dir_preview" --preview-window=right:60% "$@" ;;
   esac
 }
