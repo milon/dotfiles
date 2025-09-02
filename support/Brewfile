@@ -1,6 +1,4 @@
 # Taps
-tap 'homebrew/bundle'
-tap 'homebrew/services'
 tap 'buo/cask-upgrade'                  # for upgrading casks
 tap 'shivammathur/php'                  # for php
 tap 'shivammathur/extensions'           # for php-extensions
