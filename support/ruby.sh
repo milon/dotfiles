@@ -3,10 +3,10 @@
 echo 'Configuring ruby'
 
 echo 'installing ruby'
-frum install 2.7.8
+frum install 3.4.5
 
 echo 'Setting ruby version'
-frum global 2.7.8
+frum global 3.4.5
 
 echo 'Verify ruby version'
 frum versions
