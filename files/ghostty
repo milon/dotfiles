@@ -1,11 +1,11 @@
 # themes
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
 
 # font
-font-family="FantasqueSansM Nerd Font"
+font-family = "FantasqueSansM Nerd Font"
 
 # term environment
-term=xterm-256color
+term = xterm-256color
 
 # fonts
 font-size = 18
