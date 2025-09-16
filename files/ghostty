@@ -1,5 +1,6 @@
 # themes
 theme = Catppuccin Mocha
+macos-icon = custom
 
 # font
 font-family = "FantasqueSansM Nerd Font"

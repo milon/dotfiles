@@ -10,6 +10,7 @@ sym_links=(
     [mackup.cfg]=$HOME/.mackup.cfg
     [nvim]=$HOME/.config/nvim
     [ghostty]=$HOME/.config/ghostty/config
+    [Ghostty.icns]=$HOME/.config/ghostty/Ghostty.icns
     [skhdrc]=$HOME/.skhdrc
     [fastfetch.jsonc]=$HOME/.config/fastfetch/config.jsonc
 )
