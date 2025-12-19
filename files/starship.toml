@@ -16,7 +16,6 @@ $golang\
 $lua\
 $rust\
 
-$docker_context\
 $cmd_duration\
 
 $line_break\
