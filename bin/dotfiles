@@ -1,31 +1,60 @@
 #!/bin/zsh
 
-BIN_NAME=$(basename "$0")
-COMMAND_NAME=$1
-SUB_COMMAND_NAME=$2
+# Constants
+readonly BIN_NAME=$(basename "$0")
+readonly ARROW="➜"
+readonly RED='\033[0;31m'
+readonly GREEN='\033[0;32m'
+readonly YELLOW='\033[0;33m'
+readonly NC='\033[0m'
 
-ARROW="➜"
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-NC='\033[0m'
-
-# load config
+# Load config
 export bin_dir=$(dirname "$(realpath "$0")")
-export dotfiles_dir=$(dirname $bin_dir)
-
+export dotfiles_dir=$(dirname "$bin_dir")
 export support_dir="$dotfiles_dir/support"
 
+# Load functions
 source "$support_dir/functions.sh"
 
-sub_help () {
+# Command to script mapping
+declare -A COMMAND_SCRIPTS
+COMMAND_SCRIPTS=(
+    [symlinks]="sym_links.sh"
+    [brew]="brew.sh"
+    [node]="node.sh"
+    [python]="python.sh"
+    [java]="java.sh"
+    [ruby]="ruby.sh"
+    [composer]="composer.sh"
+    [valet]="valet.sh"
+    [git]="git.sh"
+    [clone]="git_clone.sh"
+    [pull]="pull.sh"
+    [mac]="mac_settings.sh"
+    [xcode]="xcode.sh"
+)
+
+# Run a support script
+run_script() {
+    local script_name=$1
+    local success_message=$2
+    
+    source "$support_dir/$script_name"
+    
+    if [ -n "$success_message" ]; then
+        echo -e "${GREEN}${ARROW} ${success_message}${NC}"
+    fi
+}
+
+# Show help message
+show_help() {
     ascii_art
     echo
-    echo -e "$ARROW Usage: ${YELLOW}$BIN_NAME <command>${NC}"
+    echo -e "${ARROW} Usage: ${YELLOW}${BIN_NAME} <command>${NC}"
     echo
     echo "${GREEN}Commands:${NC}"
     echo "   ${YELLOW}help${NC}             This help message"
-    echo "   ${YELLOW}update${NC}           Update packages and pkg managers (brew, mac app store, commposer)"
+    echo "   ${YELLOW}update${NC}           Update packages and pkg managers (brew, mac app store, composer)"
     echo "   ${YELLOW}clean${NC}            Clean up caches (brew, npm, composer)"
     echo "   ${YELLOW}symlinks${NC}         Run symlinks script"
     echo "   ${YELLOW}brew${NC}             Run brew script"
@@ -45,114 +74,78 @@ sub_help () {
     echo
 }
 
-sub_update () {
+# Update packages
+cmd_update() {
     echo "Update brew"
     brew cu --all --include-mas --yes --cleanup
     brew upgrade
-
+    
     echo ""
-    echo "Update composer and it's global dependencies"
+    echo "Update composer and its global dependencies"
     composer self-update && composer global update
-
+    
     echo ""
-    echo -e "${GREEN}$ARROW Success! Update command finished.${NC}"
+    echo -e "${GREEN}${ARROW} Success! Update command finished.${NC}"
 }
 
-sub_clean () {
+# Clean caches
+cmd_clean() {
     brew cleanup
     npm cache clean --force
     composer clear-cache
-    echo -e "${GREEN}$ARROW Success! Clean command finished.${NC}"
+    echo -e "${GREEN}${ARROW} Success! Clean command finished.${NC}"
 }
 
-sub_symlinks () {
-    . "$support_dir/sym_links.sh"
-    echo -e "${GREEN}$ARROW Success! Symlinks command finished.${NC}"
+# Vim setup (requires dependencies)
+cmd_vim() {
+    run_script "dependencies.sh"
+    run_script "vim.sh" "Success! Vim command finished."
 }
 
-sub_brew () {
-    . "$support_dir/brew.sh"
-    echo -e "${GREEN}$ARROW Success! Brew command finished.${NC}"
+# Neovim setup (requires dependencies)
+cmd_neovim() {
+    run_script "dependencies.sh"
+    run_script "neovim.sh" "Success! Neovim command finished."
 }
 
-sub_node () {
-    . "$support_dir/node.sh"
-    echo -e "${GREEN}$ARROW Success! Node setup command finished.${NC}"
+# Main command dispatcher
+main() {
+    local command_name=$1
+    
+    # Handle help
+    if [[ -z "$command_name" || "$command_name" == "-h" || "$command_name" == "--help" ]]; then
+        show_help
+        exit 0
+    fi
+    
+    # Handle special commands
+    case "$command_name" in
+        update)
+            cmd_update
+            ;;
+        clean)
+            cmd_clean
+            ;;
+        vim)
+            cmd_vim
+            ;;
+        neovim)
+            cmd_neovim
+            ;;
+        *)
+            # Handle mapped commands
+            if [[ -n "${COMMAND_SCRIPTS[$command_name]}" ]]; then
+                local script="${COMMAND_SCRIPTS[$command_name]}"
+                local success_msg="Success! $(echo "$command_name" | sed 's/^./\U&/') command finished."
+                run_script "$script" "$success_msg"
+            else
+                echo -e "${RED}${ARROW} Error: '${command_name}' is not a known command.${NC}" >&2
+                show_help
+                exit 1
+            fi
+            ;;
+    esac
 }
 
-sub_python () {
-    . "$support_dir/python.sh"
-    echo -e "${GREEN}$ARROW Success! Python setup command finished.${NC}"
-}
-
-sub_java () {
-    . "$support_dir/java.sh"
-    echo -e "${GREEN}$ARROW Success! Java setup command finished.${NC}"
-}
-
-sub_ruby () {
-    . "$support_dir/ruby.sh"
-    echo -e "${GREEN}$ARROW Success! Ruby setup command finished.${NC}"
-}
-
-sub_composer () {
-    . "$support_dir/composer.sh"
-    echo -e "${GREEN}$ARROW Success! Composer setup command finished.${NC}"
-}
-
-sub_valet () {
-    . "$support_dir/valet.sh"
-    echo -e "${GREEN}$ARROW Success! Valet command finished.${NC}"
-}
-
-sub_git () {
-    . "$support_dir/git.sh"
-    echo -e "${GREEN}$ARROW Success! Git config command finished.${NC}"
-}
-
-sub_pull () {
-    . "$support_dir/pull.sh"
-    echo -e "${GREEN}$ARROW Success! Git pull command finished.${NC}"
-}
-
-sub_clone () {
-    . "$support_dir/git_clone.sh"
-    echo -e "${GREEN}$ARROW Success! Git clone command finished.${NC}"
-}
-
-sub_mac () {
-    . "$support_dir/mac_settings.sh"
-    echo -e "${GREEN}$ARROW Success! MacOS settings command finished.${NC}"
-}
-
-sub_xcode () {
-    . "$support_dir/xcode.sh"
-    echo -e "${GREEN}$ARROW Success! Xcode command finished.${NC}"
-}
-
-sub_vim () {
-    . "$support_dir/dependencies.sh"
-    . "$support_dir/vim.sh"
-    echo -e "${GREEN}$ARROW Success! Vim command finished.${NC}"
-}
-
-sub_neovim () {
-    . "$support_dir/dependencies.sh"
-    . "$support_dir/neovim.sh"
-    echo -e "${GREEN}$ARROW Success! Neovim command finished.${NC}"
-}
-
-case $COMMAND_NAME in
-    "" | "-h" | "--help")
-        sub_help
-        ;;
-    *)
-        shift
-        sub_${COMMAND_NAME} $@
-        if [ $? = 127 ]; then
-            echo -e "${RED}$ARROW Error: '$COMMAND_NAME' is not a known command or has errors.${NC}" >&2
-            sub_help
-            exit 1
-        fi
-        ;;
-esac
+# Run main function
+main "$@"
