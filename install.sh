@@ -1,65 +1,40 @@
 #!/bin/zsh
 
-set +x
-
+# Get script directory
 export dotfiles_dir=$(dirname "$(realpath "$0")")
-
-# load config
 export support_dir="$dotfiles_dir/support"
 
 # Load functions
 source "$support_dir/functions.sh"
 
-# Load ascii art
+# Display ascii art
 ascii_art
 
-# Check and prompt for necessary dependencies
-source "$support_dir/precheck.sh" && cd $dotfiles_dir
+# Pre-installation checks
+run_step 'PRECHECK' "$support_dir/precheck.sh"
 
-title 'XCODE'
-source "$support_dir/xcode.sh" && cd $dotfiles_dir
+# Core setup
+run_step 'XCODE' "$support_dir/xcode.sh"
+run_step 'DEPENDENCIES' "$support_dir/dependencies.sh"
+run_step 'SYM LINKS' "$support_dir/sym_links.sh"
+run_step 'HOMEBREW' "$support_dir/brew.sh"
 
-title 'DEPENDENCIES'
-source "$support_dir/dependencies.sh" && cd $dotfiles_dir
+# Development tools
+run_step 'GIT' "$support_dir/git.sh"
+run_step 'COMPOSER' "$support_dir/composer.sh"
+run_step 'VALET' "$support_dir/valet.sh"
+run_step 'GIT CLONE' "$support_dir/git_clone.sh"
 
-title 'SYM LINKS'
-source "$support_dir/sym_links.sh" && cd $dotfiles_dir
+# Language environments
+run_step 'NPM' "$support_dir/node.sh"
+run_step 'PYENV' "$support_dir/python.sh"
+run_step 'JENV' "$support_dir/java.sh"
+run_step 'Ruby' "$support_dir/ruby.sh"
 
-title 'HOMEBREW'
-source "$support_dir/brew.sh" && cd $dotfiles_dir
+# Editors
+run_step 'VIM' "$support_dir/vim.sh"
+run_step 'NEOVIM' "$support_dir/neovim.sh"
 
-title 'GIT'
-source "$support_dir/git.sh" && cd $dotfiles_dir
-
-title 'COMPOSER'
-source "$support_dir/composer.sh" && cd $dotfiles_dir
-
-title 'VALET'
-source "$support_dir/valet.sh" && cd $dotfiles_dir
-
-title 'GIT CLONE'
-source "$support_dir/git_clone.sh" && cd $dotfiles_dir
-
-title 'NPM'
-source "$support_dir/node.sh" && cd $dotfiles_dir
-
-title 'PYENV'
-source "$support_dir/python.sh" && cd $dotfiles_dir
-
-title 'JENV'
-source "$support_dir/java.sh" && cd $dotfiles_dir
-
-title 'Ruby'
-source "$support_dir/ruby.sh" && cd $dotfiles_dir
-
-title 'VIM'
-source "$support_dir/vim.sh" && cd $dotfiles_dir
-
-title 'NEOVIM'
-source "$support_dir/neovim.sh" && cd $dotfiles_dir
-
-title 'MACOS SETTINGS'
-source "$support_dir/mac_settings.sh" && cd $dotfiles_dir
-
-title 'MANUAL STEPS'
-source "$support_dir/manual_steps.sh" && cd $dotfiles_dir
+# System configuration
+run_step 'MACOS SETTINGS' "$support_dir/mac_settings.sh"
+run_step 'MANUAL STEPS' "$support_dir/manual_steps.sh"

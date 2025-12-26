@@ -11,13 +11,15 @@ ascii_art () {
 EOF
 }
 
-prompt_quit_if_no () {
-    if read -q "choice?$1 (y/n)"; then
-        echo 
+confirm_or_exit() {
+    local prompt_message=$1
+    
+    if read -q "choice?${prompt_message} (y/n) "; then
+        echo
     else
-        echo 
-        echo 'Quitting...'
-        exit
+        echo
+        echo "Quitting..."
+        exit 1
     fi
 }
 
@@ -30,4 +32,13 @@ title () {
     printf "$title "
     printf '=%.0s' {1..$leftover}
     echo 
+}
+
+run_step() {
+    local step_name=$1
+    local script=$2
+    
+    title "$step_name"
+    source "$script"
+    cd "$dotfiles_dir"
 }
