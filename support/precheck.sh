@@ -8,12 +8,6 @@ then
     touch "$HOME/.custom_aliases"
 fi
 
-if [ ! -d "$HOME/Dropbox" ]
-then
-    echo "Please link Dropbox first."
-    exit
-fi
-
 if [ ! -f "$HOME/.ssh/id_rsa" ] && [! -f "$HOME/.ssh/id_rsa.pub"]
 then
     echo "Please generate SSH keys or copy that from previous computer."

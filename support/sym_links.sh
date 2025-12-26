@@ -7,7 +7,6 @@ sym_links=(
     [antigenrc]=$HOME/.antigenrc
     [plugins.vim]=$HOME/.vim/plugins.vim
     [gitignore]=$HOME/.gitignore
-    [mackup.cfg]=$HOME/.mackup.cfg
     [nvim]=$HOME/.config/nvim
     [ghostty]=$HOME/.config/ghostty/config
     [Ghostty.icns]=$HOME/.config/ghostty/Ghostty.icns
