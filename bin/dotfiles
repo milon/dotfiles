@@ -2,24 +2,13 @@
 
 # Constants
 readonly BIN_NAME=$(basename "$0")
-readonly ARROW="➜"
-readonly CHECK="✓"
-readonly CROSS="✗"
-readonly INFO="ℹ"
-readonly RED='\033[0;31m'
-readonly GREEN='\033[0;32m'
-readonly YELLOW='\033[0;33m'
-readonly BLUE='\033[0;34m'
-readonly CYAN='\033[0;36m'
-readonly BOLD='\033[1m'
-readonly NC='\033[0m'
 
 # Load config
 export bin_dir=$(dirname "$(realpath "$0")")
 export dotfiles_dir=$(dirname "$bin_dir")
 export support_dir="$dotfiles_dir/support"
 
-# Load functions
+# Load functions (includes color constants and output helpers)
 source "$support_dir/functions.sh"
 
 # Command to script mapping
@@ -39,34 +28,6 @@ COMMAND_SCRIPTS=(
     [mac]="mac_settings.sh"
     [xcode]="xcode.sh"
 )
-
-# Output helpers
-print_section() {
-    local title=$1
-    echo
-    echo -e "${BOLD}${CYAN}${ARROW} ${title}${NC}"
-    echo -e "${CYAN}$(printf '─%.0s' {1..60})${NC}"
-}
-
-print_success() {
-    local message=$1
-    echo -e "${GREEN}${CHECK} ${message}${NC}"
-}
-
-print_error() {
-    local message=$1
-    echo -e "${RED}${CROSS} ${message}${NC}" >&2
-}
-
-print_info() {
-    local message=$1
-    echo -e "${BLUE}${INFO} ${message}${NC}"
-}
-
-print_step() {
-    local message=$1
-    echo -e "${YELLOW}${ARROW} ${message}${NC}"
-}
 
 # Run a support script
 run_script() {
