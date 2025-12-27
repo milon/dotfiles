@@ -1,4 +1,11 @@
 #!/bin/zsh
 
-# install vundle or whatever other vim bundler
-vim +PluginInstall +qall
+source "$support_dir/functions.sh"
+
+print_step "Installing Vim plugins..."
+if vim +PluginInstall +qall; then
+    print_success "Vim plugins installed"
+else
+    print_error "Vim plugin installation failed"
+    exit 1
+fi

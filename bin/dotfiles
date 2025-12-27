@@ -3,9 +3,15 @@
 # Constants
 readonly BIN_NAME=$(basename "$0")
 readonly ARROW="➜"
+readonly CHECK="✓"
+readonly CROSS="✗"
+readonly INFO="ℹ"
 readonly RED='\033[0;31m'
 readonly GREEN='\033[0;32m'
 readonly YELLOW='\033[0;33m'
+readonly BLUE='\033[0;34m'
+readonly CYAN='\033[0;36m'
+readonly BOLD='\033[1m'
 readonly NC='\033[0m'
 
 # Load config
@@ -34,15 +40,54 @@ COMMAND_SCRIPTS=(
     [xcode]="xcode.sh"
 )
 
+# Output helpers
+print_section() {
+    local title=$1
+    echo
+    echo -e "${BOLD}${CYAN}${ARROW} ${title}${NC}"
+    echo -e "${CYAN}$(printf '─%.0s' {1..60})${NC}"
+}
+
+print_success() {
+    local message=$1
+    echo -e "${GREEN}${CHECK} ${message}${NC}"
+}
+
+print_error() {
+    local message=$1
+    echo -e "${RED}${CROSS} ${message}${NC}" >&2
+}
+
+print_info() {
+    local message=$1
+    echo -e "${BLUE}${INFO} ${message}${NC}"
+}
+
+print_step() {
+    local message=$1
+    echo -e "${YELLOW}${ARROW} ${message}${NC}"
+}
+
 # Run a support script
 run_script() {
     local script_name=$1
-    local success_message=$2
+    local display_name=${2:-$script_name}
+    local script_path="$support_dir/$script_name"
     
-    source "$support_dir/$script_name"
+    if [ ! -f "$script_path" ]; then
+        print_error "Script not found: ${script_name}"
+        return 1
+    fi
     
-    if [ -n "$success_message" ]; then
-        echo -e "${GREEN}${ARROW} ${success_message}${NC}"
+    print_section "Running ${display_name}"
+    source "$script_path"
+    local exit_code=$?
+    
+    if [ $exit_code -eq 0 ]; then
+        print_success "${display_name} completed successfully"
+    else
+        print_error "${display_name} failed (exit code: ${exit_code})"
+        return $exit_code
     fi
 }
 
@@ -50,62 +95,108 @@ run_script() {
 show_help() {
     ascii_art
     echo
-    echo -e "${ARROW} Usage: ${YELLOW}${BIN_NAME} <command>${NC}"
+    echo -e "${BOLD}${CYAN}${ARROW} Usage: ${YELLOW}${BIN_NAME} <command>${NC}"
     echo
-    echo "${GREEN}Commands:${NC}"
-    echo "   ${YELLOW}help${NC}             This help message"
-    echo "   ${YELLOW}update${NC}           Update packages and pkg managers (brew, mac app store, composer)"
-    echo "   ${YELLOW}clean${NC}            Clean up caches (brew, npm, composer)"
-    echo "   ${YELLOW}symlinks${NC}         Run symlinks script"
-    echo "   ${YELLOW}brew${NC}             Run brew script"
-    echo "   ${YELLOW}node${NC}             Run node setup script"
-    echo "   ${YELLOW}python${NC}           Run python setup script"
-    echo "   ${YELLOW}java${NC}             Run java setup script"
-    echo "   ${YELLOW}ruby${NC}             Run ruby setup script"
-    echo "   ${YELLOW}composer${NC}         Run composer setup script"
-    echo "   ${YELLOW}valet${NC}            Run valet script"
-    echo "   ${YELLOW}git${NC}              Run git config script"
-    echo "   ${YELLOW}clone${NC}            Run git clone script"
-    echo "   ${YELLOW}pull${NC}             Run git pull script to update all repos"
-    echo "   ${YELLOW}mac${NC}              Run MacOS defaults script"
-    echo "   ${YELLOW}xcode${NC}            Run XCode script"
-    echo "   ${YELLOW}vim${NC}              Run vim script"
-    echo "   ${YELLOW}neovim${NC}           Run neovim script"
+    echo -e "${BOLD}${GREEN}Commands:${NC}"
+    echo
+    echo -e "  ${YELLOW}help${NC}             ${CYAN}Show this help message${NC}"
+    echo -e "  ${YELLOW}update${NC}           ${CYAN}Update packages and pkg managers (brew, mac app store, composer)${NC}"
+    echo -e "  ${YELLOW}clean${NC}            ${CYAN}Clean up caches (brew, npm, composer)${NC}"
+    echo
+    echo -e "  ${BOLD}Setup:${NC}"
+    echo -e "  ${YELLOW}symlinks${NC}         ${CYAN}Create symlinks for dotfiles${NC}"
+    echo -e "  ${YELLOW}brew${NC}             ${CYAN}Install Homebrew and dependencies${NC}"
+    echo -e "  ${YELLOW}git${NC}              ${CYAN}Configure git settings${NC}"
+    echo
+    echo -e "  ${BOLD}Languages:${NC}"
+    echo -e "  ${YELLOW}node${NC}             ${CYAN}Setup Node.js environment${NC}"
+    echo -e "  ${YELLOW}python${NC}           ${CYAN}Setup Python environment${NC}"
+    echo -e "  ${YELLOW}java${NC}             ${CYAN}Setup Java environment${NC}"
+    echo -e "  ${YELLOW}ruby${NC}             ${CYAN}Setup Ruby environment${NC}"
+    echo -e "  ${YELLOW}composer${NC}         ${CYAN}Setup PHP Composer${NC}"
+    echo
+    echo -e "  ${BOLD}Development:${NC}"
+    echo -e "  ${YELLOW}valet${NC}            ${CYAN}Setup Laravel Valet${NC}"
+    echo -e "  ${YELLOW}clone${NC}            ${CYAN}Clone git repositories${NC}"
+    echo -e "  ${YELLOW}pull${NC}             ${CYAN}Update all git repositories${NC}"
+    echo
+    echo -e "  ${BOLD}Editors:${NC}"
+    echo -e "  ${YELLOW}vim${NC}              ${CYAN}Setup Vim${NC}"
+    echo -e "  ${YELLOW}neovim${NC}           ${CYAN}Setup Neovim${NC}"
+    echo
+    echo -e "  ${BOLD}System:${NC}"
+    echo -e "  ${YELLOW}mac${NC}              ${CYAN}Configure macOS settings${NC}"
+    echo -e "  ${YELLOW}xcode${NC}            ${CYAN}Setup Xcode${NC}"
     echo
 }
 
 # Update packages
 cmd_update() {
-    echo "Update brew"
-    brew cu --all --include-mas --yes --cleanup
-    brew upgrade
+    print_section "Updating Packages"
     
-    echo ""
-    echo "Update composer and its global dependencies"
-    composer self-update && composer global update
+    print_step "Updating Homebrew and Mac App Store apps..."
+    if brew cu --all --include-mas --yes --cleanup 2>/dev/null; then
+        print_success "Homebrew casks updated"
+    else
+        print_info "brew-cask-upgrade not available, skipping cask updates"
+    fi
     
-    echo ""
-    echo -e "${GREEN}${ARROW} Success! Update command finished.${NC}"
+    print_step "Upgrading Homebrew packages..."
+    if brew upgrade; then
+        print_success "Homebrew packages upgraded"
+    else
+        print_error "Some Homebrew packages failed to upgrade"
+    fi
+    
+    echo
+    print_step "Updating Composer and global dependencies..."
+    if composer self-update && composer global update; then
+        print_success "Composer updated"
+    else
+        print_error "Composer update failed"
+    fi
+    
+    echo
+    print_success "All packages updated successfully"
 }
 
 # Clean caches
 cmd_clean() {
-    brew cleanup
-    npm cache clean --force
-    composer clear-cache
-    echo -e "${GREEN}${ARROW} Success! Clean command finished.${NC}"
+    print_section "Cleaning Caches"
+    
+    print_step "Cleaning Homebrew cache..."
+    if brew cleanup; then
+        print_success "Homebrew cache cleaned"
+    fi
+    
+    print_step "Cleaning npm cache..."
+    if npm cache clean --force 2>/dev/null; then
+        print_success "npm cache cleaned"
+    else
+        print_info "npm not available, skipping"
+    fi
+    
+    print_step "Cleaning Composer cache..."
+    if composer clear-cache 2>/dev/null; then
+        print_success "Composer cache cleaned"
+    else
+        print_info "Composer not available, skipping"
+    fi
+    
+    echo
+    print_success "Cache cleanup completed"
 }
 
 # Vim setup (requires dependencies)
 cmd_vim() {
-    run_script "dependencies.sh"
-    run_script "vim.sh" "Success! Vim command finished."
+    run_script "dependencies.sh" "Dependencies"
+    run_script "vim.sh" "Vim"
 }
 
 # Neovim setup (requires dependencies)
 cmd_neovim() {
-    run_script "dependencies.sh"
-    run_script "neovim.sh" "Success! Neovim command finished."
+    run_script "dependencies.sh" "Dependencies"
+    run_script "neovim.sh" "Neovim"
 }
 
 # Main command dispatcher
@@ -120,6 +211,9 @@ main() {
     
     # Handle special commands
     case "$command_name" in
+        help)
+            show_help
+            ;;
         update)
             cmd_update
             ;;
@@ -136,10 +230,14 @@ main() {
             # Handle mapped commands
             if [[ -n "${COMMAND_SCRIPTS[$command_name]}" ]]; then
                 local script="${COMMAND_SCRIPTS[$command_name]}"
-                local success_msg="Success! $(echo "$command_name" | sed 's/^./\U&/') command finished."
-                run_script "$script" "$success_msg"
+                # Capitalize first letter for display using zsh parameter expansion
+                local first_char="${command_name[1]}"
+                local rest="${command_name[2,-1]}"
+                local display_name="${(U)first_char}${rest}"
+                run_script "$script" "$display_name"
             else
-                echo -e "${RED}${ARROW} Error: '${command_name}' is not a known command.${NC}" >&2
+                print_error "Unknown command: '${command_name}'"
+                echo
                 show_help
                 exit 1
             fi

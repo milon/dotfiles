@@ -20,7 +20,7 @@ Dotfiles for my mac, took inspirations from [dotfiles](https://dotfiles.github.i
 You will have an executable in your path.
 
 ```
-$ dotfiles
+➜ dotfiles
    _     _   ___ _ _
  _| |___| |_|  _|_| |___ ___
 | . | . |  _|  _| | | -_|_ -|
@@ -29,23 +29,35 @@ $ dotfiles
 ➜ Usage: dotfiles <command>
 
 Commands:
-   help             This help message
-   update           Update packages and pkg managers (brew, mac app store, commposer)
-   clean            Clean up caches (brew, npm, composer)
-   symlinks         Run symlinks script
-   brew             Run brew script
-   node             Run node setup script
-   python           Run python setup script
-   java             Run java setup script
-   composer         Run composer setup script
-   valet            Run valet script
-   git              Run git config script
-   clone            Run git clone script
-   pull             Run git pull script to update all repos
-   mac              Run MacOS defaults script
-   xcode            Run XCode script
-   vim              Run vim script
-   neovim           Run neovim script
+
+  help             Show this help message
+  update           Update packages and pkg managers (brew, mac app store, composer)
+  clean            Clean up caches (brew, npm, composer)
+
+  Setup:
+  symlinks         Create symlinks for dotfiles
+  brew             Install Homebrew and dependencies
+  git              Configure git settings
+
+  Languages:
+  node             Setup Node.js environment
+  python           Setup Python environment
+  java             Setup Java environment
+  ruby             Setup Ruby environment
+  composer         Setup PHP Composer
+
+  Development:
+  valet            Setup Laravel Valet
+  clone            Clone git repositories
+  pull             Update all git repositories
+
+  Editors:
+  vim              Setup Vim
+  neovim           Setup Neovim
+
+  System:
+  mac              Configure macOS settings
+  xcode            Setup Xcode
 ```
 
 ## Suggestions

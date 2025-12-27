@@ -1,7 +1,6 @@
 #!/bin/zsh
 
-echo 'Pulling updates from git repositories'
-echo 
+source "$support_dir/functions.sh"
 
 CODE_DIR=$HOME/Code
 
@@ -21,36 +20,57 @@ if [[ "$1" == "--update" || "$1" == "-u" ]]; then
     UPDATE=true
 fi
 
-cd $CODE_DIR
 for dir repo in ${(kv)git_repos}; do
-    cd $repo
-    git pull --rebase
-    echo "${GREEN}Pull successful - ($dir)${NC}"
-    echo
-    cd $CODE_DIR
+    if [ ! -d "$repo" ]; then
+        print_info "Skipping ${dir} (directory not found)"
+        continue
+    fi
+    
+    print_step "Pulling updates for ${dir}..."
+    cd "$repo" || continue
+    
+    if git pull --rebase; then
+        print_success "Updated ${dir}"
+    else
+        print_error "Failed to update ${dir}"
+    fi
+    
+    cd "$CODE_DIR" || exit 1
 done
 
-echo 'XX -- Git repositories pull done.'
-
 if [ "$UPDATE" = true ]; then
+    echo
+    print_step "Updating Composer Dependencies"
+    echo
+    
     for dir repo in ${(kv)git_repos}; do
-        cd $repo
+        if [ ! -d "$repo" ]; then
+            continue
+        fi
+        
+        cd "$repo" || continue
+        
         if [ -f "composer.json" ]; then
-            composer update
-            if [ -n "$(git status --porcelain)" ]; then
-                git add .
-                git commit -m "Updates dependencies"
-                git push
-                echo "${GREEN}Dependencies updated and committed - ($dir)${NC}"
+            print_step "Updating dependencies for ${dir}..."
+            if composer update; then
+                if [ -n "$(git status --porcelain)" ]; then
+                    git add .
+                    git commit -m "Updates dependencies"
+                    if git push; then
+                        print_success "Dependencies updated and committed for ${dir}"
+                    else
+                        print_error "Failed to push dependencies for ${dir}"
+                    fi
+                else
+                    print_info "No dependency updates for ${dir}"
+                fi
             else
-                echo "${GREEN}No dependency updates - ($dir)${NC}"
+                print_error "Composer update failed for ${dir}"
             fi
         else
-            echo "${YELLOW}Not a php project, no composer.json found - ($dir)${NC}"
+            print_info "Skipping ${dir} (not a PHP project)"
         fi
-        echo
-        cd $CODE_DIR
+        
+        cd "$CODE_DIR" || exit 1
     done
-
-    echo 'XX -- Composer update and commit done.'
 fi

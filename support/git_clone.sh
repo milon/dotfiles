@@ -1,7 +1,6 @@
 #!/bin/zsh
 
-echo 'Cloning git repositories'
-echo 
+source "$support_dir/functions.sh"
 
 CODE_DIR=$HOME/Code
 
@@ -15,23 +14,23 @@ git_repos=(
     [cv]="git@github.com:milon/cv.git"
 )
 
-cd $CODE_DIR
+mkdir -p "$CODE_DIR"
+cd "$CODE_DIR" || exit 1
+
 for dir repo in ${(kv)git_repos}; do
-    git clone $repo $dir > /dev/null 2>&1
-    CLONE_SUCCESS=$?
-
-    if [[ $CLONE_SUCCESS == 0 ]]
-    then
-        echo "Clone successful - ($repo)"
-    fi
-
-    if [[ $CLONE_SUCCESS == 128 ]]
-    then
-        cd $dir
-        git pull
-        echo "Pull successful - ($repo)"
-        cd $CODE_DIR
+    print_step "Cloning ${dir}..."
+    if git clone "$repo" "$dir" > /dev/null 2>&1; then
+        print_success "Cloned ${dir}"
+    elif [ $? -eq 128 ]; then
+        print_info "${dir} already exists, pulling latest changes..."
+        cd "$dir" || continue
+        if git pull; then
+            print_success "Updated ${dir}"
+        else
+            print_error "Failed to update ${dir}"
+        fi
+        cd "$CODE_DIR" || exit 1
+    else
+        print_error "Failed to clone ${dir}"
     fi
 done
-
-echo 'XX -- Git repositories clone done.'

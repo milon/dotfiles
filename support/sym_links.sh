@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+source "$support_dir/functions.sh"
+
 declare -A sym_links
 sym_links=(
     [zshrc]=$HOME/.zshrc
@@ -15,17 +17,15 @@ sym_links=(
 )
 
 for key val in ${(kv)sym_links}; do
-    if test -f "$val"; then
-        echo "$val already exists; skipping symlink."
+    if [ -f "$val" ] || [ -d "$val" ]; then
+        print_info "$(basename "$val") already exists, skipping"
     else
-        if [ -d "$val" ]; then
-            echo "$val already exists; skipping symlink."
+        print_step "Creating symlink for $(basename "$val")..."
+        mkdir -p "$(dirname "$val")"
+        if ln -s "$dotfiles_dir/files/$key" "$val"; then
+            print_success "Created symlink: $val"
         else
-            mkdir -p "$(dirname "$val")"
-            ln -s $dotfiles_dir/files/$key $val
-            echo "Created symlink: $val"
+            print_error "Failed to create symlink: $val"
         fi
     fi
 done
-
-echo 'XX -- Symlinks done.'

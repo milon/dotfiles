@@ -12,6 +12,8 @@ ascii_art
 
 # Pre-installation checks
 run_step 'PRECHECK' "$support_dir/precheck.sh"
+run_step 'MANUAL STEPS' "$support_dir/manual_steps.sh"
+exit 0
 
 # Core setup
 run_step 'XCODE' "$support_dir/xcode.sh"

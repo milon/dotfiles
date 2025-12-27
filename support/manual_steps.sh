@@ -1,18 +1,24 @@
 #!/bin/zsh
 
-echo 'Sadly, there are still a few things on your list!'
-echo 
+source "$support_dir/functions.sh"
 
-echo 'Install Bengali keyboard: https://github.com/milon/UniJoy_osx'
-echo 
-
-echo 'Open these apps and let them get configured:'
-echo '1password; log in'
-echo 'iterm2; this will install all the zsh plugins'
-echo 'Google Chrome; log in'
-echo 'Jetbrains toolbox; install PhpStorm'
-echo '@todo MANY MORE'
+print_info "There are still a few things that need to be done manually:"
 echo
 
-echo 'And finally,:'
-echo 'Set up the Dock the way you want.'
+print_step "Install Bengali keyboard:"
+print_info "  https://github.com/milon/UniJoy_osx"
+echo
+
+print_step "Open and configure these applications:"
+print_info "  • 1Password - log in to your account"
+print_info "  • Google Chrome - log in to your account"
+print_info "  • JetBrains Toolbox - install PhpStorm"
+print_info "  • Additional apps as needed"
+echo
+
+print_step "Final steps:"
+print_info "  • Set up the Dock the way you want"
+print_info "  • Configure any additional system preferences"
+echo
+
+print_success "Manual steps checklist displayed"

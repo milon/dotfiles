@@ -1,18 +1,22 @@
 #!/bin/zsh
 
-echo 
-echo 'Update existing software'
-echo '------------------------'
+source "$support_dir/functions.sh"
 
-softwareupdate --install --all
-
-echo 
-echo 'Installing XCode command line tools'
-echo '-----------------------------------'
-
-if [[ $(xcode-select --version) ]]; then
-  echo Xcode command tools already installed
+print_step "Updating existing software..."
+if softwareupdate --install --all; then
+    print_success "Software updates installed"
 else
-  echo "Installing Xcode commandline tools"
-  $(xcode-select --install)
+    print_info "No software updates available or update failed"
+fi
+
+echo
+print_step "Checking Xcode command line tools..."
+if xcode-select --version &>/dev/null; then
+    print_info "Xcode command line tools already installed"
+    print_info "Version: $(xcode-select --version)"
+else
+    print_step "Installing Xcode command line tools..."
+    print_info "Please follow the installation prompt that appears"
+    xcode-select --install
+    print_success "Xcode command line tools installation initiated"
 fi
