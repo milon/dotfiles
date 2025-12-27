@@ -27,6 +27,8 @@ COMMAND_SCRIPTS=(
     [pull]="pull.sh"
     [mac]="mac_settings.sh"
     [xcode]="xcode.sh"
+    [vim]="vim.sh"
+    [neovim]="neovim.sh"
 )
 
 # Run a support script
@@ -148,18 +150,6 @@ cmd_clean() {
     print_success "Cache cleanup completed"
 }
 
-# Vim setup (requires dependencies)
-cmd_vim() {
-    run_script "dependencies.sh" "Dependencies"
-    run_script "vim.sh" "Vim"
-}
-
-# Neovim setup (requires dependencies)
-cmd_neovim() {
-    run_script "dependencies.sh" "Dependencies"
-    run_script "neovim.sh" "Neovim"
-}
-
 # Main command dispatcher
 main() {
     local command_name=$1
@@ -170,7 +160,7 @@ main() {
         exit 0
     fi
     
-    # Handle special commands
+    # Handle special commands that don't map to scripts
     case "$command_name" in
         help)
             show_help
@@ -181,14 +171,8 @@ main() {
         clean)
             cmd_clean
             ;;
-        vim)
-            cmd_vim
-            ;;
-        neovim)
-            cmd_neovim
-            ;;
         *)
-            # Handle mapped commands
+            # Handle mapped commands (all scripts)
             if [[ -n "${COMMAND_SCRIPTS[$command_name]}" ]]; then
                 local script="${COMMAND_SCRIPTS[$command_name]}"
                 # Capitalize first letter for display using zsh parameter expansion

@@ -17,7 +17,6 @@ exit 0
 
 # Core setup
 run_step 'XCODE' "$support_dir/xcode.sh"
-run_step 'DEPENDENCIES' "$support_dir/dependencies.sh"
 run_step 'SYM LINKS' "$support_dir/sym_links.sh"
 run_step 'HOMEBREW' "$support_dir/brew.sh"
 
