@@ -1,55 +1,74 @@
-# Taps
-tap 'buo/cask-upgrade'                  # for upgrading casks
-tap 'shivammathur/php'                  # for php
-tap 'shivammathur/extensions'           # for php-extensions
-tap 'koekeishiya/formulae'              # for skhd
-tap 'nicoverbruggen/homebrew-cask'      # for phpmon
+# Homebrew Taps
+tap 'buo/cask-upgrade'
+tap 'shivammathur/php'
+tap 'shivammathur/extensions'
+tap 'koekeishiya/formulae'
+tap 'nicoverbruggen/homebrew-cask'
 
-# Binaries
-brew 'antigen'              # zsh plugins manager
-brew 'bat'                  # cat on steroids
-brew 'btop'                 # cli activity monitor
-brew 'cmake'
-brew 'coreutils'            # Those that come with macOS are outdated
+# Core System Tools
+brew 'coreutils'                                    # Updated GNU core utilities
 brew 'curl'
-brew 'd2'                   # diagram language
-brew 'diff-so-fancy'        # git diff tool
-brew 'eza'                  # ls replacement
-brew 'fastfetch'            # neofetch replacement
-brew 'ffmpeg'
-brew 'fzf'
 brew 'git'
 brew 'gnupg'
 brew 'grep'
-brew 'jq'
 brew 'less'
-brew 'mas'                  # Mac App Store manager
-brew 'mpv'                  # media player
-brew 'ollama'               # cli for running LLM locally
 brew 'openssl'
-brew 'pkg-config'           # needed for imagick build/install
-brew 'koekeishiya/formulae/skhd'                 # hotkey daemon
-brew 'viu'                  # terminal image viewer
-brew 'xh'                   # httpie replacement, cli http client
-brew 'yt-dlp'               # youtube-dl fork
-brew 'zoxide'               # better cd
+brew 'pkg-config'                                   # Needed for imagick build/install
 
-# Development
-brew 'frum'                 # ruby version manager
-brew 'imagemagick'
-brew 'jenv'                 # java version manager
-brew 'mailpit'              # mail catcher
-brew 'meilisearch'
-brew 'nvim'
-brew 'nvm'
-brew 'php'
-brew 'pyenv'
+# Shell & Terminal Tools
+brew 'antigen'                                      # Zsh plugin manager
+brew 'starship'                                     # Zsh prompt
+brew 'zoxide'                                       # Smarter cd command
+brew 'fzf'                                          # Fuzzy finder
+brew 'eza'                                          # Modern ls replacement
+brew 'bat'                                          # Cat with syntax highlighting
+brew 'fastfetch'                                    # Neofetch replacement
+
+# Development Tools
+brew 'cmake'
 brew 'sqlite'
-brew 'starship'             # zsh prompt
+brew 'imagemagick'
+
+# Version Managers
+brew 'nvm'                                          # Node.js version manager
+brew 'pyenv'                                        # Python version manager
+brew 'frum'                                         # Ruby version manager
+brew 'jenv'                                         # Java version manager
+
+# Editors
 brew 'vim'
+brew 'nvim'                                         # Neovim
+
+# Development Servers
+brew 'mailpit'                                      # Mail catcher for development
+brew 'meilisearch'                                  # Search engine
+
+# Git Tools
+brew 'diff-so-fancy'                                # Better git diff output
+
+# System Utilities
+brew 'mas'                                          # Mac App Store CLI
+brew 'btop'                                         # System monitor
+brew 'koekeishiya/formulae/skhd'                    # Hotkey daemon
+
+# Media & Content
+brew 'ffmpeg'
+brew 'mpv'                                          # Media player
+brew 'viu'                                          # Terminal image viewer
+brew 'yt-dlp'                                       # YouTube downloader
+brew 'd2'                                           # Diagram language
+
+# Web & API Tools
+brew 'xh'                                           # HTTP client (httpie replacement)
+brew 'jq'                                           # JSON processor
+brew 'ollama'                                       # Local LLM CLI
+
+# Programming Languages
+brew 'php'
 
 # Fonts
 cask 'font-annotation-mono'
+cask 'font-computer-modern'
 cask 'font-fantasque-sans-mono-nerd-font'
 cask 'font-jetbrains-mono-nerd-font'
 cask 'font-monaspice-nerd-font'
@@ -58,32 +77,41 @@ cask 'font-noto-sans-bengali'
 cask 'font-noto-sans-bengali-ui'
 cask 'font-noto-serif-bengali'
 cask 'font-sauce-code-pro-nerd-font'
-cask 'font-computer-modern'
 
-# Apps
-cask '1password'
-cask 'aldente'              # charging controller app
-cask 'bartender'
-cask 'bruno'                # api client
-cask 'dbngin'               # mysql, postgresql, redis
-cask 'ghostty'              # terminal
-cask 'google-chrome'
-cask 'imageoptim'
-cask 'iina'                 # media player
-cask 'latest'               # tool to check for latest releases
-cask 'monitorcontrol'       # control external monitor settings
-cask 'obsidian'
-cask 'orbstack'             # docker replacement
-cask 'phpmon'               # php/valet monitoring tool
-cask 'raycast'              # spotlight replacement
+# Development Applications
 cask 'visual-studio-code'
-cask 'yt-music'
+cask 'bruno'                                        # API client
+cask 'dbngin'                                       # Database manager (MySQL, PostgreSQL, Redis)
+cask 'orbstack'                                     # Docker alternative
+cask 'phpmon'                                       # PHP/Valet monitoring tool
 
-# Mac App Store
+# Productivity Applications
+cask '1password'
+cask 'raycast'                                      # Spotlight replacement
+cask 'obsidian'                                     # Note-taking
+cask 'bartender'                                    # Menu bar organizer
+
+# System Utilities
+cask 'aldente'                                      # Battery charging controller
+cask 'monitorcontrol'                               # External monitor control
+cask 'latest'                                       # Check for app updates
+cask 'imageoptim'                                   # Image optimization
+
+# Media Applications
+cask 'iina'                                         # Media player
+cask 'yt-music'                                     # YouTube Music
+
+# Web Browsers
+cask 'google-chrome'
+
+# Terminal
+cask 'ghostty'                                      # Terminal emulator
+
+# Mac App Store Applications
 mas 'Amphetamine', id: 937984704
 mas 'Dato', id: 1470584107
 mas 'Keynote', id: 409183694
-mas 'Messenger', id: 1480068668    # facebook messenger
+mas 'Messenger', id: 1480068668
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
 mas 'The Unarchiver', id: 425424353
