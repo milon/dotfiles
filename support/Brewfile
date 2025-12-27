@@ -23,6 +23,7 @@ brew 'fzf'                                          # Fuzzy finder
 brew 'eza'                                          # Modern ls replacement
 brew 'bat'                                          # Cat with syntax highlighting
 brew 'fastfetch'                                    # Neofetch replacement
+brew 'gum'                                          # shell scripting utilities
 
 # Development Tools
 brew 'cmake'
