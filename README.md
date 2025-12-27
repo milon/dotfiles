@@ -88,50 +88,44 @@ dotfiles
 
 ### Command Reference
 
-#### General Commands
-- `help` - Show help message
-- `update` - Update all packages (Homebrew, Mac App Store, Composer)
-- `clean` - Clean up caches (Homebrew, npm, Composer)
-
-#### Setup Commands
-- `symlinks` - Create symlinks for dotfiles
-- `brew` - Install Homebrew and all dependencies
-- `git` - Configure git settings
-
-#### Language Environments
-- `node` - Setup Node.js environment
-- `python` - Setup Python environment
-- `java` - Setup Java environment
-- `ruby` - Setup Ruby environment
-- `composer` - Setup PHP Composer
-
-#### Development Tools
-- `valet` - Setup Laravel Valet
-- `clone` - Clone configured git repositories
-- `pull` - Update all git repositories
-
-#### Editors
-- `vim` - Setup Vim with plugins
-- `neovim` - Setup Neovim with plugins
-
-#### System Configuration
-- `mac` - Configure macOS system settings
-- `xcode` - Setup Xcode and command line tools
-
-### Examples
-
 ```bash
-# Update all packages
-dotfiles update
+➜ dotfiles
+   _     _   ___ _ _
+ _| |___| |_|  _|_| |___ ___
+| . | . |  _|  _| | | -_|_ -|
+|___|___|_| |_| |_|_|___|___|
+➜ Usage: dotfiles <command>
 
-# Clean up caches
-dotfiles clean
+Commands:
 
-# Setup a specific language environment
-dotfiles node
+  help             Show this help message
+  update           Update packages and pkg managers (brew, mac app store, composer)
+  clean            Clean up caches (brew, npm, composer)
 
-# Configure macOS settings
-dotfiles mac
+  Setup:
+  symlinks         Create symlinks for dotfiles
+  brew             Install Homebrew and dependencies
+  git              Configure git settings
+
+  Languages:
+  node             Setup Node.js environment
+  python           Setup Python environment
+  java             Setup Java environment
+  ruby             Setup Ruby environment
+  composer         Setup PHP Composer
+
+  Development:
+  valet            Setup Laravel Valet
+  clone            Clone git repositories
+  pull             Update all git repositories
+
+  Editors:
+  vim              Setup Vim
+  neovim           Setup Neovim
+
+  System:
+  mac              Configure macOS settings
+  xcode            Setup Xcode
 ```
 
 ## What Gets Installed
