@@ -51,7 +51,7 @@ Before running the installation, complete these steps:
 
 6. **Install Command Line Tools**
    ```bash
-   git
+   xcode-select --install
    ```
    - Follow the prompts to install Xcode Command Line Tools
 
