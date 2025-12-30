@@ -13,7 +13,6 @@ ascii_art
 # Pre-installation checks
 run_step 'PRECHECK' "$support_dir/precheck.sh"
 run_step 'MANUAL STEPS' "$support_dir/manual_steps.sh"
-exit 0
 
 # Core setup
 run_step 'XCODE' "$support_dir/xcode.sh"
@@ -22,7 +21,7 @@ run_step 'HOMEBREW' "$support_dir/brew.sh"
 
 # Development tools
 run_step 'GIT' "$support_dir/git.sh"
-run_step 'COMPOSER' "$support_dir/composer.sh"
+run_step 'PHP' "$support_dir/php.sh"
 run_step 'VALET' "$support_dir/valet.sh"
 run_step 'GIT CLONE' "$support_dir/git_clone.sh"
 

@@ -20,7 +20,7 @@ COMMAND_SCRIPTS=(
     [python]="python.sh"
     [java]="java.sh"
     [ruby]="ruby.sh"
-    [composer]="composer.sh"
+    [php]="php.sh"
     [valet]="valet.sh"
     [git]="git.sh"
     [clone]="git_clone.sh"
@@ -74,11 +74,11 @@ show_help() {
     echo -e "  ${YELLOW}git${NC}              ${CYAN}Configure git settings${NC}"
     echo
     echo -e "  ${BOLD}Languages:${NC}"
+    echo -e "  ${YELLOW}php${NC}              ${CYAN}Setup PHP and Composer${NC}"
     echo -e "  ${YELLOW}node${NC}             ${CYAN}Setup Node.js environment${NC}"
     echo -e "  ${YELLOW}python${NC}           ${CYAN}Setup Python environment${NC}"
     echo -e "  ${YELLOW}java${NC}             ${CYAN}Setup Java environment${NC}"
     echo -e "  ${YELLOW}ruby${NC}             ${CYAN}Setup Ruby environment${NC}"
-    echo -e "  ${YELLOW}composer${NC}         ${CYAN}Setup PHP Composer${NC}"
     echo
     echo -e "  ${BOLD}Development:${NC}"
     echo -e "  ${YELLOW}valet${NC}            ${CYAN}Setup Laravel Valet${NC}"

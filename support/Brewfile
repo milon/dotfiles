@@ -1,7 +1,5 @@
 # Homebrew Taps
 tap 'buo/cask-upgrade'
-tap 'shivammathur/php'
-tap 'shivammathur/extensions'
 tap 'koekeishiya/formulae'
 tap 'nicoverbruggen/homebrew-cask'
 
@@ -64,9 +62,6 @@ brew 'd2'                                           # Diagram language
 brew 'xh'                                           # HTTP client (httpie replacement)
 brew 'jq'                                           # JSON processor
 brew 'ollama'                                       # Local LLM CLI
-
-# Programming Languages
-brew 'php'
 
 # Fonts
 cask 'font-annotation-mono'
