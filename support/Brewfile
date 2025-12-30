@@ -35,6 +35,7 @@ brew 'nvm'                                          # Node.js version manager
 brew 'pyenv'                                        # Python version manager
 brew 'frum'                                         # Ruby version manager
 brew 'jenv'                                         # Java version manager
+brew 'luarocks'                                     # Lua package manager
 
 # Editors
 brew 'vim'
