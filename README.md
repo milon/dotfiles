@@ -108,11 +108,11 @@ Commands:
   git              Configure git settings
 
   Languages:
+  php              Setup PHP and Composer
   node             Setup Node.js environment
   python           Setup Python environment
   java             Setup Java environment
   ruby             Setup Ruby environment
-  composer         Setup PHP Composer
 
   Development:
   valet            Setup Laravel Valet
