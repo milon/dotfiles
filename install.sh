@@ -30,6 +30,7 @@ run_step 'NPM' "$support_dir/node.sh"
 run_step 'PYENV' "$support_dir/python.sh"
 run_step 'JENV' "$support_dir/java.sh"
 run_step 'Ruby' "$support_dir/ruby.sh"
+run_step 'RUST' "$support_dir/rust.sh"
 
 # Editors
 run_step 'VIM' "$support_dir/vim.sh"

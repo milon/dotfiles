@@ -21,6 +21,7 @@ COMMAND_SCRIPTS=(
     [java]="java.sh"
     [ruby]="ruby.sh"
     [php]="php.sh"
+    [rust]="rust.sh"
     [valet]="valet.sh"
     [git]="git.sh"
     [clone]="git_clone.sh"
@@ -79,6 +80,7 @@ show_help() {
     echo -e "  ${YELLOW}python${NC}           ${CYAN}Setup Python environment${NC}"
     echo -e "  ${YELLOW}java${NC}             ${CYAN}Setup Java environment${NC}"
     echo -e "  ${YELLOW}ruby${NC}             ${CYAN}Setup Ruby environment${NC}"
+    echo -e "  ${YELLOW}rust${NC}             ${CYAN}Setup Rust environment${NC}"
     echo
     echo -e "  ${BOLD}Development:${NC}"
     echo -e "  ${YELLOW}valet${NC}            ${CYAN}Setup Laravel Valet${NC}"
