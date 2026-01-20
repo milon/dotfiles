@@ -5,7 +5,7 @@ source "$support_dir/functions.sh"
 if (! command -v brew &> /dev/null); then
     print_step "Homebrew not found, installing..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/milon/.zprofile
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
     eval "$(/opt/homebrew/bin/brew shellenv)"
     print_success "Homebrew installed"
 else
