@@ -25,12 +25,8 @@ run_step 'PHP' "$support_dir/php.sh"
 run_step 'VALET' "$support_dir/valet.sh"
 run_step 'GIT CLONE' "$support_dir/git_clone.sh"
 
-# Language environments
-run_step 'NPM' "$support_dir/node.sh"
-run_step 'PYENV' "$support_dir/python.sh"
-run_step 'JENV' "$support_dir/java.sh"
-run_step 'Ruby' "$support_dir/ruby.sh"
-run_step 'RUST' "$support_dir/rust.sh"
+# Language environments (via mise)
+run_step 'MISE' "$support_dir/mise.sh"
 
 # Editors
 run_step 'VIM' "$support_dir/vim.sh"

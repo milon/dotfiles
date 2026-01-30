@@ -43,6 +43,11 @@ print_step() {
     echo -e "${YELLOW}${ARROW} ${message}${NC}"
 }
 
+# Helper functions
+command_exists() {
+    command -v "$1" &> /dev/null
+}
+
 # Functions
 
 ascii_art () {

@@ -1,4 +1,4 @@
 support/Brewfile.lock.json
 ssh/id_rsa
 ssh/id_rsa.pub
-files/nvim/lazy-lock.json
+files/config/nvim/lazy-lock.json

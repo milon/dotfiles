@@ -3,17 +3,22 @@
 source "$support_dir/functions.sh"
 
 declare -A sym_links
+# Organized by destination: home, .vim, .config/*
 sym_links=(
-    [zshrc]=$HOME/.zshrc
-    [vimrc]=$HOME/.vimrc
-    [antigenrc]=$HOME/.antigenrc
-    [plugins.vim]=$HOME/.vim/plugins.vim
-    [gitignore]=$HOME/.gitignore
-    [nvim]=$HOME/.config/nvim
-    [ghostty]=$HOME/.config/ghostty/config
-    [Ghostty.icns]=$HOME/.config/ghostty/Ghostty.icns
-    [skhdrc]=$HOME/.skhdrc
-    [fastfetch.jsonc]=$HOME/.config/fastfetch/config.jsonc
+    # $HOME root
+    [home/zshrc]=$HOME/.zshrc
+    [home/vimrc]=$HOME/.vimrc
+    [home/antigenrc]=$HOME/.antigenrc
+    [home/gitignore]=$HOME/.gitignore
+    [home/skhdrc]=$HOME/.skhdrc
+    # $HOME/.vim
+    [vim/plugins.vim]=$HOME/.vim/plugins.vim
+    # $HOME/.config
+    [config/nvim]=$HOME/.config/nvim
+    [config/ghostty/config]=$HOME/.config/ghostty/config
+    [config/ghostty/Ghostty.icns]=$HOME/.config/ghostty/Ghostty.icns
+    [config/fastfetch/config.jsonc]=$HOME/.config/fastfetch/config.jsonc
+    [config/mise/config.toml]=$HOME/.config/mise/config.toml
 )
 
 for key val in ${(kv)sym_links}; do

@@ -16,12 +16,8 @@ declare -A COMMAND_SCRIPTS
 COMMAND_SCRIPTS=(
     [symlinks]="sym_links.sh"
     [brew]="brew.sh"
-    [node]="node.sh"
-    [python]="python.sh"
-    [java]="java.sh"
-    [ruby]="ruby.sh"
+    [mise]="mise.sh"
     [php]="php.sh"
-    [rust]="rust.sh"
     [valet]="valet.sh"
     [git]="git.sh"
     [clone]="git_clone.sh"
@@ -78,12 +74,8 @@ show_help() {
     echo -e "  ${YELLOW}git${NC}              ${CYAN}Configure git settings${NC}"
     echo
     echo -e "  ${BOLD}Languages:${NC}"
+    echo -e "  ${YELLOW}mise${NC}             ${CYAN}Setup mise (node, python, ruby, java, go, rust)${NC}"
     echo -e "  ${YELLOW}php${NC}              ${CYAN}Setup PHP and Composer${NC}"
-    echo -e "  ${YELLOW}node${NC}             ${CYAN}Setup Node.js environment${NC}"
-    echo -e "  ${YELLOW}python${NC}           ${CYAN}Setup Python environment${NC}"
-    echo -e "  ${YELLOW}java${NC}             ${CYAN}Setup Java environment${NC}"
-    echo -e "  ${YELLOW}ruby${NC}             ${CYAN}Setup Ruby environment${NC}"
-    echo -e "  ${YELLOW}rust${NC}             ${CYAN}Setup Rust environment${NC}"
     echo
     echo -e "  ${BOLD}Development:${NC}"
     echo -e "  ${YELLOW}valet${NC}            ${CYAN}Setup Laravel Valet${NC}"
@@ -119,11 +111,23 @@ cmd_update() {
     fi
     
     echo
+    print_step "Updating mise and tools..."
+    if mise self-update 2>/dev/null; then
+        print_success "mise updated"
+    fi
+    if mise upgrade; then
+        print_success "mise tools upgraded"
+    else
+        print_info "Some mise tools may have failed to upgrade"
+    fi
+    
+    
+    echo
     print_step "Updating Composer and global dependencies..."
     if composer self-update && composer global update; then
         print_success "Composer updated"
     else
-        print_error "Composer update failed"
+        print_info "Composer not available, skipping"
     fi
     
     echo
@@ -151,6 +155,13 @@ cmd_clean() {
         print_success "Composer cache cleaned"
     else
         print_info "Composer not available, skipping"
+    fi
+    
+    print_step "Cleaning mise cache..."
+    if command_exists mise && mise cache prune; then
+        print_success "mise cache pruned"
+    else
+        print_info "mise not available, skipping"
     fi
     
     echo

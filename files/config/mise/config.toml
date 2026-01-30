@@ -1,0 +1,15 @@
+# mise global configuration
+# https://mise.jdx.dev/configuration.html
+
+[tools]
+# Use latest LTS when available, otherwise latest
+node = "lts"           # Node.js LTS
+python = "latest"     # No LTS concept
+ruby = "latest"       # No LTS concept
+java = "temurin-25"    # Java 25 LTS (Temurin)
+go = "latest"         # Go latest
+rust = "stable"       # Rust stable channel
+
+[settings]
+# Enable idiomatic version files (.nvmrc, .python-version, .go-version, etc.)
+idiomatic_version_file_enable_tools = ["node", "python", "ruby", "go"]

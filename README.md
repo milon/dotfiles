@@ -108,11 +108,8 @@ Commands:
   git              Configure git settings
 
   Languages:
+  mise             Setup mise (node, python, ruby, java, rust)
   php              Setup PHP and Composer
-  node             Setup Node.js environment
-  python           Setup Python environment
-  java             Setup Java environment
-  ruby             Setup Ruby environment
 
   Development:
   valet            Setup Laravel Valet
@@ -132,8 +129,8 @@ Commands:
 
 ### Development Tools
 - **Editors:** Vim, Neovim (NvChad)
-- **Version Managers:** nvm, pyenv, frum (Ruby), jenv (Java)
-- **Languages:** Node.js, Python, PHP, Ruby, Java
+- **Version Manager:** [mise](https://mise.jdx.dev/) (node, python, ruby, java, rust)
+- **Languages:** Node.js, Python, PHP, Ruby, Java, Rust
 - **Databases:** SQLite, DBngin (MySQL, PostgreSQL, Redis)
 - **Other:** Git, Composer, Laravel Valet, Mailpit, Meilisearch
 

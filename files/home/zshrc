@@ -11,10 +11,10 @@ antigen init $HOME/.antigenrc
 export EDITOR='vim'
 
 # Starship prompt config
-export STARSHIP_CONFIG="$HOME/.dotfiles/files/starship.toml"
+export STARSHIP_CONFIG="$HOME/.dotfiles/files/home/starship.toml"
 
 # Aliases
-source $HOME/.dotfiles/files/zsh_aliases
+source $HOME/.dotfiles/files/home/zsh_aliases
 source $HOME/.custom_aliases
 
 # Always enable colored `grep` output
@@ -25,28 +25,15 @@ export PATH="$PATH:$HOME/.composer/vendor/bin:$HOME/.config/composer/vendor/bin"
 export PATH="$PATH:$HOME/.dotfiles/bin"
 export PATH="$PATH:$HOME/bin:$HOME/.config/phpmon/bin:$HOME/.local/bin"
 
-# Node Version Manager (NVM)
-source $(brew --prefix nvm)/nvm.sh
-export NVM_DIR="$HOME/.nvm"
-
-# Python version manager (pyenv)
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-# Java version manager (jenv)
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-
-# Ruby version manager
-eval "$(frum init)"
+# mise - polyglot version manager (node, python, ruby, java, rust)
+eval "$(mise activate zsh)"
 
 # Zsh
 export PATH="/usr/local/opt/ncurses/bin:$PATH"
 
 # FZF
 eval "$(fzf --zsh)"
-source $HOME/.dotfiles/files/fzf.sh
+source $HOME/.dotfiles/files/home/fzf.sh
 
 # zoxide
 eval "$(zoxide init zsh)"

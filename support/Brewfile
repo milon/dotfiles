@@ -28,11 +28,8 @@ brew 'cmake'
 brew 'sqlite'
 brew 'imagemagick'
 
-# Version Managers
-brew 'nvm'                                          # Node.js version manager
-brew 'pyenv'                                        # Python version manager
-brew 'frum'                                         # Ruby version manager
-brew 'jenv'                                         # Java version manager
+# Version Management
+brew 'mise'                                         # Polyglot version manager (node, python, ruby, java, rust)
 brew 'luarocks'                                     # Lua package manager
 
 # Editors
@@ -108,7 +105,6 @@ cask 'ghostty'                                      # Terminal emulator
 mas 'Amphetamine', id: 937984704
 mas 'Dato', id: 1470584107
 mas 'Keynote', id: 409183694
-mas 'Messenger', id: 1480068668
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
 mas 'The Unarchiver', id: 425424353
