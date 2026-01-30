@@ -13,3 +13,4 @@ rust = "stable"       # Rust stable channel
 [settings]
 # Enable idiomatic version files (.nvmrc, .python-version, .go-version, etc.)
 idiomatic_version_file_enable_tools = ["node", "python", "ruby", "go"]
+color_theme = "catppuccin"
