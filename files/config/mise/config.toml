@@ -6,7 +6,7 @@
 node = "lts"           # Node.js LTS
 python = "latest"     # No LTS concept
 ruby = "latest"       # No LTS concept
-java = "temurin-25"    # Java 25 LTS (Temurin)
+java = "corretto-25"
 go = "latest"         # Go latest
 rust = "stable"       # Rust stable channel
 
