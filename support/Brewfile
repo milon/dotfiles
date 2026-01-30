@@ -74,7 +74,6 @@ cask 'font-sauce-code-pro-nerd-font'
 
 # Development Applications
 cask 'visual-studio-code'
-cask 'bruno'                                        # API client
 cask 'dbngin'                                       # Database manager (MySQL, PostgreSQL, Redis)
 cask 'orbstack'                                     # Docker alternative
 cask 'phpmon'                                       # PHP/Valet monitoring tool
