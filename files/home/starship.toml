@@ -28,7 +28,7 @@ success_symbol = '[➜](bold green)'
 error_symbol = "[➜](bold red)"
 
 [aws]
-symbol = "  "
+symbol = "  "
 disabled = true
 
 [cmd_duration]
@@ -59,7 +59,7 @@ tag_symbol = '  '
 
 [golang]
 format = "[$symbol($version )]($style)"
-symbol = " "
+symbol = " "
 
 [java]
 format = "[$symbol($version )]($style)"
