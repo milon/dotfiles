@@ -4,6 +4,7 @@ tap 'koekeishiya/formulae'
 tap 'nicoverbruggen/homebrew-cask'
 
 # Core System Tools
+brew 'bash'
 brew 'coreutils'                                    # Updated GNU core utilities
 brew 'curl'
 brew 'git'
