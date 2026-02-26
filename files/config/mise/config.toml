@@ -3,12 +3,12 @@
 
 [tools]
 # Use latest LTS when available, otherwise latest
-node = "lts"           # Node.js LTS
-python = "latest"     # No LTS concept
-ruby = "latest"       # No LTS concept
+node = "lts"         # Node.js LTS
+python = "latest"    # No LTS concept
+ruby = "latest"      # No LTS concept
 java = "corretto-25"
-go = "latest"         # Go latest
-rust = "stable"       # Rust stable channel
+go = "latest"        # Go latest
+rust = "stable"      # Rust stable channel
 
 [settings]
 # Enable idiomatic version files (.nvmrc, .python-version, .go-version, etc.)
