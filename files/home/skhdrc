@@ -10,4 +10,4 @@ rcmd - l : open -a "Linear"
 rcmd - p : open -a "PhpStorm" 
 rcmd - n : open -a "Notion"
 rcmd - z : open -a "TablePlus"
-rcmd - f : open ~
+rcmd - f : open -a "Finder"
