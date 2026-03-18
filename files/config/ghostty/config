@@ -11,6 +11,8 @@ term = xterm-256color
 
 # fonts
 font-size = 18
+font-thicken = true
+font-thicken-strength = 1
 adjust-cell-height = 30%
 
 # macos
