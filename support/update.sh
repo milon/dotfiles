@@ -2,8 +2,6 @@
 
 source "$support_dir/functions.sh"
 
-print_section "Updating Packages"
-
 print_step "Updating Homebrew and Mac App Store apps..."
 if brew cu --all --include-mas --yes --cleanup 2>/dev/null; then
     print_success "Homebrew casks updated"

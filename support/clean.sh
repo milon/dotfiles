@@ -2,8 +2,6 @@
 
 source "$support_dir/functions.sh"
 
-print_section "Cleaning Caches"
-
 print_step "Cleaning Homebrew cache..."
 if brew cleanup; then
     print_success "Homebrew cache cleaned"
