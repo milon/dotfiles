@@ -4,7 +4,6 @@ tap 'koekeishiya/formulae'
 tap 'nicoverbruggen/homebrew-cask'
 
 # Core System Tools
-brew 'brew-cask-upgrade'                            # brew cu — Cask + optional MAS via topgrade / manual use
 brew 'topgrade'                                     # Unified upgrade runner (dotfiles update)
 brew 'bash'
 brew 'coreutils'                                    # Updated GNU core utilities
