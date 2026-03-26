@@ -8,6 +8,7 @@ brew 'topgrade'                                     # Unified upgrade runner (do
 brew 'bash'
 brew 'coreutils'                                    # Updated GNU core utilities
 brew 'curl'
+brew 'duti'                                         # Set default URL handler (e.g. Chrome for http/https)
 brew 'git'
 brew 'gnupg'
 brew 'grep'

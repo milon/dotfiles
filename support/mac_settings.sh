@@ -21,8 +21,25 @@ defaults write com.apple.dock autohide-time-modifier -float 0.2
 killall Dock
 print_success "Dock configured (position: left, autohide enabled)"
 
-print_info "Note: Additional manual settings may be needed:"
-print_info "  - Set Chrome as default browser"
-print_info "  - Disable Spotlight suggestions"
-print_info "  - Enable full keyboard access for all controls"
-print_info "  - Set Caps Lock as Escape"
+print_step "Disabling Spotlight web / menu search suggestions..."
+defaults write com.apple.Spotlight MenuWebSearchEnabled -bool false
+defaults write com.apple.Spotlight showWebSuggestions -bool false 2>/dev/null || true
+killall Spotlight 2>/dev/null || true
+print_success "Spotlight suggestion defaults updated"
+
+print_step "Enabling full keyboard access (focus all controls with Tab)..."
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+print_success "AppleKeyboardUIMode set to 3 (all controls)"
+
+print_step "Setting Chrome as default browser (http/https/html)..."
+if ! command_exists duti; then
+    print_info "duti not in PATH (run brew bundle / brew install duti)"
+elif [[ ! -d "/Applications/Google Chrome.app" ]]; then
+    print_info "Google Chrome.app not found; skipped (install Chrome first)"
+else
+    duti -s com.google.Chrome http https html htm xhtml public.html
+    print_success "Default handler set to Chrome (verify in System Settings > Desktop & Dock > Default web browser)"
+fi
+
+echo
+print_success "Mac settings completed"
