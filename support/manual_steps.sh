@@ -16,9 +16,4 @@ print_info "  • JetBrains Toolbox - install PhpStorm"
 print_info "  • Additional apps as needed"
 echo
 
-print_step "Final steps:"
-print_info "  • Set up the Dock the way you want"
-print_info "  • Configure any additional system preferences"
-echo
-
 print_success "Manual steps checklist displayed"
