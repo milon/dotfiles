@@ -1,0 +1,17 @@
+# Topgrade config for `dotfiles update` (and ~/.config when symlinked).
+# See: topgrade --config-reference
+
+[misc]
+# Skip pulling predefined / extra git repos (use `dotfiles pull` instead)
+# Skip GitHub CLI extension updates
+# Skip Docker/Podman image pulls for configured containers
+# Use [commands] for Composer instead of the built-in Composer step
+disable = ["git_repos", "github_cli_extensions", "containers"]
+assume_yes = true
+cleanup = true
+
+[composer]
+self_update = true
+
+[commands]
+"composer global update" = "composer global update"

@@ -7,6 +7,11 @@ if brew cleanup; then
     print_success "Homebrew cache cleaned"
 fi
 
+print_step "Removing unneeded Homebrew formulae..."
+if brew autoremove; then
+    print_success "Homebrew autoremove completed"
+fi
+
 print_step "Cleaning npm cache..."
 if npm cache clean --force 2>/dev/null; then
     print_success "npm cache cleaned"

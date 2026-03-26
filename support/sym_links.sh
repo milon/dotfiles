@@ -19,6 +19,7 @@ sym_links=(
     [config/ghostty/Ghostty.icns]=$HOME/.config/ghostty/Ghostty.icns
     [config/fastfetch/config.jsonc]=$HOME/.config/fastfetch/config.jsonc
     [config/mise/config.toml]=$HOME/.config/mise/config.toml
+    [config/topgrade.toml]=$HOME/.config/topgrade.toml
 )
 
 for key val in ${(kv)sym_links}; do
