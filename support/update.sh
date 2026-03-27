@@ -2,7 +2,7 @@
 
 source "$support_dir/functions.sh"
 
-readonly TOPGRADE_CONFIG="$dotfiles_dir/files/config/topgrade.toml"
+readonly TOPGRADE_CONFIG="$HOME/.config/topgrade.toml"
 
 
 print_step "Running topgrade with ${TOPGRADE_CONFIG#$HOME/}..."
