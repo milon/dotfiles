@@ -6,7 +6,8 @@
 # Skip GitHub CLI extension updates
 # Skip Docker/Podman image pulls for configured containers
 # Use [commands] for Composer instead of the built-in Composer step
-disable = ["git_repos", "github_cli_extensions", "containers"]
+# Skip node (npm global), Yarn, and Deno (manage via mise or manually)
+disable = ["git_repos", "github_cli_extensions", "containers", "node", "yarn", "deno", "rustup", "pip3", "pnpm"]
 assume_yes = true
 cleanup = true
 
