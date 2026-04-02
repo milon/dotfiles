@@ -2,17 +2,27 @@
 
 source "$support_dir/functions.sh"
 
-readonly TOPGRADE_CONFIG="$HOME/.config/topgrade.toml"
+repo_config="${dotfiles_dir:A}/files/config/topgrade.toml"
+user_config="${HOME}/.config/topgrade.toml"
 
+if [[ -f $user_config ]]; then
+    TOPGRADE_CONFIG=$user_config
+else
+    TOPGRADE_CONFIG=$repo_config
+fi
 
-print_step "Running topgrade with ${TOPGRADE_CONFIG#$HOME/}..."
+if [[ "$TOPGRADE_CONFIG" == "$repo_config" ]]; then
+    print_step "Running topgrade with repo config (${TOPGRADE_CONFIG#$HOME/})..."
+else
+    print_step "Running topgrade with ${TOPGRADE_CONFIG#$HOME/}..."
+fi
 
 if ! command_exists topgrade; then
     print_info "topgrade not installed (install with: brew install topgrade)"
     exit 1
 fi
 
-if [[ ! -f "$TOPGRADE_CONFIG" ]]; then
+if [[ ! -f $TOPGRADE_CONFIG ]]; then
     print_error "Config not found: $TOPGRADE_CONFIG"
     exit 1
 fi

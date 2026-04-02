@@ -18,17 +18,15 @@ cd "$CODE_DIR" || exit 1
 
 for dir repo in ${(kv)git_repos}; do
     print_step "Cloning ${dir}..."
-    if git clone "$repo" "$dir" > /dev/null 2>&1; then
-        print_success "Cloned ${dir}"
-    elif [ $? -eq 128 ]; then
+    if [[ -d "$dir/.git" ]]; then
         print_info "${dir} already exists, pulling latest changes..."
-        cd "$dir" || continue
-        if git pull; then
+        if ( cd "$dir" && git pull ); then
             print_success "Updated ${dir}"
         else
             print_error "Failed to update ${dir}"
         fi
-        cd "$CODE_DIR" || exit 1
+    elif git clone "$repo" "$dir" > /dev/null 2>&1; then
+        print_success "Cloned ${dir}"
     else
         print_error "Failed to clone ${dir}"
     fi

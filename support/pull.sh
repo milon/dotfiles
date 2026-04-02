@@ -24,41 +24,38 @@ for dir repo in ${(kv)git_repos}; do
         print_info "Skipping ${dir} (directory not found)"
         continue
     fi
-    
+
     print_step "Pulling updates for ${dir}..."
-    cd "$repo" || continue
-    
-    if git pull --rebase; then
+    if ( cd "$repo" && git pull --rebase ); then
         print_success "Updated ${dir}"
     else
         print_error "Failed to update ${dir}"
     fi
-    
-    cd "$CODE_DIR" || exit 1
 done
 
 if [ "$UPDATE" = true ]; then
     echo
     print_step "Updating Composer Dependencies"
     echo
-    
+
     for dir repo in ${(kv)git_repos}; do
         if [ ! -d "$repo" ]; then
             continue
         fi
-        
-        cd "$repo" || continue
-        
-        if [ -f "composer.json" ]; then
+
+        if ( cd "$repo" && [ -f composer.json ] ); then
             print_step "Updating dependencies for ${dir}..."
-            if composer update; then
-                if [ -n "$(git status --porcelain)" ]; then
-                    git add .
-                    git commit -m "Updates dependencies"
-                    if git push; then
+            if ( cd "$repo" && composer update ); then
+                if ( cd "$repo" && [ -n "$(git status --porcelain)" ] ); then
+                    if (
+                        cd "$repo" &&
+                        git add . &&
+                        git commit -m "Updates dependencies" &&
+                        git push
+                    ); then
                         print_success "Dependencies updated and committed for ${dir}"
                     else
-                        print_error "Failed to push dependencies for ${dir}"
+                        print_error "Failed to commit or push dependencies for ${dir}"
                     fi
                 else
                     print_info "No dependency updates for ${dir}"
@@ -69,7 +66,5 @@ if [ "$UPDATE" = true ]; then
         else
             print_info "Skipping ${dir} (not a PHP project)"
         fi
-        
-        cd "$CODE_DIR" || exit 1
     done
 fi

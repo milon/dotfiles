@@ -5,14 +5,11 @@
 # Skip pulling predefined / extra git repos (use `dotfiles pull` instead)
 # Skip GitHub CLI extension updates
 # Skip Docker/Podman image pulls for configured containers
-# Use [commands] for Composer instead of the built-in Composer step
+# Built-in Composer step disabled — use [commands] only (avoids duplicate global update)
 # Skip node (npm global), Yarn, and Deno (manage via mise or manually)
-disable = ["git_repos", "github_cli_extensions", "containers", "node", "yarn", "deno", "rustup", "pip3", "pnpm"]
+disable = ["git_repos", "github_cli_extensions", "containers", "composer", "node", "yarn", "deno", "rustup", "pip3", "pnpm"]
 assume_yes = true
 cleanup = true
 
-[composer]
-self_update = true
-
 [commands]
-"composer global update" = "composer global update"
+"Composer" = "composer self-update && composer global update"

@@ -45,12 +45,7 @@ git config --global color.ui true
 print_success "Log settings configured"
 
 print_step "Configuring Git color settings..."
-git config --global color.graph blue
-git config --global color.graph yellow
-git config --global color.graph cyan
-git config --global color.graph magenta
-git config --global color.graph green
-git config --global color.graph red
+git config --global color.graph "blue bold,yellow bold,cyan bold,magenta bold,green bold,red bold"
 git config --global color.branch.current magenta
 git config --global color.branch.local default
 git config --global color.branch.remote yellow
