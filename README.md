@@ -98,7 +98,7 @@ Run `dotfiles help` (or `dotfiles`) for the current list. In short:
 - **clean** — `brew cleanup`, `brew autoremove` (unused dependency-only formulae), plus npm / Composer / mise cache cleanup where available.
 - **symlinks** — Link tracked files from `files/` into `~` and `~/.config/`.
 
-Example: `dotfiles help` output matches `support/dotfiles_commands.sh` so it stays accurate when new commands are added.
+When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIPTS`) and `support/help.sh` so help stays accurate.
 
 ## What Gets Installed
 

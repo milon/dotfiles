@@ -10,7 +10,25 @@ export support_dir="$dotfiles_dir/support"
 
 # Load functions (includes color constants and output helpers)
 source "$support_dir/functions.sh"
-source "$support_dir/dotfiles_commands.sh"
+
+# Command to script mapping
+declare -A COMMAND_SCRIPTS
+COMMAND_SCRIPTS=(
+    [symlinks]="sym_links.sh"
+    [update]="update.sh"
+    [clean]="clean.sh"
+    [brew]="brew.sh"
+    [mise]="mise.sh"
+    [php]="php.sh"
+    [valet]="valet.sh"
+    [git]="git.sh"
+    [clone]="git_clone.sh"
+    [pull]="pull.sh"
+    [mac]="mac_settings.sh"
+    [xcode]="xcode.sh"
+    [vim]="vim.sh"
+    [neovim]="neovim.sh"
+)
 
 # Run a support script
 run_script() {
