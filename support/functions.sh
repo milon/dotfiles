@@ -71,22 +71,16 @@ confirm_or_exit() {
     fi
 }
 
-title () {
-    title=$1
-    title_length=${#title}
-    leftover=$(expr 30 - $title_length)
-
-    echo 
-    printf "$title "
-    printf '=%.0s' {1..$leftover}
-    echo 
-}
-
 run_step() {
     local step_name=$1
     local script=$2
-    
+
     print_section "$step_name"
     source "$script"
-    cd "$dotfiles_dir"
+    local ec=$?
+    cd "$dotfiles_dir" 2>/dev/null || cd / || true
+    if (( ec != 0 )); then
+        print_error "Step failed: ${step_name} (exit ${ec})"
+        exit "$ec"
+    fi
 }

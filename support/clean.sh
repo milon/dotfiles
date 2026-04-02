@@ -7,8 +7,9 @@ if brew cleanup; then
     print_success "Homebrew cache cleaned"
 fi
 
-print_step "Removing unneeded Homebrew formulae..."
-if brew autoremove; then
+print_step "Removing undependency-only Homebrew formulae (brew autoremove)..."
+print_info "Uninstalls formulae that were only installed as dependencies and are no longer needed."
+if brew autoremove --quiet; then
     print_success "Homebrew autoremove completed"
 fi
 

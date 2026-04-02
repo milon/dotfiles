@@ -18,6 +18,8 @@ Personal dotfiles configuration for macOS. Automates the setup of development en
 
 Before running the installation, complete these steps:
 
+0. **Shell:** These scripts target **Zsh** (macOS default). Run `./install.sh` and `dotfiles` from Zsh.
+
 1. **Sign in to Mac App Store**
    - Open App Store and sign in with your Apple ID
 
@@ -70,6 +72,8 @@ Before running the installation, complete these steps:
 
 The installer will guide you through the setup process with interactive prompts.
 
+**Optional (after install):** Run `dotfiles symlinks` so config (including `files/config/topgrade.toml`) is mirrored under `~/.config/`. `dotfiles update` uses `~/.config/topgrade.toml` when present; otherwise it reads the copy inside the repo.
+
 ## Usage
 
 After installation, you'll have a `dotfiles` command available in your terminal.
@@ -88,48 +92,19 @@ dotfiles
 
 ### Command Reference
 
-```bash
-➜ dotfiles
-   _     _   ___ _ _
- _| |___| |_|  _|_| |___ ___
-| . | . |  _|  _| | | -_|_ -|
-|___|___|_| |_| |_|_|___|___|
-➜ Usage: dotfiles <command>
+Run `dotfiles help` (or `dotfiles`) for the current list. In short:
 
-Commands:
+- **update** — [Topgrade](https://github.com/topgrade-rs/topgrade) with `files/config/topgrade.toml` (brew, casks, Mac App Store, mise, editor extensions, Composer, etc.; steps can be disabled in that file).
+- **clean** — `brew cleanup`, `brew autoremove` (unused dependency-only formulae), plus npm / Composer / mise cache cleanup where available.
+- **symlinks** — Link tracked files from `files/` into `~` and `~/.config/`.
 
-  help             Show this help message
-  update           Update packages and pkg managers (brew, mac app store, composer)
-  clean            Clean up caches (brew, npm, composer)
-
-  Setup:
-  symlinks         Create symlinks for dotfiles
-  brew             Install Homebrew and dependencies
-  git              Configure git settings
-
-  Languages:
-  mise             Setup mise (node, python, ruby, java, rust)
-  php              Setup PHP and Composer
-
-  Development:
-  valet            Setup Laravel Valet
-  clone            Clone git repositories
-  pull             Update all git repositories
-
-  Editors:
-  vim              Setup Vim
-  neovim           Setup Neovim
-
-  System:
-  mac              Configure macOS settings
-  xcode            Setup Xcode
-```
+Example: `dotfiles help` output matches `support/dotfiles_commands.sh` so it stays accurate when new commands are added.
 
 ## What Gets Installed
 
 ### Development Tools
-- **Editors:** Vim, Neovim (NvChad)
-- **Version Manager:** [mise](https://mise.jdx.dev/) (node, python, ruby, java, rust)
+- **Editors:** Vim, Neovim (Lazy.nvim)
+- **Version Manager:** [mise](https://mise.jdx.dev/) (node, python, ruby, java, go, rust)
 - **Languages:** Node.js, Python, PHP, Ruby, Java, Rust
 - **Databases:** SQLite, DBngin (MySQL, PostgreSQL, Redis)
 - **Other:** Git, Composer, Laravel Valet, Mailpit, Meilisearch

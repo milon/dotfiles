@@ -22,7 +22,10 @@ sym_links=(
     [config/topgrade.toml]=$HOME/.config/topgrade.toml
 )
 
-for key val in ${(kv)sym_links}; do
+symlinks_ok=1
+# (ko): iterate keys in sorted order for stable logs and diffs
+for key in ${(ko)sym_links}; do
+    val=${sym_links[$key]}
     print_step "Creating symlink for $(basename "$val")..."
     mkdir -p "$(dirname "$val")"
     src="${dotfiles_dir:A}/files/${key}"
@@ -37,6 +40,7 @@ for key val in ${(kv)sym_links}; do
         print_success "Created symlink: $val"
     else
         print_error "Failed to create symlink: $val"
+        symlinks_ok=0
     fi
 done
 
@@ -48,3 +52,5 @@ if [[ -L $nvim_nested && ${nvim_nested:A} == ${nvim_cfg:A} ]]; then
     print_info "Removed circular files/config/nvim/nvim symlink"
 fi
 unset nvim_cfg nvim_nested src
+
+(( symlinks_ok )) || return 1
