@@ -12,4 +12,4 @@ assume_yes = true
 cleanup = true
 
 [commands]
-"Composer" = "composer self-update && composer global update"
+"composer" = "composer self-update && composer global update"
