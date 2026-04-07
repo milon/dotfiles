@@ -8,6 +8,7 @@ $git_status\
 $fill\
 
 $php\
+$bun\
 $nodejs\
 $python\
 $java\
@@ -30,6 +31,10 @@ error_symbol = "[➜](bold red)"
 [aws]
 symbol = "  "
 disabled = true
+
+[bun]
+format = "[$symbol($version )]($style)"
+symbol = " "
 
 [cmd_duration]
 format = "[ $duration]($style) "
