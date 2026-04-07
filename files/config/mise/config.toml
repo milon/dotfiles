@@ -3,11 +3,12 @@
 
 [tools]
 # Use latest LTS when available, otherwise latest
-node = "lts"         # Node.js LTS
-python = "latest"    # No LTS concept
-ruby = "latest"      # No LTS concept
+bun = "latest"
+node = "lts"
+python = "latest"
+ruby = "latest"
 java = "corretto-25"
-go = "latest"        # Go latest
+go = "latest"
 rust = "stable"      # Rust stable channel
 
 [settings]
