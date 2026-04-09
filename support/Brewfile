@@ -92,6 +92,7 @@ cask 'aldente'                                      # Battery charging controlle
 cask 'monitorcontrol'                               # External monitor control
 cask 'latest'                                       # Check for app updates
 cask 'imageoptim'                                   # Image optimization
+cask 'kitlangton-hex'                               # Speech to word converter
 
 # Media Applications
 cask 'iina'                                         # Media player
