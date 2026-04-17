@@ -86,6 +86,7 @@ cask '1password'
 cask 'raycast'                                      # Spotlight replacement
 cask 'obsidian'                                     # Note-taking
 cask 'bartender'                                    # Menu bar organizer
+cask 'kepubify'                                     # EPUB to Kobo converter
 
 # System Utilities
 cask 'aldente'                                      # Battery charging controller
