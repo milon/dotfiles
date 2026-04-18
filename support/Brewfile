@@ -57,6 +57,7 @@ brew 'mpv'                                          # Media player
 brew 'viu'                                          # Terminal image viewer
 brew 'yt-dlp'                                       # YouTube downloader
 brew 'd2'                                           # Diagram language
+brew 'kepubify'                                     # EPUB to Kobo converter
 
 # Web & API Tools
 brew 'xh'                                           # HTTP client (httpie replacement)
@@ -86,7 +87,6 @@ cask '1password'
 cask 'raycast'                                      # Spotlight replacement
 cask 'obsidian'                                     # Note-taking
 cask 'bartender'                                    # Menu bar organizer
-cask 'kepubify'                                     # EPUB to Kobo converter
 
 # System Utilities
 cask 'aldente'                                      # Battery charging controller
