@@ -33,4 +33,5 @@ echo
 echo -e "  ${BOLD}System:${NC}"
 echo -e "  ${YELLOW}mac${NC}              ${CYAN}Configure macOS settings${NC}"
 echo -e "  ${YELLOW}xcode${NC}            ${CYAN}Setup Xcode / CLI tools${NC}"
+echo -e "  ${YELLOW}hotkeys${NC}          ${CYAN}Start or reload hotkey services (yabai, skhd)${NC}"
 echo

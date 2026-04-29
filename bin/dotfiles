@@ -28,6 +28,7 @@ COMMAND_SCRIPTS=(
     [xcode]="xcode.sh"
     [vim]="vim.sh"
     [neovim]="neovim.sh"
+    [hotkeys]="hotkeys.sh"
 )
 
 # Run a support script
