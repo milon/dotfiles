@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+# Focus the visible window nearest to the focused window in a given direction.
+# Works regardless of yabai's layout (designed for `layout float` where
+# `yabai -m window --focus <DIR>` returns "could not locate a managed window").
+#
+# Usage: yabai-focus-direction west|east|north|south
+#
+# Strategy:
+# - Consider every visible, non-minimized, non-hidden window on the focused
+#   space (i.e. the same display the user is currently looking at).
+# - Compare window centers against the focused window's center.
+# - Keep candidates strictly in the requested direction.
+# - Score = primary-axis distance + 2 * perpendicular-axis distance.
+#   The 2x perpendicular weight biases focus toward windows roughly aligned
+#   with the current one, which matches how a directional move "feels".
+#
+# Requires: yabai, jq.
+
+set -euo pipefail
+
+dir="${1:-}"
+case "$dir" in
+    west|east|north|south) ;;
+    *) echo "usage: $(basename "$0") west|east|north|south" >&2; exit 1 ;;
+esac
+
+cur="$(yabai -m query --windows --window)"
+cur_id="$(jq -r '.id' <<<"$cur")"
+read -r cx cy cw ch <<<"$(jq -r '"\(.frame.x) \(.frame.y) \(.frame.w) \(.frame.h)"' <<<"$cur")"
+
+# All visible candidate windows on the currently focused space, except the
+# focused one itself. `--space` (no arg) targets the active space, which is
+# exactly the set of windows the user can actually see and switch focus to.
+candidates="$(yabai -m query --windows --space \
+    | jq -r --argjson cur "$cur_id" '
+        .[]
+        | select(.id != $cur)
+        | select(.["is-visible"] == true)
+        | select(.["is-minimized"] == false)
+        | select(.["is-hidden"] == false)
+        | "\(.id) \(.frame.x) \(.frame.y) \(.frame.w) \(.frame.h)"
+    ')"
+
+[[ -z "$candidates" ]] && exit 0
+
+best_id="$(awk -v dir="$dir" -v cx="$cx" -v cy="$cy" -v cw="$cw" -v ch="$ch" '
+    function abs(x) { return x < 0 ? -x : x }
+    BEGIN {
+        cur_cx = cx + cw / 2
+        cur_cy = cy + ch / 2
+        best_id = ""
+        best_score = 1e18
+    }
+    {
+        id = $1; x = $2; y = $3; w = $4; h = $5
+        ccx = x + w / 2
+        ccy = y + h / 2
+        dx = ccx - cur_cx
+        dy = ccy - cur_cy
+
+        if (dir == "west"  && dx >= 0) next
+        if (dir == "east"  && dx <= 0) next
+        if (dir == "north" && dy >= 0) next
+        if (dir == "south" && dy <= 0) next
+
+        if (dir == "west" || dir == "east") {
+            score = abs(dx) + 2 * abs(dy)
+        } else {
+            score = abs(dy) + 2 * abs(dx)
+        }
+
+        if (score < best_score) { best_score = score; best_id = id }
+    }
+    END { print best_id }
+' <<<"$candidates")"
+
+[[ -n "$best_id" ]] && yabai -m window --focus "$best_id"

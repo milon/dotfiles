@@ -11,3 +11,29 @@ rcmd - p : open -a "PhpStorm"
 rcmd - n : open -a "Notion"
 rcmd - z : open -a "TablePlus"
 rcmd - f : open -a "Finder"
+
+# Window management (yabai)
+# Grid is rows:cols:start_x:start_y:width:height on a 1:6 column grid
+ctrl + alt + shift - left  : yabai -m window --grid 1:6:0:0:3:1   # Left half
+ctrl + alt + shift - right : yabai -m window --grid 1:6:3:0:3:1   # Right half
+
+# Cycle the focused window through preset widths anchored to the arrow's side:
+#   left/right : 1/2 -> 2/3 -> 1/3 -> 1/2 ...
+#   up         : full -> centered 2/3 -> centered 1/2 -> ...
+cmd + alt + shift - left   : yabai-cycle-grid left
+cmd + alt + shift - right  : yabai-cycle-grid right
+cmd + alt + shift - up     : yabai-cycle-grid center
+
+# Window focus: jump to the nearest visible window in the given direction.
+# Custom script (instead of `yabai -m window --focus DIR`) because the latter
+# only works with managed windows, and we run with `layout float`.
+cmd + ctrl + shift - left   : yabai-focus-direction west
+cmd + ctrl + shift - right  : yabai-focus-direction east
+cmd + ctrl + shift - up     : yabai-focus-direction north
+cmd + ctrl + shift - down   : yabai-focus-direction south
+
+# Display focus (jumps to the display in the given direction)
+ctrl + shift - left  : yabai -m display --focus west
+ctrl + shift - right : yabai -m display --focus east
+ctrl + shift - up    : yabai -m display --focus north
+ctrl + shift - down  : yabai -m display --focus south

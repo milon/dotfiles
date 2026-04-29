@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+# Cycle the focused window through preset grid positions on the current
+# display. Each "side" defines both the anchor (left edge / right edge /
+# centered) and the cycle order of widths.
+#
+# Usage: yabai-cycle-grid left|right|center
+#
+# Cycles:
+#   left   : 1/2 -> 2/3 -> 1/3 -> 1/2 ...   (anchored to the left edge)
+#   right  : 1/2 -> 2/3 -> 1/3 -> 1/2 ...   (anchored to the right edge)
+#   center : full -> 2/3 -> 1/2 -> full ...  (centered on the display)
+#
+# If the focused window isn't already snapped to the requested side at one of
+# the cycle's known sizes, the first press jumps it to that side at 1/2 width
+# (or full screen, in the case of `center`, the first press still goes to
+# centered 1/2). Subsequent presses advance through the cycle.
+#
+# Requires: yabai, jq.
+
+set -euo pipefail
+
+side="${1:-}"
+case "$side" in
+    left|right|center) ;;
+    *) echo "usage: $(basename "$0") left|right|center" >&2; exit 1 ;;
+esac
+
+# All grid math uses a 1:12 column grid:
+#   1/3 = 4 cols, 1/2 = 6 cols, 2/3 = 8 cols, full = 12 cols
+# Left-anchored grids start at column 0; right-anchored start at (12 - cols);
+# centered grids start at (12 - cols) / 2.
+declare -A LEFT_GRID=(
+    [half]="1:12:0:0:6:1"
+    [two_thirds]="1:12:0:0:8:1"
+    [third]="1:12:0:0:4:1"
+)
+declare -A RIGHT_GRID=(
+    [half]="1:12:6:0:6:1"
+    [two_thirds]="1:12:4:0:8:1"
+    [third]="1:12:8:0:4:1"
+)
+declare -A CENTER_GRID=(
+    [half]="1:12:3:0:6:1"
+    [two_thirds]="1:12:2:0:8:1"
+    [full]="1:12:0:0:12:1"
+)
+
+next_state() {
+    local s="$1"
+    if [[ "$side" == "center" ]]; then
+        case "$s" in
+            full)       echo "two_thirds" ;;
+            two_thirds) echo "half" ;;
+            half)       echo "full" ;;
+            *)          echo "full" ;;
+        esac
+    else
+        case "$s" in
+            half)       echo "two_thirds" ;;
+            two_thirds) echo "third" ;;
+            third)      echo "half" ;;
+            *)          echo "half" ;;
+        esac
+    fi
+}
+
+win_json="$(yabai -m query --windows --window)"
+win_did="$(jq -r '.display' <<<"$win_json")"
+disp_json="$(yabai -m query --displays --display "$win_did")"
+
+read -r d_x d_w <<<"$(jq -r '"\(.frame.x) \(.frame.w)"' <<<"$disp_json")"
+read -r w_x w_w <<<"$(jq -r '"\(.frame.x) \(.frame.w)"' <<<"$win_json")"
+
+# Tolerance: roughly half a grid cell on the current display.
+tol="$(awk -v dw="$d_w" 'BEGIN { printf "%.4f", dw / 24.0 }')"
+
+current_state="$(awk -v dx="$d_x" -v dw="$d_w" -v wx="$w_x" -v ww="$w_w" \
+    -v side="$side" -v tol="$tol" '
+    function approx(a, b)   { return (a - b <= tol && b - a <= tol) }
+    function third(d)       { return d / 3.0 }
+    function half(d)        { return d / 2.0 }
+    function two_thirds(d)  { return (2.0 * d) / 3.0 }
+    BEGIN {
+        left_x = dx
+        if (side == "left") {
+            if (!approx(wx, left_x)) { print "none"; exit }
+            if      (approx(ww, half(dw)))       print "half"
+            else if (approx(ww, two_thirds(dw))) print "two_thirds"
+            else if (approx(ww, third(dw)))      print "third"
+            else                                  print "none"
+        } else if (side == "right") {
+            right_half_x       = dx + half(dw)
+            right_two_thirds_x = dx + third(dw)
+            right_third_x      = dx + two_thirds(dw)
+            if      (approx(wx, right_half_x)       && approx(ww, half(dw)))       print "half"
+            else if (approx(wx, right_two_thirds_x) && approx(ww, two_thirds(dw))) print "two_thirds"
+            else if (approx(wx, right_third_x)      && approx(ww, third(dw)))      print "third"
+            else                                                                    print "none"
+        } else {
+            center_half_x       = dx + dw / 4.0
+            center_two_thirds_x = dx + dw / 6.0
+            if      (approx(wx, center_half_x)       && approx(ww, half(dw)))       print "half"
+            else if (approx(wx, center_two_thirds_x) && approx(ww, two_thirds(dw))) print "two_thirds"
+            else if (approx(wx, dx)                  && approx(ww, dw))             print "full"
+            else                                                                     print "none"
+        }
+    }
+')"
+
+if [[ "$current_state" == "none" ]]; then
+    if [[ "$side" == "center" ]]; then
+        target_state="full"
+    else
+        target_state="half"
+    fi
+else
+    target_state="$(next_state "$current_state")"
+fi
+
+case "$side" in
+    left)   grid="${LEFT_GRID[$target_state]}" ;;
+    right)  grid="${RIGHT_GRID[$target_state]}" ;;
+    center) grid="${CENTER_GRID[$target_state]}" ;;
+esac
+
+yabai -m window --grid "$grid"

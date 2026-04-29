@@ -11,6 +11,7 @@ sym_links=(
     [home/antigenrc]=$HOME/.antigenrc
     [home/gitignore]=$HOME/.gitignore
     [home/skhdrc]=$HOME/.skhdrc
+    [home/yabairc]=$HOME/.yabairc
     # $HOME/.vim
     [vim/plugins.vim]=$HOME/.vim/plugins.vim
     # $HOME/.config

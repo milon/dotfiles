@@ -50,6 +50,7 @@ brew 'diff-so-fancy'                                # Better git diff output
 brew 'mas'                                          # Mac App Store CLI
 brew 'btop'                                         # System monitor
 brew 'koekeishiya/formulae/skhd'                    # Hotkey daemon
+brew 'koekeishiya/formulae/yabai'                   # Tiling window manager
 
 # Media & Content
 brew 'ffmpeg'
