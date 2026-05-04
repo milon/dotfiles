@@ -2,17 +2,37 @@
 
 source "$support_dir/functions.sh"
 
-print_step "Enter your GitHub author name:"
-read git_author_name
-print_step "Enter your GitHub user email:"
-read git_author_email
+existing_name=$(git config --global --get user.name 2>/dev/null || true)
+existing_email=$(git config --global --get user.email 2>/dev/null || true)
 
-echo
+configure_user=true
+if [[ -n "$existing_name" || -n "$existing_email" ]]; then
+    print_info "Git identity already configured:"
+    print_info "  user.name  = ${existing_name:-<unset>}"
+    print_info "  user.email = ${existing_email:-<unset>}"
+    echo
+    if read -q "choice?Override existing Git identity? (y/n) "; then
+        echo
+    else
+        echo
+        print_info "Keeping existing Git identity"
+        configure_user=false
+    fi
+fi
 
-print_step "Setting Git user configuration..."
-git config --global user.name "$git_author_name"
-git config --global user.email "$git_author_email"
-print_success "Git user configured"
+if [[ $configure_user == true ]]; then
+    print_step "Enter your GitHub author name:"
+    read git_author_name
+    print_step "Enter your GitHub user email:"
+    read git_author_email
+
+    echo
+
+    print_step "Setting Git user configuration..."
+    git config --global user.name "$git_author_name"
+    git config --global user.email "$git_author_email"
+    print_success "Git user configured"
+fi
 
 print_step "Configuring Git core settings..."
 git config --global core.excludesfile "$HOME/.gitignore"
