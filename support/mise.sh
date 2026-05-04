@@ -5,7 +5,7 @@ source "$support_dir/functions.sh"
 print_step "Checking if mise is installed..."
 if ! command_exists mise; then
     print_error "mise not found. Please install Homebrew and run 'dotfiles brew' first."
-    exit 1
+    return 1
 fi
 
 print_success "mise is installed"
@@ -16,7 +16,7 @@ if mise install; then
     print_success "All mise tools installed"
 else
     print_error "Some mise tools failed to install"
-    exit 1
+    return 1
 fi
 
 print_step "Verifying installed tools..."

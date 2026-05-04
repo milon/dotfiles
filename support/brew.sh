@@ -18,5 +18,5 @@ if brew bundle --file "$support_dir/Brewfile"; then
     print_success "All Homebrew dependencies installed"
 else
     print_error "Some Homebrew dependencies failed to install"
-    exit 1
+    return 1
 fi

@@ -19,12 +19,12 @@ fi
 
 if ! command_exists topgrade; then
     print_info "topgrade not installed (install with: brew install topgrade)"
-    exit 1
+    return 1
 fi
 
 if [[ ! -f $TOPGRADE_CONFIG ]]; then
     print_error "Config not found: $TOPGRADE_CONFIG"
-    exit 1
+    return 1
 fi
 
 if topgrade --config "$TOPGRADE_CONFIG"; then
@@ -33,5 +33,5 @@ if topgrade --config "$TOPGRADE_CONFIG"; then
 else
     echo
     print_error "topgrade reported failures (see output above)"
-    exit 1
+    return 1
 fi

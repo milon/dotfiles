@@ -14,7 +14,7 @@ git_repos=(
 )
 
 mkdir -p "$CODE_DIR"
-cd "$CODE_DIR" || exit 1
+cd "$CODE_DIR" || return 1
 
 for dir repo in ${(kv)git_repos}; do
     print_step "Cloning ${dir}..."
@@ -31,3 +31,5 @@ for dir repo in ${(kv)git_repos}; do
         print_error "Failed to clone ${dir}"
     fi
 done
+
+cd "$dotfiles_dir" 2>/dev/null || true

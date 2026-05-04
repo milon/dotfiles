@@ -16,9 +16,9 @@ Personal dotfiles configuration for macOS. Automates the setup of development en
 
 ### Prerequisites
 
-Before running the installation, complete these steps:
+> **Shell:** These scripts target **Zsh** (macOS default). Run `./install.sh` and `dotfiles` from Zsh.
 
-0. **Shell:** These scripts target **Zsh** (macOS default). Run `./install.sh` and `dotfiles` from Zsh.
+Before running the installation, complete these steps:
 
 1. **Sign in to Mac App Store**
    - Open App Store and sign in with your Apple ID
@@ -36,22 +36,20 @@ Before running the installation, complete these steps:
    ```bash
    mkdir -p ~/.ssh && cd ~/.ssh
    ```
-   
+
    - **Option A:** Copy SSH keys from another machine:
      ```bash
-     # Copy id_rsa and id_rsa.pub (or id_ed25519/id_ecdsa)
-     chmod 600 ~/.ssh/id_rsa
-     chmod 644 ~/.ssh/id_rsa.pub
+     # Copy id_ed25519 and id_ed25519.pub (or id_rsa/id_ecdsa)
+     chmod 600 ~/.ssh/id_ed25519
+     chmod 644 ~/.ssh/id_ed25519.pub
      ```
-   
+
    - **Option B:** [Generate a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
      - The installer will prompt you to create one if none are found
 
-5. **Create GitHub Personal Access Token**
-   - [Create a token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `repo` scope
-   - Save it securely (you'll need it for git operations)
+   Add the public key to GitHub (and any other forge / server) before continuing — `git_clone` and friends use SSH remotes.
 
-6. **Install Command Line Tools**
+5. **Install Command Line Tools**
    ```bash
    xcode-select --install
    ```

@@ -2,25 +2,25 @@
 
 source "$support_dir/functions.sh"
 
-# Install Vundle.vim if not already installed
-print_step "Installing Vundle.vim..."
-if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
-    mkdir -p "$HOME/.vim/bundle"
-    if git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim" > /dev/null 2>&1; then
-        print_success "Vundle.vim installed"
+PLUG_VIM="$HOME/.vim/autoload/plug.vim"
+PLUG_URL="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+
+print_step "Installing vim-plug..."
+if [ ! -f "$PLUG_VIM" ]; then
+    if curl -fsSLo "$PLUG_VIM" --create-dirs "$PLUG_URL"; then
+        print_success "vim-plug installed"
     else
-        print_error "Failed to install Vundle.vim"
-        exit 1
+        print_error "Failed to download vim-plug from $PLUG_URL"
+        return 1
     fi
 else
-    print_info "Vundle.vim already installed, skipping"
+    print_info "vim-plug already installed, skipping download"
 fi
 
-# Install Vim plugins
-print_step "Installing Vim plugins..."
-if vim +PluginInstall +qall; then
+print_step "Installing Vim plugins via vim-plug..."
+if vim +'PlugInstall --sync' +qall; then
     print_success "Vim plugins installed"
 else
     print_error "Vim plugin installation failed"
-    exit 1
+    return 1
 fi

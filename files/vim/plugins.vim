@@ -3,27 +3,22 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" vim-plug: https://github.com/junegunn/vim-plug
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+Plug 'tpope/vim-vinegar'
+Plug 'preservim/nerdtree'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'StanAngeloff/php.vim'
+Plug 'arnaud-lb/vim-php-namespace'
+Plug 'godlygeek/tabular'
+Plug 'jiangmiao/auto-pairs'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'ervandew/supertab'
 
-" my installed plugins
-Plugin 'tpope/vim-vinegar'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'catppuccin/vim'
-Plugin 'StanAngeloff/php.vim'
-Plugin 'arnaud-lb/vim-php-namespace'
-Plugin 'godlygeek/tabular'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'garbas/vim-snipmate'
-Plugin 'ervandew/supertab'
+call plug#end()
 
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
 filetype plugin indent on    " required

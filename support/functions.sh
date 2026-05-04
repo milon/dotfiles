@@ -61,13 +61,14 @@ EOF
 
 confirm_or_exit() {
     local prompt_message=$1
-    
+
     if read -q "choice?${prompt_message} (y/n) "; then
         echo
+        return 0
     else
         echo
         echo "Quitting..."
-        exit 1
+        return 1
     fi
 }
 

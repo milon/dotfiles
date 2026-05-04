@@ -28,5 +28,5 @@ manage_service() {
     fi
 }
 
-manage_service yabai || exit 1
-manage_service skhd  || exit 1
+manage_service yabai || return 1
+manage_service skhd  || return 1

@@ -53,16 +53,16 @@ else
             print_info "Remember to add this key to GitHub, GitLab, or your servers"
         else
             print_error "SSH key generation failed"
-            exit 1
+            return 1
         fi
     else
         echo
         print_error "SSH keys are required. Please generate them manually or copy from a previous computer."
-        exit 1
+        return 1
     fi
 fi
 
 echo
 print_step "Verifying prerequisites..."
-confirm_or_exit "Do you have SSH keys linked that have access to everything important?"
-confirm_or_exit "Have you signed into the Mac App Store manually?"
+confirm_or_exit "Do you have SSH keys linked that have access to everything important?" || return 1
+confirm_or_exit "Have you signed into the Mac App Store manually?" || return 1
