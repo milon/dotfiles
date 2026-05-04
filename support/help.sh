@@ -9,6 +9,7 @@ echo
 echo -e "${BOLD}${GREEN}Commands:${NC}"
 echo
 echo -e "  ${YELLOW}help${NC}             ${CYAN}Show this help message${NC}"
+echo -e "  ${YELLOW}doctor${NC}           ${CYAN}Diagnose installation drift (brew, symlinks, mise, git, ssh, PATH)${NC}"
 echo -e "  ${YELLOW}update${NC}           ${CYAN}Run Topgrade (brew, casks, mas, mise, extensions, Composer, … per files/config/topgrade.toml)${NC}"
 echo -e "  ${YELLOW}clean${NC}            ${CYAN}Clean Homebrew cache, autoremove unused deps, npm/Composer/mise caches${NC}"
 echo

@@ -14,8 +14,7 @@ export EDITOR='vim'
 export STARSHIP_CONFIG="$HOME/.dotfiles/files/home/starship.toml"
 
 # Aliases
-source $HOME/.dotfiles/files/home/zsh_aliases
-source $HOME/.custom_aliases
+source "$HOME/.dotfiles/files/home/zsh_aliases"
 
 # Always enable colored `grep` output
 export GREP_OPTIONS="--color=auto"
@@ -33,7 +32,12 @@ export PATH="/usr/local/opt/ncurses/bin:$PATH"
 
 # FZF
 eval "$(fzf --zsh)"
-source $HOME/.dotfiles/files/home/fzf.sh
+source "$HOME/.dotfiles/files/home/fzf.sh"
 
 # zoxide
 eval "$(zoxide init zsh)"
+
+# Per-machine overrides — keep this last so it can override anything above.
+# ~/.zshrc.local is intentionally not tracked; use it for work secrets,
+# host-specific PATH entries, proxies, API tokens, etc.
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"

@@ -92,6 +92,7 @@ dotfiles
 
 Run `dotfiles help` (or `dotfiles`) for the current list. In short:
 
+- **doctor** — Read-only health check: Homebrew + Brewfile drift, dotfile symlinks, mise tools, git config, SSH key, essential commands on PATH. Returns non-zero if anything is broken.
 - **update** — [Topgrade](https://github.com/topgrade-rs/topgrade) with `files/config/topgrade.toml` (brew, casks, Mac App Store, mise, editor extensions, Composer, etc.; steps can be disabled in that file).
 - **clean** — `brew cleanup`, `brew autoremove` (unused dependency-only formulae), plus npm / Composer / mise cache cleanup where available.
 - **symlinks** — Link tracked files from `files/` into `~` and `~/.config/`.
@@ -125,14 +126,14 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 
 ### Adding Your Own Configurations
 
-1. **Custom aliases:** Edit `~/.custom_aliases` (created automatically)
-2. **Dotfiles:** Add files to `files/` directory and update `support/sym_links.sh`
-3. **Homebrew packages:** Add to `support/Brewfile`
+1. **Per-machine overrides:** Edit `~/.zshrc.local` (created automatically by `precheck.sh`). Sourced **last** by `~/.zshrc`, so anything in it wins. Use it for personal aliases, work secrets / API tokens, host-specific `PATH` entries, proxies, AWS profiles, etc. Not tracked.
+2. **Tracked aliases:** Aliases shared across all your machines live in `files/home/zsh_aliases`.
+3. **Dotfiles:** Add files to `files/` and a corresponding entry to `support/symlinks_map.sh`.
+4. **Homebrew packages:** Add to `support/Brewfile`.
 
 ### Repository Configuration
 
-- **Git repositories:** Edit `support/git_clone.sh` to add your repositories
-- **Git pull list:** Edit `support/pull.sh` to manage repository updates
+- **Personal repos:** Edit `support/repos.sh` — both `dotfiles clone` and `dotfiles pull` read from this single manifest.
 
 
 ## Troubleshooting

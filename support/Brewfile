@@ -109,9 +109,6 @@ cask 'ghostty'                                      # Terminal emulator
 # Mac App Store Applications
 mas 'Amphetamine', id: 937984704
 mas 'Dato', id: 1470584107
-mas 'Keynote', id: 409183694
-mas 'Numbers', id: 409203825
-mas 'Pages', id: 409201541
 mas 'The Unarchiver', id: 425424353
 mas 'Unsplash', id: 1284863847
 mas 'WhatsApp', id: 310633997

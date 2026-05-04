@@ -1,32 +1,29 @@
 #!/bin/zsh
 
 source "$support_dir/functions.sh"
-
-CODE_DIR=$HOME/Code
-
-declare -A git_repos
-git_repos=(
-    [resume]=$CODE_DIR/resume
-    [recipes]=$CODE_DIR/recipes
-    [one-problem-a-day]=$CODE_DIR/one-problem-a-day
-    [system-design]=$CODE_DIR/system-design
-    [cv]=$CODE_DIR/cv
-    [dotfiles]=$HOME/.dotfiles
-)
+source "$support_dir/repos.sh"
 
 UPDATE=false
 if [[ "$1" == "--update" || "$1" == "-u" ]]; then
     UPDATE=true
 fi
 
+# Build the (dir -> path) list: every repo from repos.sh under $CODE_DIR,
+# plus this dotfiles checkout itself.
+typeset -A repo_paths
 for dir repo in ${(kv)git_repos}; do
-    if [ ! -d "$repo" ]; then
+    repo_paths[$dir]="$CODE_DIR/$dir"
+done
+repo_paths[dotfiles]="$HOME/.dotfiles"
+
+for dir path in ${(kv)repo_paths}; do
+    if [ ! -d "$path" ]; then
         print_info "Skipping ${dir} (directory not found)"
         continue
     fi
 
     print_step "Pulling updates for ${dir}..."
-    if ( cd "$repo" && git pull --rebase ); then
+    if ( cd "$path" && git pull --rebase ); then
         print_success "Updated ${dir}"
     else
         print_error "Failed to update ${dir}"
@@ -38,17 +35,17 @@ if [ "$UPDATE" = true ]; then
     print_step "Updating Composer Dependencies"
     echo
 
-    for dir repo in ${(kv)git_repos}; do
-        if [ ! -d "$repo" ]; then
+    for dir path in ${(kv)repo_paths}; do
+        if [ ! -d "$path" ]; then
             continue
         fi
 
-        if ( cd "$repo" && [ -f composer.json ] ); then
+        if ( cd "$path" && [ -f composer.json ] ); then
             print_step "Updating dependencies for ${dir}..."
-            if ( cd "$repo" && composer update ); then
-                if ( cd "$repo" && [ -n "$(git status --porcelain)" ] ); then
+            if ( cd "$path" && composer update ); then
+                if ( cd "$path" && [ -n "$(git status --porcelain)" ] ); then
                     if (
-                        cd "$repo" &&
+                        cd "$path" &&
                         git add . &&
                         git commit -m "Updates dependencies" &&
                         git push

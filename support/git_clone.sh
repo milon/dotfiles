@@ -1,17 +1,7 @@
 #!/bin/zsh
 
 source "$support_dir/functions.sh"
-
-CODE_DIR=$HOME/Code
-
-declare -A git_repos
-git_repos=(
-    [resume]="git@github.com:milon/milon.github.io.git"
-    [recipes]="git@github.com:milon/recipes.git"
-    [one-problem-a-day]="git@github.com:milon/one-problem-a-day.git"
-    [system-design]="git@github.com:milon/system-design.git"
-    [cv]="git@github.com:milon/cv.git"
-)
+source "$support_dir/repos.sh"
 
 mkdir -p "$CODE_DIR"
 cd "$CODE_DIR" || return 1

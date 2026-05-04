@@ -2,12 +2,26 @@
 
 source "$support_dir/functions.sh"
 
-print_step "Checking for custom aliases file..."
-if [ ! -f "$HOME/.custom_aliases" ]; then
-    touch "$HOME/.custom_aliases"
-    print_success "Created custom aliases file"
+print_step "Checking for ~/.zshrc.local (per-machine overrides)..."
+if [ ! -f "$HOME/.zshrc.local" ]; then
+    cat > "$HOME/.zshrc.local" <<'EOF'
+# ~/.zshrc.local — per-machine overrides (NOT tracked by dotfiles)
+#
+# This file is sourced at the end of ~/.zshrc, so anything you put here
+# overrides settings from the dotfiles repo. Use it for:
+#   - personal aliases you don't want in version control
+#   - work-only secrets / API tokens
+#   - host-specific PATH entries
+#   - proxies, AWS profiles, kubeconfigs
+#
+# Example:
+#   alias work='cd ~/work'
+#   export OPENAI_API_KEY="..."
+#   export PATH="$HOME/work/bin:$PATH"
+EOF
+    print_success "Created ~/.zshrc.local with a getting-started header"
 else
-    print_info "Custom aliases file already exists"
+    print_info "~/.zshrc.local already exists"
 fi
 
 # Check for SSH keys (RSA, ED25519, or ECDSA)

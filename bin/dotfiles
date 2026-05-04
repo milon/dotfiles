@@ -17,6 +17,7 @@ COMMAND_SCRIPTS=(
     [symlinks]="sym_links.sh"
     [update]="update.sh"
     [clean]="clean.sh"
+    [doctor]="doctor.sh"
     [brew]="brew.sh"
     [mise]="mise.sh"
     [php]="php.sh"
