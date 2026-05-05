@@ -16,14 +16,14 @@ for dir repo in ${(kv)git_repos}; do
 done
 repo_paths[dotfiles]="$HOME/.dotfiles"
 
-for dir path in ${(kv)repo_paths}; do
-    if [ ! -d "$path" ]; then
+for dir repo_path in ${(kv)repo_paths}; do
+    if [ ! -d "$repo_path" ]; then
         print_info "Skipping ${dir} (directory not found)"
         continue
     fi
 
     print_step "Pulling updates for ${dir}..."
-    if ( cd "$path" && git pull --rebase ); then
+    if ( cd "$repo_path" && git pull --rebase ); then
         print_success "Updated ${dir}"
     else
         print_error "Failed to update ${dir}"
@@ -35,17 +35,17 @@ if [ "$UPDATE" = true ]; then
     print_step "Updating Composer Dependencies"
     echo
 
-    for dir path in ${(kv)repo_paths}; do
-        if [ ! -d "$path" ]; then
+    for dir repo_path in ${(kv)repo_paths}; do
+        if [ ! -d "$repo_path" ]; then
             continue
         fi
 
-        if ( cd "$path" && [ -f composer.json ] ); then
+        if ( cd "$repo_path" && [ -f composer.json ] ); then
             print_step "Updating dependencies for ${dir}..."
-            if ( cd "$path" && composer update ); then
-                if ( cd "$path" && [ -n "$(git status --porcelain)" ] ); then
+            if ( cd "$repo_path" && composer update ); then
+                if ( cd "$repo_path" && [ -n "$(git status --porcelain)" ] ); then
                     if (
-                        cd "$path" &&
+                        cd "$repo_path" &&
                         git add . &&
                         git commit -m "Updates dependencies" &&
                         git push
