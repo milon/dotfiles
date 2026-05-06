@@ -5,10 +5,6 @@ source "$support_dir/functions.sh"
 ascii_art
 echo
 
-# Title block — fastfetch-style "user@host" + separator
-USER_NAME=${USER:-$(whoami)}
-echo -e "${BOLD}${MAGENTA}${USER_NAME}${NC}@${BOLD}${BLUE}dotfiles${NC}"
-echo -e "${BOLD}───────────────${NC}"
 echo -e "${BOLD}${CYAN}${ARROW} Usage:${NC} ${YELLOW}${BIN_NAME} <command>${NC}"
 echo
 
