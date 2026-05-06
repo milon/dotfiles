@@ -3,9 +3,9 @@
 # Color constants (if not already defined)
 if [[ -z "${RED:-}" ]]; then
     export ARROW="➜"
-    export CHECK="✓"
-    export CROSS="✗"
-    export INFO="ℹ"
+    export CHECK=$'\uf05d'
+    export CROSS=$'\uf05c'
+    export INFO=$'\uf449'
     export RED='\033[0;31m'
     export GREEN='\033[0;32m'
     export YELLOW='\033[0;33m'
@@ -19,29 +19,31 @@ fi
 # Output helpers
 print_section() {
     local title=$1
+    local icon=$'\uf120'  # nf-fa-terminal — "command-line action"
+    local rule=$(printf '─%.0s' {1..60})
     echo
-    echo -e "${BOLD}${CYAN}${ARROW} ${title}${NC}"
-    echo -e "${CYAN}$(printf '─%.0s' {1..60})${NC}"
+    echo -e "${BOLD}${YELLOW}${icon}  ${title}${NC}"
+    echo -e "${YELLOW}${rule}${NC}"
 }
 
 print_success() {
     local message=$1
-    echo -e "${GREEN}${CHECK} ${message}${NC}"
+    echo -e "  ${GREEN}${CHECK}${NC}  ${message}"
 }
 
 print_error() {
     local message=$1
-    echo -e "${RED}${CROSS} ${message}${NC}" >&2
+    echo -e "  ${RED}${CROSS}${NC}  ${message}" >&2
 }
 
 print_info() {
     local message=$1
-    echo -e "${BLUE}${INFO} ${message}${NC}"
+    echo -e "  ${BLUE}${INFO}${NC}  ${message}"
 }
 
 print_step() {
     local message=$1
-    echo -e "${YELLOW}${ARROW} ${message}${NC}"
+    echo -e "  ${YELLOW}${ARROW}${NC}  ${message}"
 }
 
 # Helper functions
