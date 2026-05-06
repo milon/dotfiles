@@ -4,35 +4,60 @@ source "$support_dir/functions.sh"
 
 ascii_art
 echo
-echo -e "${BOLD}${CYAN}${ARROW} Usage: ${YELLOW}${BIN_NAME} <command>${NC}"
+
+# Title block — fastfetch-style "user@host" + separator
+USER_NAME=${USER:-$(whoami)}
+echo -e "${BOLD}${MAGENTA}${USER_NAME}${NC}@${BOLD}${BLUE}dotfiles${NC}"
+echo -e "${BOLD}───────────────${NC}"
+echo -e "${BOLD}${CYAN}${ARROW} Usage:${NC} ${YELLOW}${BIN_NAME} <command>${NC}"
 echo
-echo -e "${BOLD}${GREEN}Commands:${NC}"
+
+# Helpers — render category header + tree-style command lines.
+# `->` separator, bold command name, fixed-width padding for alignment.
+print_section_header() {
+    local color=$1 icon=$2 name=$3
+    echo -e "${BOLD}${color}${icon}  ${name}${NC}"
+}
+
+print_command() {
+    local color=$1 prefix=$2 cmd=$3 desc=$4
+    printf "${color}%s${NC} ${BOLD}%-9s${NC} ${BOLD}${color}->${NC} ${CYAN}%s${NC}\n" \
+        "$prefix" "$cmd" "$desc"
+}
+
+# ─── CORE ────────────────────────────────────────────────────────────────
+print_section_header "$YELLOW" $'\ueb45' "CORE"
+print_command "$YELLOW" "├" "help"     "Show this help message"
+print_command "$YELLOW" "├" "doctor"   "Diagnose installation drift"
+print_command "$YELLOW" "├" "update"   "Run Topgrade across all package managers"
+print_command "$YELLOW" "├" "clean"    "Clean caches (brew, npm, Composer, mise)"
+print_command "$YELLOW" "└" "symlinks" "Create symlinks for dotfiles"
 echo
-echo -e "  ${YELLOW}help${NC}             ${CYAN}Show this help message${NC}"
-echo -e "  ${YELLOW}doctor${NC}           ${CYAN}Diagnose installation drift (brew, symlinks, mise, git, ssh, PATH)${NC}"
-echo -e "  ${YELLOW}update${NC}           ${CYAN}Run Topgrade (brew, casks, mas, mise, extensions, Composer, … per files/config/topgrade.toml)${NC}"
-echo -e "  ${YELLOW}clean${NC}            ${CYAN}Clean Homebrew cache, autoremove unused deps, npm/Composer/mise caches${NC}"
+
+# ─── SETUP ───────────────────────────────────────────────────────────────
+print_section_header "$BLUE" $'\uf0ad' "SETUP"
+print_command "$BLUE" "├" "brew"  "Install Homebrew and dependencies"
+print_command "$BLUE" "├" "git"   "Configure Git settings"
+print_command "$BLUE" "├" "xcode" "Install Xcode / CLI tools"
+print_command "$BLUE" "├" "mise"  "Setup mise (node, python, ruby, java, go, rust)"
+print_command "$BLUE" "├" "php"   "Setup PHP and Composer"
+print_command "$BLUE" "└" "valet" "Setup Laravel Valet"
 echo
-echo -e "  ${BOLD}Setup:${NC}"
-echo -e "  ${YELLOW}symlinks${NC}         ${CYAN}Create symlinks for dotfiles${NC}"
-echo -e "  ${YELLOW}brew${NC}             ${CYAN}Install Homebrew and dependencies${NC}"
-echo -e "  ${YELLOW}git${NC}              ${CYAN}Configure Git settings${NC}"
+
+# ─── REPOS ───────────────────────────────────────────────────────────────
+print_section_header "$GREEN" $'\uea84' "REPOS"
+print_command "$GREEN" "├" "clone" "Clone personal Git repositories"
+print_command "$GREEN" "└" "pull"  "Update all Git repositories"
 echo
-echo -e "  ${BOLD}Languages:${NC}"
-echo -e "  ${YELLOW}mise${NC}             ${CYAN}Setup mise (node, python, ruby, java, go, rust)${NC}"
-echo -e "  ${YELLOW}php${NC}              ${CYAN}Setup PHP and Composer${NC}"
+
+# ─── EDITORS ─────────────────────────────────────────────────────────────
+print_section_header "$CYAN" $'\uf489' "EDITORS"
+print_command "$CYAN" "├" "vim"    "Setup Vim (vim-plug + plugins)"
+print_command "$CYAN" "└" "neovim" "Setup Neovim"
 echo
-echo -e "  ${BOLD}Development:${NC}"
-echo -e "  ${YELLOW}valet${NC}            ${CYAN}Setup Laravel Valet${NC}"
-echo -e "  ${YELLOW}clone${NC}            ${CYAN}Clone Git repositories${NC}"
-echo -e "  ${YELLOW}pull${NC}             ${CYAN}Update all Git repositories${NC}"
-echo
-echo -e "  ${BOLD}Editors:${NC}"
-echo -e "  ${YELLOW}vim${NC}              ${CYAN}Setup Vim${NC}"
-echo -e "  ${YELLOW}neovim${NC}           ${CYAN}Setup Neovim${NC}"
-echo
-echo -e "  ${BOLD}System:${NC}"
-echo -e "  ${YELLOW}mac${NC}              ${CYAN}Configure macOS settings${NC}"
-echo -e "  ${YELLOW}xcode${NC}            ${CYAN}Setup Xcode / CLI tools${NC}"
-echo -e "  ${YELLOW}hotkeys${NC}          ${CYAN}Start or reload hotkey services (yabai, skhd)${NC}"
+
+# ─── SYSTEM ──────────────────────────────────────────────────────────────
+print_section_header "$MAGENTA" $'\uf179' "SYSTEM"
+print_command "$MAGENTA" "├" "mac"     "Configure macOS settings"
+print_command "$MAGENTA" "└" "hotkeys" "Start/reload yabai + skhd"
 echo

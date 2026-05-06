@@ -10,6 +10,7 @@ if [[ -z "${RED:-}" ]]; then
     export GREEN='\033[0;32m'
     export YELLOW='\033[0;33m'
     export BLUE='\033[0;34m'
+    export MAGENTA='\033[0;35m'
     export CYAN='\033[0;36m'
     export BOLD='\033[1m'
     export NC='\033[0m'
