@@ -3,9 +3,9 @@
 # Color constants (if not already defined)
 if [[ -z "${RED:-}" ]]; then
     export ARROW="➜"
-    export CHECK=$'\uf05d'
-    export CROSS=$'\uf05c'
-    export INFO=$'\uf449'
+    export CHECK=$'\uf00c'
+    export CROSS=$'\uf00d'
+    export INFO=$'\uf129'
     export RED='\033[0;31m'
     export GREEN='\033[0;32m'
     export YELLOW='\033[0;33m'
