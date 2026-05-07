@@ -28,22 +28,22 @@ print_section() {
 
 print_success() {
     local message=$1
-    echo -e "  ${GREEN}${CHECK}${NC}  ${message}"
+    echo -e "${GREEN}${CHECK}${NC}  ${message}"
 }
 
 print_error() {
     local message=$1
-    echo -e "  ${RED}${CROSS}${NC}  ${message}" >&2
+    echo -e "${RED}${CROSS}${NC}  ${message}" >&2
 }
 
 print_info() {
     local message=$1
-    echo -e "  ${BLUE}${INFO}${NC}  ${message}"
+    echo -e "${BLUE}${INFO}${NC}  ${message}"
 }
 
 print_step() {
     local message=$1
-    echo -e "  ${YELLOW}${ARROW}${NC}  ${message}"
+    echo -e "${YELLOW}${ARROW}${NC}  ${message}"
 }
 
 # Helper functions
