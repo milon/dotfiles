@@ -2,7 +2,13 @@
 
 source "$support_dir/functions.sh"
 
-print_step "Installing Valet..."
+if ! command_exists valet; then
+    print_error "Valet not found. Installing it first"
+    composer global require laravel/valet
+    print_success "Valet installed"
+fi
+
+print_step "Installing Valet dependencies..."
 if valet install; then
     print_success "Valet installed"
 else
