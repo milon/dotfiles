@@ -45,6 +45,7 @@ brew 'meilisearch'                                  # Search engine
 
 # Git Tools
 brew 'diff-so-fancy'                                # Better git diff output
+brew 'gh'                                           # GitHub CLI
 
 # System Utilities
 brew 'mas'                                          # Mac App Store CLI
