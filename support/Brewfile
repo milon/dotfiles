@@ -1,6 +1,7 @@
 # Homebrew Taps
 tap 'buo/cask-upgrade'
 tap 'koekeishiya/formulae'
+tap 'milon/macos-unijoy'
 tap 'nicoverbruggen/homebrew-cask'
 
 # Core System Tools
@@ -96,6 +97,7 @@ cask 'monitorcontrol'                               # External monitor control
 cask 'latest'                                       # Check for app updates
 cask 'imageoptim'                                   # Image optimization
 cask 'kitlangton-hex'                               # Speech to word converter
+cask 'macos-unijoy'                                 # Unijoy Bengali keyboard layout
 
 # Media Applications
 cask 'iina'                                         # Media player
