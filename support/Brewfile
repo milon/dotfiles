@@ -51,8 +51,8 @@ brew 'gh'                                           # GitHub CLI
 # System Utilities
 brew 'mas'                                          # Mac App Store CLI
 brew 'btop'                                         # System monitor
-brew 'koekeishiya/formulae/skhd'                    # Hotkey daemon
-brew 'koekeishiya/formulae/yabai'                   # Tiling window manager
+brew 'skhd'                                         # Hotkey daemon
+brew 'yabai'                                        # Tiling window manager
 
 # Media & Content
 brew 'ffmpeg'
