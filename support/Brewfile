@@ -94,7 +94,6 @@ cask 'bartender'                                    # Menu bar organizer
 # System Utilities
 cask 'aldente'                                      # Battery charging controller
 cask 'monitorcontrol'                               # External monitor control
-cask 'latest'                                       # Check for app updates
 cask 'imageoptim'                                   # Image optimization
 cask 'kitlangton-hex'                               # Speech to word converter
 cask 'macos-unijoy'                                 # Unijoy Bengali keyboard layout
