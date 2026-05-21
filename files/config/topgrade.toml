@@ -13,3 +13,6 @@ cleanup = true
 
 [commands]
 "composer" = "composer self-update && composer global update"
+
+[brew]
+greedy_cask = true
