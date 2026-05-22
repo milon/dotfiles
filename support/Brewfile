@@ -3,6 +3,8 @@ tap 'buo/cask-upgrade'
 tap 'koekeishiya/formulae'
 tap 'milon/macos-unijoy'
 tap 'nicoverbruggen/homebrew-cask'
+tap 'shivammathur/php'
+tap 'shivammathur/extensions'
 
 # Core System Tools
 brew 'topgrade'                                     # Unified upgrade runner (dotfiles update)
@@ -31,6 +33,10 @@ brew 'gum'                                          # shell scripting utilities
 brew 'cmake'
 brew 'sqlite'
 brew 'imagemagick'
+
+# PHP (via shivammathur/php tap; see support/php.sh for global Composer packages)
+brew 'php'
+brew 'composer'
 
 # Version Management
 brew 'mise'                                         # Polyglot version manager (node, python, ruby, java, rust)

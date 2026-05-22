@@ -112,14 +112,11 @@ fi
 # SSH key
 # ──────────────────────────────────────────────────────────────────────────
 print_section "SSH key"
-ssh_found=0
-for kt in ed25519 rsa ecdsa; do
-    if [[ -f "$HOME/.ssh/id_${kt}" && -f "$HOME/.ssh/id_${kt}.pub" ]]; then
-        print_success "Found ${kt} key at ~/.ssh/id_${kt}"
-        ssh_found=1
-    fi
-done
-(( ssh_found )) || note_warning "No SSH key found in ~/.ssh — git/SSH-based clones will fail"
+if ssh_key_type=$(detect_ssh_key); then
+    print_success "Found ${ssh_key_type} key at ~/.ssh/id_${ssh_key_type}"
+else
+    note_warning "No SSH key found in ~/.ssh — git/SSH-based clones will fail"
+fi
 
 # ──────────────────────────────────────────────────────────────────────────
 # Essential commands on PATH

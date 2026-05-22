@@ -16,8 +16,9 @@ for dir repo in ${(kv)git_repos}; do
 done
 repo_paths[dotfiles]="$HOME/.dotfiles"
 
+# Pull each repo, in its own subshell so cd never leaks across iterations.
 for dir repo_path in ${(kv)repo_paths}; do
-    if [ ! -d "$repo_path" ]; then
+    if [[ ! -d $repo_path ]]; then
         print_info "Skipping ${dir} (directory not found)"
         continue
     fi
@@ -30,38 +31,42 @@ for dir repo_path in ${(kv)repo_paths}; do
     fi
 done
 
-if [ "$UPDATE" = true ]; then
-    echo
-    print_step "Updating Composer Dependencies"
-    echo
+[[ $UPDATE != true ]] && return 0
 
-    for dir repo_path in ${(kv)repo_paths}; do
-        if [ ! -d "$repo_path" ]; then
-            continue
-        fi
+echo
+print_step "Updating Composer Dependencies"
+echo
 
-        if ( cd "$repo_path" && [ -f composer.json ] ); then
-            print_step "Updating dependencies for ${dir}..."
-            if ( cd "$repo_path" && composer update ); then
-                if ( cd "$repo_path" && [ -n "$(git status --porcelain)" ] ); then
-                    if (
-                        cd "$repo_path" &&
-                        git add . &&
-                        git commit -m "Updates dependencies" &&
-                        git push
-                    ); then
-                        print_success "Dependencies updated and committed for ${dir}"
-                    else
-                        print_error "Failed to commit or push dependencies for ${dir}"
-                    fi
-                else
-                    print_info "No dependency updates for ${dir}"
-                fi
-            else
-                print_error "Composer update failed for ${dir}"
-            fi
-        else
+# Update composer-managed PHP projects: install latest deps and, if the lockfile
+# changed, commit + push the bump. One subshell per repo keeps cd contained and
+# any failure short-circuits the rest of that repo's flow without affecting others.
+for dir repo_path in ${(kv)repo_paths}; do
+    [[ ! -d $repo_path ]] && continue
+
+    (
+        cd "$repo_path" || exit 1
+
+        if [[ ! -f composer.json ]]; then
             print_info "Skipping ${dir} (not a PHP project)"
+            exit 0
         fi
-    done
-fi
+
+        print_step "Updating dependencies for ${dir}..."
+        if ! composer update; then
+            print_error "Composer update failed for ${dir}"
+            exit 1
+        fi
+
+        if [[ -z "$(git status --porcelain)" ]]; then
+            print_info "No dependency updates for ${dir}"
+            exit 0
+        fi
+
+        if git add . && git commit -m "Updates dependencies" && git push; then
+            print_success "Dependencies updated and committed for ${dir}"
+        else
+            print_error "Failed to commit or push dependencies for ${dir}"
+            exit 1
+        fi
+    )
+done

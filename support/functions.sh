@@ -51,6 +51,38 @@ command_exists() {
     command -v "$1" &> /dev/null
 }
 
+# Detect Homebrew prefix on this machine. Echoes the prefix on success, returns
+# non-zero when brew is not found at any standard location. Apple Silicon →
+# /opt/homebrew, Intel → /usr/local. Honors $HOMEBREW_PREFIX if already set.
+brew_prefix() {
+    if [[ -n "${HOMEBREW_PREFIX:-}" && -x "$HOMEBREW_PREFIX/bin/brew" ]]; then
+        print -- "$HOMEBREW_PREFIX"
+        return 0
+    fi
+    if [[ -x /opt/homebrew/bin/brew ]]; then
+        print -- /opt/homebrew
+        return 0
+    fi
+    if [[ -x /usr/local/bin/brew ]]; then
+        print -- /usr/local
+        return 0
+    fi
+    return 1
+}
+
+# Detect the first SSH key present in $HOME/.ssh. On success, echoes the key
+# type (ed25519|rsa|ecdsa) and returns 0. Returns 1 when no key is found.
+detect_ssh_key() {
+    local kt
+    for kt in ed25519 rsa ecdsa; do
+        if [[ -f "$HOME/.ssh/id_${kt}" && -f "$HOME/.ssh/id_${kt}.pub" ]]; then
+            print -- "$kt"
+            return 0
+        fi
+    done
+    return 1
+}
+
 # Functions
 
 ascii_art () {
@@ -75,16 +107,56 @@ confirm_or_exit() {
     fi
 }
 
+# Run a single dotfiles "step" (a support/ script). Used by both install.sh
+# (top-level orchestration) and bin/dotfiles (single-command dispatch).
+#
+# Usage:
+#   run_step <display_name> <script> [args...]
+#
+# <script> may be either a bare file name (resolved against $support_dir) or
+# an absolute path. Extra args are forwarded to the sourced script as $1, $2…
+#
+# Behavior:
+#   - Prints a section header, sources the script, prints a footer.
+#   - On script failure, prints an error and either exits or returns based on
+#     the $DOTFILES_EXIT_ON_STEP_FAILURE flag (install.sh sets it to 1 to fail
+#     fast across the whole install; the per-command dispatcher leaves it 0).
 run_step() {
-    local step_name=$1
+    local display_name=$1
     local script=$2
+    shift 2
 
-    print_section "$step_name"
-    source "$script"
+    local script_path
+    if [[ "$script" == /* ]]; then
+        script_path=$script
+    else
+        script_path="$support_dir/$script"
+    fi
+
+    if [[ ! -f $script_path ]]; then
+        print_error "Script not found: $script"
+        if [[ "${DOTFILES_EXIT_ON_STEP_FAILURE:-0}" == 1 ]]; then
+            exit 1
+        fi
+        return 1
+    fi
+
+    print_section "$display_name"
+    set -- "$@"
+    source "$script_path"
     local ec=$?
-    cd "$dotfiles_dir" 2>/dev/null || cd / || true
-    if (( ec != 0 )); then
-        print_error "Step failed: ${step_name} (exit ${ec})"
+    cd "$dotfiles_dir" 2>/dev/null || true
+
+    if (( ec == 0 )); then
+        echo
+        print_success "${display_name} completed successfully"
+        return 0
+    fi
+
+    echo
+    print_error "${display_name} failed (exit code: ${ec})"
+    if [[ "${DOTFILES_EXIT_ON_STEP_FAILURE:-0}" == 1 ]]; then
         exit "$ec"
     fi
+    return "$ec"
 }

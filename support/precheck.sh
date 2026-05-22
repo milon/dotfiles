@@ -3,7 +3,7 @@
 source "$support_dir/functions.sh"
 
 print_step "Checking for ~/.zshrc.local (per-machine overrides)..."
-if [ ! -f "$HOME/.zshrc.local" ]; then
+if [[ ! -f "$HOME/.zshrc.local" ]]; then
     cat > "$HOME/.zshrc.local" <<'EOF'
 # ~/.zshrc.local — per-machine overrides (NOT tracked by dotfiles)
 #
@@ -24,40 +24,29 @@ else
     print_info "~/.zshrc.local already exists"
 fi
 
-# Check for SSH keys (RSA, ED25519, or ECDSA)
 print_step "Checking for SSH keys..."
-has_ssh_key=false
-ssh_key_type=""
-
-if [ -f "$HOME/.ssh/id_rsa" ] && [ -f "$HOME/.ssh/id_rsa.pub" ]; then
-    has_ssh_key=true
-    ssh_key_type="RSA"
-elif [ -f "$HOME/.ssh/id_ed25519" ] && [ -f "$HOME/.ssh/id_ed25519.pub" ]; then
-    has_ssh_key=true
-    ssh_key_type="ED25519"
-elif [ -f "$HOME/.ssh/id_ecdsa" ] && [ -f "$HOME/.ssh/id_ecdsa.pub" ]; then
-    has_ssh_key=true
-    ssh_key_type="ECDSA"
-fi
-
-if [ "$has_ssh_key" = true ]; then
-    print_success "SSH key found (${ssh_key_type})"
+if ssh_key_type=$(detect_ssh_key); then
+    print_success "SSH key found (${(U)ssh_key_type})"
 else
     print_info "No SSH keys found"
     echo
-    
+
     if read -q "choice?Would you like to generate a new ED25519 SSH key? (y/n) "; then
         echo
         echo
-        
+
         print_step "Creating .ssh directory..."
         mkdir -p "$HOME/.ssh"
         chmod 700 "$HOME/.ssh"
         print_success ".ssh directory created"
-        
-        print_step "Enter your email address for the SSH key:"
-        read email
-        
+
+        local email=""
+        while [[ -z $email ]]; do
+            print_step "Enter your email address for the SSH key:"
+            read email
+            [[ -z $email ]] && print_error "Email cannot be empty"
+        done
+
         print_step "Generating ED25519 SSH key..."
         if ssh-keygen -t ed25519 -C "$email" -f "$HOME/.ssh/id_ed25519" -N ""; then
             chmod 600 "$HOME/.ssh/id_ed25519"

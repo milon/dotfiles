@@ -1,0 +1,73 @@
+# Tracked git configuration shared across machines.
+#
+# Activated by support/git.sh via:
+#   git config --global --add include.path <path-to-this-file>
+#
+# Personal identity (user.name / user.email) is intentionally NOT here — it is
+# written to ~/.gitconfig directly by support/git.sh so machines can differ.
+
+[core]
+	excludesfile = ~/.gitignore
+	editor = vim
+	autocrlf = input
+
+[init]
+	defaultBranch = master
+
+[pull]
+	rebase = true
+
+[push]
+	default = current
+
+[diff]
+	context = 3
+	renames = copies
+	interHunkContext = 10
+
+[pager]
+	branch = false
+	diff = "diff-so-fancy | $PAGER"
+
+[blame]
+	coloring = highlightRecent
+	date = relative
+
+[log]
+	abbrevCommit = true
+
+[interactive]
+	diffFilter = "diff-so-fancy --patch"
+	singlekey = true
+
+[color]
+	ui = true
+	graph = "blue bold,yellow bold,cyan bold,magenta bold,green bold,red bold"
+
+[color "branch"]
+	current = magenta
+	local = default
+	remote = yellow
+	upstream = green
+	plain = blue
+
+[color "blame"]
+	highlightRecent = "black bold,1 year ago,white,1 month ago,default,7 days ago,blue"
+
+[color "diff"]
+	meta = "black bold"
+	frag = magenta
+	context = white
+	whitespace = "yellow reverse"
+
+[url "git@github.com:"]
+	insteadOf = "gh:"
+
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	undo = reset HEAD~1 --mixed
+	branches = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
+	last = log -1 HEAD --stat
+	; wip/nah are quoted because git treats ';' and '#' as comments outside quotes.
+	wip = "!f() { git add --all && git commit -m 'work in progress'; }; f"
+	nah = "!f() { git reset --hard; if [[ $1 == \"-f\" ]]; then git clean -df; fi; }; f"

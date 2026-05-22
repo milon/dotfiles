@@ -7,30 +7,34 @@ export support_dir="$dotfiles_dir/support"
 # Load functions
 source "$support_dir/functions.sh"
 
+# install.sh is fail-fast: any step that returns non-zero aborts the install.
+# bin/dotfiles leaves this unset so single-command runs return instead.
+export DOTFILES_EXIT_ON_STEP_FAILURE=1
+
 # Display ascii art
 ascii_art
 
 # Pre-installation checks
-run_step 'PRECHECK' "$support_dir/precheck.sh"
+run_step 'PRECHECK' precheck.sh
 
 # Core setup
-run_step 'XCODE' "$support_dir/xcode.sh"
-run_step 'SYM LINKS' "$support_dir/sym_links.sh"
-run_step 'HOMEBREW' "$support_dir/brew.sh"
+run_step 'XCODE'    xcode.sh
+run_step 'SYMLINKS' sym_links.sh
+run_step 'HOMEBREW' brew.sh
 
 # Development tools
-run_step 'GIT' "$support_dir/git.sh"
-run_step 'PHP' "$support_dir/php.sh"
-run_step 'VALET' "$support_dir/valet.sh"
-run_step 'GIT CLONE' "$support_dir/git_clone.sh"
+run_step 'GIT'       git.sh
+run_step 'PHP'       php.sh
+run_step 'VALET'     valet.sh
+run_step 'GIT CLONE' git_clone.sh
 
 # Language environments (via mise)
-run_step 'MISE' "$support_dir/mise.sh"
+run_step 'MISE' mise.sh
 
 # Editors
-run_step 'VIM' "$support_dir/vim.sh"
-run_step 'NEOVIM' "$support_dir/neovim.sh"
+run_step 'VIM'    vim.sh
+run_step 'NEOVIM' neovim.sh
 
 # System configuration
-run_step 'MACOS SETTINGS' "$support_dir/mac_settings.sh"
-run_step 'MANUAL STEPS' "$support_dir/manual_steps.sh"
+run_step 'MACOS SETTINGS' mac_settings.sh
+run_step 'MANUAL STEPS'   manual_steps.sh
