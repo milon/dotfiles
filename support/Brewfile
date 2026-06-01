@@ -74,8 +74,8 @@ brew 'jq'                                           # JSON processor
 brew 'ollama'                                       # Local LLM CLI
 
 # Fonts
+cask 'font-0xproto-nerd-font'
 cask 'font-annotation-mono'
-cask 'font-computer-modern'
 cask 'font-fantasque-sans-mono-nerd-font'
 cask 'font-jetbrains-mono-nerd-font'
 cask 'font-monaspice-nerd-font'
