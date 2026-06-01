@@ -4,8 +4,8 @@ macos-icon = custom
 # macos-custom-icon = ~/.config/ghostty/Ghostty.icns
 
 # font
-font-family = "0xProto Nerd Font Mono"
-font-feature = "ss01"
+font-family = "0xProto Nerd Font Propo"
+font-feature = ss01
 
 # term environment
 term = xterm-256color
