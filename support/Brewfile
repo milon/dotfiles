@@ -99,6 +99,7 @@ cask 'bartender'                                    # Menu bar organizer
 
 # System Utilities
 cask 'aldente'                                      # Battery charging controller
+cask 'keka'                                         # File archiver
 cask 'monitorcontrol'                               # External monitor control
 cask 'imageoptim'                                   # Image optimization
 cask 'kitlangton-hex'                               # Speech to word converter
@@ -117,7 +118,6 @@ cask 'ghostty'                                      # Terminal emulator
 # Mac App Store Applications
 mas 'Amphetamine', id: 937984704
 mas 'Dato', id: 1470584107
-mas 'The Unarchiver', id: 425424353
 mas 'Unsplash', id: 1284863847
 mas 'WhatsApp', id: 310633997
 mas 'Xcode', id: 497799835
