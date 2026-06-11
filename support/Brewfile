@@ -36,6 +36,7 @@ brew 'imagemagick'
 
 # PHP (via shivammathur/php tap; see support/php.sh for global Composer packages)
 brew 'php'
+brew 'pie'                                          # PHP extension installer
 brew 'composer'
 
 # Version Management
