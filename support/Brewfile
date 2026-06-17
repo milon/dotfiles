@@ -1,10 +1,10 @@
 # Homebrew Taps
-tap 'buo/cask-upgrade'
-tap 'koekeishiya/formulae'
-tap 'milon/macos-unijoy'
-tap 'nicoverbruggen/homebrew-cask'
-tap 'shivammathur/php'
-tap 'shivammathur/extensions'
+tap 'buo/cask-upgrade', trusted: true
+tap 'koekeishiya/formulae', trusted: true
+tap 'milon/macos-unijoy', trusted: true 
+tap 'nicoverbruggen/homebrew-cask', trusted: true
+tap 'shivammathur/php', trusted: true
+tap 'shivammathur/extensions', trusted: true
 
 # Core System Tools
 brew 'topgrade'                                     # Unified upgrade runner (dotfiles update)
