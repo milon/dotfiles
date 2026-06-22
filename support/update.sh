@@ -27,7 +27,7 @@ if [[ ! -f $TOPGRADE_CONFIG ]]; then
     return 1
 fi
 
-if topgrade --config "$TOPGRADE_CONFIG"; then
+if HOMEBREW_NO_ASK=1 topgrade --config "$TOPGRADE_CONFIG"; then
     echo
     print_success "All package updates completed"
 else
