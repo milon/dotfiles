@@ -97,6 +97,7 @@ cask '1password'
 cask 'raycast'                                      # Spotlight replacement
 cask 'obsidian'                                     # Note-taking
 cask 'bartender'                                    # Menu bar organizer
+cask 'bettercmdtabs'                                # Better cmd+tab
 
 # System Utilities
 cask 'aldente'                                      # Battery charging controller
