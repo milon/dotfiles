@@ -58,8 +58,8 @@ brew 'gh'                                           # GitHub CLI
 # System Utilities
 brew 'mas'                                          # Mac App Store CLI
 brew 'btop'                                         # System monitor
-brew 'skhd'                                         # Hotkey daemon
-brew 'yabai'                                        # Tiling window manager
+brew 'koekeishiya/formulae/skhd'                   # Hotkey daemon
+brew 'koekeishiya/formulae/yabai'                  # Tiling window manager
 
 # Media & Content
 brew 'ffmpeg'
@@ -97,7 +97,7 @@ cask '1password'
 cask 'raycast'                                      # Spotlight replacement
 cask 'obsidian'                                     # Note-taking
 cask 'bartender'                                    # Menu bar organizer
-cask 'bettercmdtabs'                                # Better cmd+tab
+cask 'bettercmdtab'                                 # Better cmd+tab
 
 # System Utilities
 cask 'aldente'                                      # Battery charging controller
