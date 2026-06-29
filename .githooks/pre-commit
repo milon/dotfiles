@@ -1,0 +1,56 @@
+#!/bin/zsh
+
+# Pre-commit hook — keeps shell scripts and symlinks_map.sh honest.
+#
+# Installed by pointing git at this directory:
+#   git config core.hooksPath .githooks
+# support/git.sh does this automatically for the dotfiles checkout during setup.
+#
+# Runs two fast, repo-only checks (no $HOME / brew / network state):
+#   1. `dotfiles lint`  — zsh -n + shellcheck on every shell script
+#   2. symlinks_map.sh  — every declared source actually exists in files/
+#
+# Bypass in a pinch with:  git commit --no-verify
+
+repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || {
+    echo "pre-commit: not inside a git work tree" >&2
+    exit 1
+}
+
+export dotfiles_dir="$repo_root"
+export support_dir="$dotfiles_dir/support"
+source "$support_dir/functions.sh"
+
+typeset -i fail=0
+
+# 1) Lint shell scripts (reuses the dotfiles command so CI, hook, and manual
+#    runs all exercise identical logic).
+"$dotfiles_dir/bin/dotfiles" lint || fail=1
+
+# 2) symlinks_map.sh sanity: a typo'd key would create a broken symlink on the
+#    next `dotfiles symlinks`, so verify every source exists in the repo.
+if [[ -f "$support_dir/symlinks_map.sh" ]]; then
+    source "$support_dir/symlinks_map.sh"
+    print_section "Symlink sources"
+    typeset -i missing=0
+    local key
+    for key in ${(ko)sym_links}; do
+        if [[ ! -e "$dotfiles_dir/files/$key" ]]; then
+            print_error "symlinks_map.sh: source missing in repo -> files/$key"
+            missing+=1
+        fi
+    done
+    if (( missing == 0 )); then
+        print_success "All ${#sym_links} symlink sources present"
+    else
+        fail=1
+    fi
+fi
+
+if (( fail )); then
+    echo
+    print_error "pre-commit checks failed — fix the above, or bypass with: git commit --no-verify"
+    exit 1
+fi
+
+exit 0

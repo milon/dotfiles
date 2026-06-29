@@ -11,9 +11,9 @@ source "$support_dir/functions.sh"
 
 cd "$dotfiles_dir" || { print_error "Cannot cd to $dotfiles_dir"; return 1; }
 
-# Candidate scripts: every tracked *.sh plus everything under bin/.
+# Candidate scripts: every tracked *.sh plus everything under bin/ and .githooks/.
 local -a candidates
-candidates=( ${(f)"$(git ls-files '*.sh' 'bin/*' | sort -u)"} )
+candidates=( ${(f)"$(git ls-files '*.sh' 'bin/*' '.githooks/*' | sort -u)"} )
 
 if (( ${#candidates} == 0 )); then
     print_info "No shell scripts found to lint"
