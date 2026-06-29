@@ -6,8 +6,7 @@
 
 export CODE_DIR="${CODE_DIR:-$HOME/Code}"
 
-typeset -gA git_repos
-git_repos=(
+typeset -gA git_repos=(
     [resume]="git@github.com:milon/milon.github.io.git"
     [recipes]="git@github.com:milon/recipes.git"
     [one-problem-a-day]="git@github.com:milon/one-problem-a-day.git"

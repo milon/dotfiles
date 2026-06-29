@@ -1,0 +1,22 @@
+name: Lint
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  shell-lint:
+    name: Shell scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install zsh
+        run: sudo apt-get update && sudo apt-get install -y zsh
+        # shellcheck is preinstalled on ubuntu-latest runners.
+
+      # Runs the same checks as `dotfiles lint` locally, so CI and dev match.
+      - name: Lint shell scripts
+        run: ./bin/dotfiles lint

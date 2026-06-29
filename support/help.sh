@@ -25,6 +25,7 @@ print_command() {
 print_section_header "$YELLOW" $'\ueb45' "CORE"
 print_command "$YELLOW" "├" "help"     "Show this help message"
 print_command "$YELLOW" "├" "doctor"   "Diagnose installation drift"
+print_command "$YELLOW" "├" "lint"     "Lint shell scripts (zsh -n + shellcheck)"
 print_command "$YELLOW" "├" "update"   "Run Topgrade across all package managers"
 print_command "$YELLOW" "├" "clean"    "Clean caches (brew, npm, Composer, mise)"
 print_command "$YELLOW" "└" "symlinks" "Create symlinks for dotfiles"

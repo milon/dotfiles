@@ -5,8 +5,7 @@
 # Key  = path inside files/   (e.g. home/zshrc)
 # Value = absolute destination on disk (e.g. $HOME/.zshrc)
 
-typeset -gA sym_links
-sym_links=(
+typeset -gA sym_links=(
     # $HOME root
     [home/zshrc]=$HOME/.zshrc
     [home/vimrc]=$HOME/.vimrc

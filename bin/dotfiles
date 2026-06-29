@@ -12,12 +12,12 @@ export support_dir="$dotfiles_dir/support"
 source "$support_dir/functions.sh"
 
 # Command to script mapping
-declare -A COMMAND_SCRIPTS
-COMMAND_SCRIPTS=(
+declare -A COMMAND_SCRIPTS=(
     [symlinks]="sym_links.sh"
     [update]="update.sh"
     [clean]="clean.sh"
     [doctor]="doctor.sh"
+    [lint]="lint.sh"
     [brew]="brew.sh"
     [mise]="mise.sh"
     [php]="php.sh"
