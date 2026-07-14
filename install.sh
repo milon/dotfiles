@@ -32,7 +32,6 @@ run_step 'GIT CLONE' git_clone.sh
 run_step 'MISE' mise.sh
 
 # Editors
-run_step 'VIM'    vim.sh
 run_step 'NEOVIM' neovim.sh
 
 # System configuration

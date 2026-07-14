@@ -102,7 +102,7 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 ## What Gets Installed
 
 ### Development Tools
-- **Editors:** Vim, Neovim (Lazy.nvim)
+- **Editors:** Neovim (Lazy.nvim)
 - **Version Manager:** [mise](https://mise.jdx.dev/) (node, python, ruby, java, go, rust)
 - **Languages:** Node.js, Python, PHP, Ruby, Java, Rust
 - **Databases:** SQLite, DBngin (MySQL, PostgreSQL, Redis)

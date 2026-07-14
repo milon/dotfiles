@@ -44,7 +44,6 @@ brew 'mise'                                         # Polyglot version manager (
 brew 'luarocks'                                     # Lua package manager
 
 # Editors
-brew 'vim'
 brew 'nvim'                                         # Neovim
 
 # Development Servers

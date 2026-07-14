@@ -12,7 +12,7 @@ source "${HOMEBREW_PREFIX:-/opt/homebrew}/share/antigen/antigen.zsh"
 antigen init $HOME/.antigenrc
 
 # Default editor
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # Starship prompt config
 export STARSHIP_CONFIG="$HOME/.dotfiles/files/home/starship.toml"

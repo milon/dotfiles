@@ -8,13 +8,10 @@
 typeset -gA sym_links=(
     # $HOME root
     [home/zshrc]=$HOME/.zshrc
-    [home/vimrc]=$HOME/.vimrc
     [home/antigenrc]=$HOME/.antigenrc
     [home/gitignore]=$HOME/.gitignore
     [home/skhdrc]=$HOME/.skhdrc
     [home/yabairc]=$HOME/.yabairc
-    # $HOME/.vim
-    [vim/plugins.vim]=$HOME/.vim/plugins.vim
     # $HOME/.config
     [config/nvim]=$HOME/.config/nvim
     [config/ghostty/config]=$HOME/.config/ghostty/config

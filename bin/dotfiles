@@ -27,7 +27,6 @@ declare -A COMMAND_SCRIPTS=(
     [pull]="pull.sh"
     [mac]="mac_settings.sh"
     [xcode]="xcode.sh"
-    [vim]="vim.sh"
     [neovim]="neovim.sh"
     [hotkeys]="hotkeys.sh"
 )

@@ -49,7 +49,6 @@ echo
 
 # ─── EDITORS ─────────────────────────────────────────────────────────────
 print_section_header "$CYAN" $'\uf489' "EDITORS"
-print_command "$CYAN" "├" "vim"    "Setup Vim (vim-plug + plugins)"
 print_command "$CYAN" "└" "neovim" "Setup Neovim"
 echo
 
