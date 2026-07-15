@@ -57,6 +57,7 @@ return {
         selection_caret = '  ',
         layout_config = {
           prompt_position = 'top',
+          preview_width = 0.6,
         },
         preview = {
           filesize_limit = 1,
