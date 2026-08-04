@@ -7,7 +7,7 @@
 # Skip Docker/Podman image pulls for configured containers
 # Built-in Composer step disabled — use [commands] only (avoids duplicate global update)
 # Skip node (npm global), Yarn, and Deno (manage via mise or manually)
-disable = ["git_repos", "github_cli_extensions", "containers", "composer", "node", "yarn", "deno", "rustup", "pip3", "pnpm", "cursor-agent"]
+disable = ["git_repos", "github_cli_extensions", "containers", "composer", "node", "yarn", "deno", "rustup", "pip3", "pnpm", "cursor_agent"]
 assume_yes = true
 cleanup = true
 
