@@ -14,7 +14,7 @@ term = xterm-256color
 font-size = 16
 font-thicken = true
 font-thicken-strength = 1
-adjust-cell-height = 30%
+adjust-cell-height = 15%
 
 # macos
 macos-titlebar-style = tabs
