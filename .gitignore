@@ -2,3 +2,4 @@ support/Brewfile.lock.json
 ssh/id_rsa
 ssh/id_rsa.pub
 files/config/nvim/lazy-lock.json
+.codeidx

@@ -104,7 +104,7 @@ cask 'aldente'                                      # Battery charging controlle
 cask 'keka'                                         # File archiver
 cask 'monitorcontrol'                               # External monitor control
 cask 'imageoptim'                                   # Image optimization
-cask 'kitlangton-hex'                               # Speech to word converter
+cask 'fluidvoice'                                   # Speech to word converter
 cask 'macos-unijoy'                                 # Unijoy Bengali keyboard layout
 
 # Media Applications
