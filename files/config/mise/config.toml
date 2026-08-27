@@ -5,6 +5,7 @@
 # Use latest LTS when available, otherwise latest
 bun = "latest"
 node = "lts"
+pnpm = "latest"
 python = "latest"
 ruby = "latest"
 java = "corretto-25"
