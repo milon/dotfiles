@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+# Move the focused window to the display in the given direction, keep focus on
+# that window, and remember where it came from so reversing direction returns
+# it to the exact same display it started on.
+#
+# Usage: yabai-move-display west|east|north|south
+#
+# Why the "remember origin" logic:
+#   Directional display selection is ambiguous with non-grid layouts. E.g. a
+#   small bottom display centered under two larger top displays overlaps both,
+#   so `--display north` from the bottom always resolves to the same top
+#   display, not the one the window came from. To make round-trips consistent,
+#   we record the window's previous display and, when the next move is the
+#   opposite direction, send it straight back there instead of guessing.
+#
+# Why refocus by id: after `--display` the OS active display doesn't reliably
+# follow the window; re-focusing by explicit id moves focus with it and works
+# under `layout float` (unlike directional `--focus`).
+#
+# State is per-window and best-effort; it's fine if it's missing or stale.
+#
+# Requires: yabai, jq.
+
+set -euo pipefail
+
+dir="${1:-}"
+case "$dir" in
+    west|east|north|south) ;;
+    *) echo "usage: $(basename "$0") west|east|north|south" >&2; exit 1 ;;
+esac
+
+opposite() {
+    case "$1" in
+        west)  echo east  ;;
+        east)  echo west  ;;
+        north) echo south ;;
+        south) echo north ;;
+    esac
+}
+
+state_file="${TMPDIR:-/tmp}/yabai-move-display.state"
+
+# Focused window + the display (arrangement index) it currently sits on.
+win="$(yabai -m query --windows --window)"
+win_id="$(jq -r '.id' <<<"$win")"
+[[ -z "$win_id" || "$win_id" == "null" ]] && exit 0
+cur_display="$(jq -r '.display' <<<"$win")"
+
+# Prior state for this window: "<id> <last_dir> <last_target> <source>".
+prev_dir=""; prev_target=""; prev_source=""
+if [[ -f "$state_file" ]]; then
+    line="$(awk -v w="$win_id" '$1 == w { print; exit }' "$state_file")"
+    [[ -n "$line" ]] && read -r _ prev_dir prev_target prev_source <<<"$line"
+fi
+
+# If we're reversing the last move (and the window is still where we left it),
+# go straight back to the remembered source display. Otherwise move directionally.
+if [[ -n "$prev_source" && "$prev_target" == "$cur_display" && "$dir" == "$(opposite "$prev_dir")" ]]; then
+    yabai -m window --display "$prev_source" 2>/dev/null || exit 0
+else
+    yabai -m window --display "$dir" 2>/dev/null || exit 0
+fi
+
+yabai -m window --focus "$win_id"
+
+# Record where the window ended up so the next reverse move can undo it.
+new_display="$(yabai -m query --windows --window | jq -r '.display')"
+tmp="$(mktemp)"
+{
+    [[ -f "$state_file" ]] && awk -v w="$win_id" '$1 != w' "$state_file"
+    echo "$win_id $dir $new_display $cur_display"
+} > "$tmp"
+mv "$tmp" "$state_file"
