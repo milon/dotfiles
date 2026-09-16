@@ -29,6 +29,7 @@ brew 'bat'                                          # Cat with syntax highlighti
 brew 'ripgrep'                                      # faster grep  
 brew 'fastfetch'                                    # Neofetch replacement
 brew 'gum'                                          # shell scripting utilities
+brew 'shellcheck'                                   # Bash lint (dotfiles lint / pre-commit / CI)
 
 # Development Tools
 brew 'cmake'
@@ -88,14 +89,21 @@ cask 'font-sauce-code-pro-nerd-font'
 
 # Development Applications
 cask 'visual-studio-code'
+cask 'bruno'                                        # API client
 cask 'dbngin'                                       # Database manager (MySQL, PostgreSQL, Redis)
+cask 'tableplus'                                    # SQL client (skhd: rcmd-z)
 cask 'orbstack'                                     # Docker alternative
 cask 'phpmon'                                       # PHP/Valet monitoring tool
+cask 'jetbrains-toolbox'                            # Installs PhpStorm (skhd: rcmd-p); see manual_steps
 
 # Productivity Applications
 cask '1password'
 cask 'raycast'                                      # Spotlight replacement
 cask 'obsidian'                                     # Note-taking
+cask 'notion'                                       # Notes / docs (skhd: rcmd-n)
+cask 'linear'                                       # Issue tracker (skhd: rcmd-l)
+cask 'slack'                                        # Team chat (skhd: rcmd-s)
+cask 'chatgpt'                                      # ChatGPT desktop (skhd: rcmd-a)
 cask 'bartender'                                    # Menu bar organizer
 cask 'bettercmdtab'                                 # Better cmd+tab
 
@@ -105,6 +113,7 @@ cask 'keka'                                         # File archiver
 cask 'monitorcontrol'                               # External monitor control
 cask 'imageoptim'                                   # Image optimization
 cask 'fluidvoice'                                   # Speech to word converter
+cask 'latest'                                       # App update checker
 cask 'macos-unijoy'                                 # Unijoy Bengali keyboard layout
 
 # Media Applications

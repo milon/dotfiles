@@ -108,6 +108,40 @@ else
     note_warning "Git user.name / user.email not set globally — run: dotfiles git"
 fi
 
+tracked_gitconfig="${dotfiles_dir:A}/files/home/gitconfig"
+if git config --global --get-all include.path 2>/dev/null | grep -qxF "$tracked_gitconfig"; then
+    print_success "include.path includes tracked gitconfig"
+else
+    note_warning "Tracked gitconfig not in include.path — run: dotfiles git"
+fi
+unset tracked_gitconfig
+
+# ──────────────────────────────────────────────────────────────────────────
+# Per-machine shell overrides
+# ──────────────────────────────────────────────────────────────────────────
+print_section "Shell overrides"
+if [[ -f "$HOME/.zshrc.local" ]]; then
+    print_success "~/.zshrc.local present"
+else
+    note_warning "~/.zshrc.local missing — run: dotfiles (re-run precheck via ./install.sh) or create it"
+fi
+
+# ──────────────────────────────────────────────────────────────────────────
+# Window management (yabai + skhd)
+# ──────────────────────────────────────────────────────────────────────────
+print_section "Window management"
+for cmd in yabai skhd; do
+    if ! command_exists "$cmd"; then
+        note_warning "$cmd not installed — run: dotfiles brew && dotfiles hotkeys"
+        continue
+    fi
+    if pgrep -x "$cmd" >/dev/null 2>&1; then
+        print_success "$cmd running"
+    else
+        note_warning "$cmd installed but not running — run: dotfiles hotkeys"
+    fi
+done
+
 # ──────────────────────────────────────────────────────────────────────────
 # SSH key
 # ──────────────────────────────────────────────────────────────────────────
@@ -122,7 +156,7 @@ fi
 # Essential commands on PATH
 # ──────────────────────────────────────────────────────────────────────────
 print_section "Essential commands on PATH"
-typeset -a essentials=(zsh git nvim fzf zoxide starship eza bat mise topgrade gum)
+typeset -a essentials=(zsh git nvim fzf zoxide starship eza bat mise topgrade gum shellcheck yabai skhd)
 for cmd in $essentials; do
     if command_exists "$cmd"; then
         print_success "$cmd"

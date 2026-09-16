@@ -93,7 +93,7 @@ dotfiles
 
 Run `dotfiles help` (or `dotfiles`) for the current list. In short:
 
-- **doctor** — Read-only health check: Homebrew + Brewfile drift, dotfile symlinks, mise tools, git config, SSH key, essential commands on PATH. Returns non-zero if anything is broken.
+- **doctor** — Read-only health check: Homebrew + Brewfile drift, dotfile symlinks, mise tools, git config + `include.path`, `~/.zshrc.local`, yabai/skhd running, SSH key, essential commands on PATH (including shellcheck). Returns non-zero if anything is broken.
 - **update** — [Topgrade](https://github.com/topgrade-rs/topgrade) with `files/config/topgrade.toml` (brew, casks, Mac App Store, mise, editor extensions, Composer, etc.; steps can be disabled in that file).
 - **clean** — `brew cleanup`, `brew autoremove` (unused dependency-only formulae), plus npm / Composer / mise cache cleanup where available.
 - **symlinks** — Link tracked files from `files/` into `~` and `~/.config/`.
@@ -110,8 +110,8 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 - **Other:** Git, Composer, Laravel Valet, Mailpit, Meilisearch
 
 ### Applications
-- **Development:** Visual Studio Code, Bruno (API client), OrbStack (Docker)
-- **Productivity:** 1Password, Raycast, Obsidian, Bartender
+- **Development:** Visual Studio Code, Bruno (API client), OrbStack (Docker), TablePlus, JetBrains Toolbox (PhpStorm via Toolbox — see manual steps)
+- **Productivity:** 1Password, Raycast, Obsidian, Notion, Linear, Slack, ChatGPT, Bartender
 - **System:** Aldente, MonitorControl, Latest
 - **Media:** IINA, YouTube Music
 - **Terminal:** Ghostty
@@ -132,6 +132,7 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 2. **Tracked aliases:** Aliases shared across all your machines live in `files/home/zsh_aliases`.
 3. **Dotfiles:** Add files to `files/` and a corresponding entry to `support/symlinks_map.sh`.
 4. **Homebrew packages:** Add to `support/Brewfile`.
+5. **VS Code Custom CSS/JS (optional):** `files/vscode/{style.css,script.js}` are not symlinked. Point the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension at `$DOTFILES_DIR/files/vscode/style.css` and `$DOTFILES_DIR/files/vscode/script.js` if you want the command-palette styling.
 
 ### Repository Configuration
 
