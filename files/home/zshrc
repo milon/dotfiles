@@ -14,18 +14,22 @@ antigen init $HOME/.antigenrc
 # Default editor
 export EDITOR='nvim'
 
+# Repo root — this file lives at $DOTFILES_DIR/files/home/zshrc (symlinked to ~/.zshrc).
+# :A follows the symlink so a clone outside ~/.dotfiles still works.
+export DOTFILES_DIR="${DOTFILES_DIR:-${${(%):-%N}:A:h:h:h}}"
+
 # Starship prompt config
-export STARSHIP_CONFIG="$HOME/.dotfiles/files/home/starship.toml"
+export STARSHIP_CONFIG="$DOTFILES_DIR/files/home/starship.toml"
 
 # Aliases
-source "$HOME/.dotfiles/files/home/zsh_aliases"
+source "$DOTFILES_DIR/files/home/zsh_aliases"
 
 # Always enable colored `grep` output
 export GREP_OPTIONS="--color=auto"
 
 # Custom Path
 export PATH="$PATH:$HOME/.composer/vendor/bin:$HOME/.config/composer/vendor/bin"
-export PATH="$PATH:$HOME/.dotfiles/bin"
+export PATH="$PATH:$DOTFILES_DIR/bin"
 export PATH="$PATH:$HOME/bin:$HOME/.config/phpmon/bin:$HOME/.local/bin"
 
 # mise - polyglot version manager (node, python, ruby, java, rust)
@@ -36,7 +40,7 @@ export PATH="/usr/local/opt/ncurses/bin:$PATH"
 
 # FZF
 eval "$(fzf --zsh)"
-source "$HOME/.dotfiles/files/home/fzf.sh"
+source "$DOTFILES_DIR/files/home/fzf.sh"
 
 # zoxide
 eval "$(zoxide init zsh)"

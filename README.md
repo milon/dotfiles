@@ -61,6 +61,7 @@ Before running the installation, complete these steps:
    ```bash
    git clone git@github.com:milon/dotfiles.git ~/.dotfiles
    ```
+   `~/.dotfiles` is conventional; any path works — `zshrc` and the installer resolve the repo root from the checkout itself.
 
 2. **Run the installer**
    ```bash
@@ -119,6 +120,7 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 - Shell configuration (Zsh with Antigen)
 - Git configuration with aliases and colors
 - macOS system preferences
+- Window management (yabai + skhd hotkeys)
 - Symlinks for dotfiles
 
 

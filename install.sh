@@ -36,4 +36,5 @@ run_step 'NEOVIM' neovim.sh
 
 # System configuration
 run_step 'MACOS SETTINGS' mac_settings.sh
+run_step 'HOTKEYS'        hotkeys.sh
 run_step 'MANUAL STEPS'   manual_steps.sh

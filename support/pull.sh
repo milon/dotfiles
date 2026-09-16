@@ -14,7 +14,7 @@ typeset -A repo_paths
 for dir repo in ${(kv)git_repos}; do
     repo_paths[$dir]="$CODE_DIR/$dir"
 done
-repo_paths[dotfiles]="$HOME/.dotfiles"
+repo_paths[dotfiles]="$dotfiles_dir"
 
 # Pull each repo, in its own subshell so cd never leaks across iterations.
 for dir repo_path in ${(kv)repo_paths}; do
