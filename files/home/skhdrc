@@ -1,16 +1,21 @@
-# App launcher
-rcmd - g : open -a "Google Chrome"
-rcmd - t : open -a "Ghostty"
-rcmd - c : open -a "Visual Studio Code"
-rcmd - m : open -a "Messages"
-rcmd - w : open -a "WhatsApp"
-rcmd - s : open -a "Slack"
-rcmd - a : open -a "ChatGPT" 
-rcmd - l : open -a "Linear"
-rcmd - p : open -a "PhpStorm" 
-rcmd - n : open -a "Notion"
-rcmd - z : open -a "TablePlus"
-rcmd - f : open -a "Finder"
+# Modifiers (built into skhd — no Karabiner remap required):
+#   rcmd  = right Command
+#   hyper = cmd + alt + ctrl + shift
+# Reload this file: hyper - r  (skhd also auto-reloads on save)
+
+# App launcher — open by bundle ID so renames don't break bindings
+rcmd - g : open -b "com.google.Chrome"            # Google Chrome
+rcmd - t : open -b "com.mitchellh.ghostty"        # Ghostty
+rcmd - c : open -b "com.microsoft.VSCode"         # Visual Studio Code
+rcmd - m : open -b "com.apple.MobileSMS"          # Messages
+rcmd - w : open -b "net.whatsapp.WhatsApp"        # WhatsApp
+rcmd - s : open -b "com.tinyspeck.slackmacgap"    # Slack
+rcmd - a : open -b "com.openai.codex"             # ChatGPT (current OpenAI desktop ID)
+rcmd - l : open -b "com.linear"                   # Linear
+rcmd - p : open -b "com.jetbrains.PhpStorm"       # PhpStorm
+rcmd - n : open -b "notion.id"                    # Notion
+rcmd - z : open -b "com.tinyapp.TablePlus"        # TablePlus
+rcmd - f : open -b "com.apple.finder"             # Finder
 
 # Window sizing (yabai) — grid is rows:cols:start_x:start_y:width:height
 hyper - f : yabai -m window --grid 1:1:0:0:1:1     # Full screen (fills the display)
