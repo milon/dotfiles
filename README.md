@@ -117,7 +117,7 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 - **Terminal:** Ghostty
 
 ### System Configuration
-- Shell configuration (Zsh with Antigen)
+- Shell configuration (Zsh with Sheldon)
 - Git configuration with aliases and colors
 - macOS system preferences
 - Window management (yabai + skhd hotkeys)
@@ -130,9 +130,10 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 
 1. **Per-machine overrides:** Edit `~/.zshrc.local` (created automatically by `precheck.sh`). Sourced **last** by `~/.zshrc`, so anything in it wins. Use it for personal aliases, work secrets / API tokens, host-specific `PATH` entries, proxies, AWS profiles, etc. Not tracked.
 2. **Tracked aliases:** Aliases shared across all your machines live in `files/home/zsh_aliases`.
-3. **Dotfiles:** Add files to `files/` and a corresponding entry to `support/symlinks_map.sh`.
-4. **Homebrew packages:** Add to `support/Brewfile`.
-5. **VS Code Custom CSS/JS (optional):** `files/vscode/{style.css,script.js}` are not symlinked. Point the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension at `$DOTFILES_DIR/files/vscode/style.css` and `$DOTFILES_DIR/files/vscode/script.js` if you want the command-palette styling.
+3. **Zsh plugins:** Edit `files/config/sheldon/plugins.toml`, then run `sheldon lock` (or open a new shell — Sheldon locks on source when needed).
+4. **Dotfiles:** Add files to `files/` and a corresponding entry to `support/symlinks_map.sh`.
+5. **Homebrew packages:** Add to `support/Brewfile`.
+6. **VS Code Custom CSS/JS (optional):** `files/vscode/{style.css,script.js}` are not symlinked. Point the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension at `$DOTFILES_DIR/files/vscode/style.css` and `$DOTFILES_DIR/files/vscode/script.js` if you want the command-palette styling.
 
 ### Repository Configuration
 

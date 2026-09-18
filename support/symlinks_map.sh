@@ -8,11 +8,11 @@
 typeset -gA sym_links=(
     # $HOME root
     [home/zshrc]=$HOME/.zshrc
-    [home/antigenrc]=$HOME/.antigenrc
     [home/gitignore]=$HOME/.gitignore
     [home/skhdrc]=$HOME/.skhdrc
     [home/yabairc]=$HOME/.yabairc
     # $HOME/.config
+    [config/sheldon/plugins.toml]=$HOME/.config/sheldon/plugins.toml
     [config/nvim]=$HOME/.config/nvim
     [config/ghostty/config]=$HOME/.config/ghostty/config
     [config/ghostty/Ghostty.icns]=$HOME/.config/ghostty/Ghostty.icns

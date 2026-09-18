@@ -5,21 +5,19 @@ elif [[ -x /usr/local/bin/brew ]]; then
     eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-# source antigen location (under the active Homebrew prefix)
-source "${HOMEBREW_PREFIX:-/opt/homebrew}/share/antigen/antigen.zsh"
-
-# load oh-my-zsh library
-antigen init $HOME/.antigenrc
-
-# Default editor
-export EDITOR='nvim'
-
 # Repo root — this file lives at $DOTFILES_DIR/files/home/zshrc (symlinked to ~/.zshrc).
 # :A follows the symlink so a clone outside ~/.dotfiles still works.
 export DOTFILES_DIR="${DOTFILES_DIR:-${${(%):-%N}:A:h:h:h}}"
 
-# Starship prompt config
+# Sheldon plugins (see ~/.config/sheldon/plugins.toml)
+eval "$(sheldon source)"
+
+# Default editor
+export EDITOR='nvim'
+
+# Starship prompt
 export STARSHIP_CONFIG="$DOTFILES_DIR/files/home/starship.toml"
+eval "$(starship init zsh)"
 
 # Aliases
 source "$DOTFILES_DIR/files/home/zsh_aliases"
@@ -38,7 +36,7 @@ eval "$(mise activate zsh)"
 # Zsh
 export PATH="/usr/local/opt/ncurses/bin:$PATH"
 
-# FZF
+# FZF (replaces the old Oh My Zsh fzf bundle)
 eval "$(fzf --zsh)"
 source "$DOTFILES_DIR/files/home/fzf.sh"
 

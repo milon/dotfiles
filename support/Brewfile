@@ -20,7 +20,7 @@ brew 'openssl'
 brew 'pkg-config'                                   # Needed for imagick build/install
 
 # Shell & Terminal Tools
-brew 'antigen'                                      # Zsh plugin manager
+brew 'sheldon'                                      # Zsh plugin manager
 brew 'starship'                                     # Zsh prompt
 brew 'zoxide'                                       # Smarter cd command
 brew 'fzf'                                          # Fuzzy finder

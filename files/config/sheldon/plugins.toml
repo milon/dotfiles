@@ -1,0 +1,25 @@
+# Sheldon — https://sheldon.cli.rs
+# Locked clones live under ~/.local/share/sheldon/
+shell = "zsh"
+
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+
+# After completions are on fpath
+[plugins.compinit]
+inline = "autoload -Uz compinit && compinit"
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+
+# Oh My Zsh git aliases only (fzf/starship are handled in ~/.zshrc)
+[plugins.ohmyzsh-git]
+github = "ohmyzsh/ohmyzsh"
+dir = "plugins/git"
+
+[plugins.zsh-artisan]
+github = "jessarcher/zsh-artisan"
+
+# Must be last (or very late) so it can wrap the ZLE widgets
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
