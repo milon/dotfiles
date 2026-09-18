@@ -1,18 +1,26 @@
 # Sheldon — https://sheldon.cli.rs
 # Locked clones live under ~/.local/share/sheldon/
+#
+# LOAD ORDER MATTERS — Sheldon sources plugins top-to-bottom. Do not reorder
+# casually or completion / highlighting will break:
+#   1. completion defs on fpath  (zsh-completions)
+#   2. compinit
+#   3. autosuggestions / other plugins that wrap ZLE
+#   4. syntax-highlighting — must stay last (or very late)
+#
+# fzf is loaded from ~/.zshrc (not here).
 shell = "zsh"
 
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
 
-# After completions are on fpath
 [plugins.compinit]
 inline = "autoload -Uz compinit && compinit"
 
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 
-# Oh My Zsh git aliases only (fzf/starship are handled in ~/.zshrc)
+# Oh My Zsh git aliases only (starship is handled in ~/.zshrc)
 [plugins.ohmyzsh-git]
 github = "ohmyzsh/ohmyzsh"
 dir = "plugins/git"
@@ -20,6 +28,5 @@ dir = "plugins/git"
 [plugins.zsh-artisan]
 github = "jessarcher/zsh-artisan"
 
-# Must be last (or very late) so it can wrap the ZLE widgets
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"

@@ -9,6 +9,9 @@ fi
 # :A follows the symlink so a clone outside ~/.dotfiles still works.
 export DOTFILES_DIR="${DOTFILES_DIR:-${${(%):-%N}:A:h:h:h}}"
 
+# FZF opts (before fzf init)
+source "$DOTFILES_DIR/files/home/fzf.sh"
+
 # Sheldon plugins (see ~/.config/sheldon/plugins.toml)
 eval "$(sheldon source)"
 
@@ -36,9 +39,8 @@ eval "$(mise activate zsh)"
 # Zsh
 export PATH="/usr/local/opt/ncurses/bin:$PATH"
 
-# FZF (replaces the old Oh My Zsh fzf bundle)
+# FZF
 eval "$(fzf --zsh)"
-source "$DOTFILES_DIR/files/home/fzf.sh"
 
 # zoxide
 eval "$(zoxide init zsh)"
