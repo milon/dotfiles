@@ -110,7 +110,7 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 - **Other:** Git, Composer, Laravel Valet, Mailpit, Meilisearch
 
 ### Applications
-- **Development:** Visual Studio Code, Bruno (API client), OrbStack (Docker), TablePlus, JetBrains Toolbox (PhpStorm via Toolbox — see manual steps)
+- **Development:** Visual Studio Code, OrbStack (Docker), TablePlus, JetBrains Toolbox (PhpStorm via Toolbox — see manual steps)
 - **Productivity:** 1Password, Raycast, Obsidian, Notion, Linear, Slack, ChatGPT, Bartender
 - **System:** Aldente, MonitorControl, Latest
 - **Media:** IINA, YouTube Music
