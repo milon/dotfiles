@@ -1,16 +1,32 @@
 # Sheldon — https://sheldon.cli.rs
 # Locked clones live under ~/.local/share/sheldon/
 #
-# LOAD ORDER MATTERS — Sheldon sources plugins top-to-bottom. Do not reorder
-# casually or completion / highlighting will break:
-#   1. completion defs on fpath  (zsh-completions)
-#   2. compinit
-#   3. autosuggestions / other plugins that wrap ZLE
-#   4. syntax-highlighting — must stay last (or very late)
-#
-# fzf is loaded from ~/.zshrc (not here).
+# LOAD ORDER MATTERS — sourced top-to-bottom. Do not reorder casually:
+#   1. env / path / options
+#   2. fzf opts (before fzf init)
+#   3. completion defs on fpath → compinit
+#   4. autosuggestions / other ZLE wrappers
+#   5. syntax-highlighting (last among ZLE wrappers)
+#   6. aliases, mise, fzf, zoxide, starship
 shell = "zsh"
 
+# ── Environment (needs DOTFILES_DIR from ~/.zshrc) ───────────────────────
+[plugins.env]
+inline = """
+setopt AUTO_CD
+export EDITOR='nvim'
+export GREP_OPTIONS='--color=auto'
+export STARSHIP_CONFIG="$DOTFILES_DIR/files/home/starship.toml"
+export PATH="$PATH:$HOME/.composer/vendor/bin:$HOME/.config/composer/vendor/bin"
+export PATH="$PATH:$DOTFILES_DIR/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.config/phpmon/bin:$HOME/.local/bin"
+export PATH="/usr/local/opt/ncurses/bin:$PATH"
+"""
+
+[plugins.fzf-opts]
+inline = 'source "$DOTFILES_DIR/files/home/fzf.sh"'
+
+# ── Completions ──────────────────────────────────────────────────────────
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
 
@@ -20,7 +36,6 @@ inline = "autoload -Uz compinit && compinit"
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 
-# Oh My Zsh git aliases only (starship is handled in ~/.zshrc)
 [plugins.ohmyzsh-git]
 github = "ohmyzsh/ohmyzsh"
 dir = "plugins/git"
@@ -30,3 +45,19 @@ github = "jessarcher/zsh-artisan"
 
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
+
+# ── Dotfiles + tools ─────────────────────────────────────────────────────
+[plugins.aliases]
+inline = 'source "$DOTFILES_DIR/files/home/zsh_aliases"'
+
+[plugins.mise]
+inline = 'eval "$(mise activate zsh)"'
+
+[plugins.fzf]
+inline = 'eval "$(fzf --zsh)"'
+
+[plugins.zoxide]
+inline = 'eval "$(zoxide init zsh)"'
+
+[plugins.starship]
+inline = 'eval "$(starship init zsh)"'

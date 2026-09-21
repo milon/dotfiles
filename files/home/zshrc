@@ -1,51 +1,15 @@
-# Homebrew shellenv: detect prefix (Apple Silicon vs Intel) and load it.
+# Homebrew first so `sheldon` (and other brew tools) are on PATH.
 if [[ -x /opt/homebrew/bin/brew ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [[ -x /usr/local/bin/brew ]]; then
     eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-# Repo root — this file lives at $DOTFILES_DIR/files/home/zshrc (symlinked to ~/.zshrc).
-# :A follows the symlink so a clone outside ~/.dotfiles still works.
+# Repo root — this file is $DOTFILES_DIR/files/home/zshrc (symlinked to ~/.zshrc).
 export DOTFILES_DIR="${DOTFILES_DIR:-${${(%):-%N}:A:h:h:h}}"
 
-# FZF opts (before fzf init)
-source "$DOTFILES_DIR/files/home/fzf.sh"
-
-# Sheldon plugins (see ~/.config/sheldon/plugins.toml)
+# Plugins + shell env: ~/.config/sheldon/plugins.toml
 eval "$(sheldon source)"
 
-# Default editor
-export EDITOR='nvim'
-
-# Starship prompt
-export STARSHIP_CONFIG="$DOTFILES_DIR/files/home/starship.toml"
-eval "$(starship init zsh)"
-
-# Aliases
-source "$DOTFILES_DIR/files/home/zsh_aliases"
-
-# Always enable colored `grep` output
-export GREP_OPTIONS="--color=auto"
-
-# Custom Path
-export PATH="$PATH:$HOME/.composer/vendor/bin:$HOME/.config/composer/vendor/bin"
-export PATH="$PATH:$DOTFILES_DIR/bin"
-export PATH="$PATH:$HOME/bin:$HOME/.config/phpmon/bin:$HOME/.local/bin"
-
-# mise - polyglot version manager (node, python, ruby, java, rust)
-eval "$(mise activate zsh)"
-
-# Zsh
-export PATH="/usr/local/opt/ncurses/bin:$PATH"
-
-# FZF
-eval "$(fzf --zsh)"
-
-# zoxide
-eval "$(zoxide init zsh)"
-
-# Per-machine overrides — keep this last so it can override anything above.
-# ~/.zshrc.local is intentionally not tracked; use it for work secrets,
-# host-specific PATH entries, proxies, API tokens, etc.
+# Per-machine overrides (untracked) — must stay last.
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
