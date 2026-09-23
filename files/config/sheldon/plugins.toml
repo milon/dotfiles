@@ -8,6 +8,7 @@
 #   4. autosuggestions / other ZLE wrappers
 #   5. syntax-highlighting (last among ZLE wrappers)
 #   6. aliases, mise, fzf, zoxide, starship
+#   7. keybindings (after everything that calls bindkey)
 shell = "zsh"
 
 # ── Environment (needs DOTFILES_DIR from ~/.zshrc) ───────────────────────
@@ -61,3 +62,15 @@ inline = 'eval "$(zoxide init zsh)"'
 
 [plugins.starship]
 inline = 'eval "$(starship init zsh)"'
+
+# ── Keybindings ──────────────────────────────────────────────────────────
+# zsh infers its keymap from $EDITOR when neither `bindkey -e` nor `bindkey -v`
+# runs. "nvim" matches "vi", so the env plugin above silently selects vi mode
+# and Option+Backspace (Esc + ^?) drops to vicmd instead of killing a word.
+[plugins.keybindings]
+inline = """
+bindkey -e
+bindkey '^[^?' backward-kill-word
+bindkey '^[[1;3D' backward-word
+bindkey '^[[1;3C' forward-word
+"""
