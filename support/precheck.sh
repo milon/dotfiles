@@ -24,6 +24,22 @@ else
     print_info "~/.zshrc.local already exists"
 fi
 
+print_step "Checking for ~/.Brewfile.local (per-machine Homebrew packages)..."
+if [[ ! -f "$HOME/.Brewfile.local" ]]; then
+    cat > "$HOME/.Brewfile.local" <<'EOF'
+# ~/.Brewfile.local — packages for this machine only (NOT tracked by dotfiles)
+#
+# Installed by `dotfiles brew` after the shared support/Brewfile.
+# Leave commented examples, or add real entries:
+#
+# brew 'some-cli'
+# cask 'some-app'
+EOF
+    print_success "Created ~/.Brewfile.local with a getting-started header"
+else
+    print_info "~/.Brewfile.local already exists"
+fi
+
 print_step "Checking for SSH keys..."
 if ssh_key_type=$(detect_ssh_key); then
     print_success "SSH key found (${(U)ssh_key_type})"

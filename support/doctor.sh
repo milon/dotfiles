@@ -45,6 +45,17 @@ if command_exists brew; then
         note_warning "Brewfile drift detected — run: dotfiles brew (or brew bundle --file $support_dir/Brewfile)"
         brew bundle check --file "$support_dir/Brewfile" --no-upgrade --verbose 2>&1 | sed 's/^/    /'
     fi
+
+    if [[ -f "$HOME/.Brewfile.local" ]]; then
+        if brew bundle check --file "$HOME/.Brewfile.local" --no-upgrade &>/dev/null; then
+            print_success "~/.Brewfile.local satisfied"
+        else
+            note_warning "Per-machine Brewfile drift — run: dotfiles brew"
+            brew bundle check --file "$HOME/.Brewfile.local" --no-upgrade --verbose 2>&1 | sed 's/^/    /'
+        fi
+    else
+        note_warning "~/.Brewfile.local missing — re-run precheck, or create it for machine-only packages"
+    fi
 else
     note_error "brew not on PATH — run: dotfiles brew"
 fi

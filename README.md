@@ -110,8 +110,8 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 - **Other:** Git, Composer, Laravel Valet, Mailpit, Meilisearch
 
 ### Applications
-- **Development:** Visual Studio Code, OrbStack (Docker), TablePlus, JetBrains Toolbox (PhpStorm via Toolbox — see manual steps)
-- **Productivity:** 1Password, Raycast, Obsidian, Notion, Linear, Slack, ChatGPT, Bartender
+- **Development:** Visual Studio Code, OrbStack (Docker), TablePlus. JetBrains Toolbox (PhpStorm) is per-machine in `~/.Brewfile.local`.
+- **Productivity:** 1Password, Raycast, Obsidian, Bartender. Notion, Linear, Slack, and ChatGPT are per-machine in `~/.Brewfile.local`.
 - **System:** Aldente, MonitorControl, Latest
 - **Media:** IINA, YouTube Music
 - **Terminal:** Ghostty
@@ -132,7 +132,7 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 2. **Tracked aliases:** Aliases shared across all your machines live in `files/home/zsh_aliases`.
 3. **Zsh plugins:** Edit `files/config/sheldon/plugins.toml`, then run `sheldon lock` (or open a new shell — Sheldon locks on source when needed).
 4. **Dotfiles:** Add files to `files/` and a corresponding entry to `support/symlinks_map.sh`.
-5. **Homebrew packages:** Add to `support/Brewfile`.
+5. **Homebrew packages:** Shared packages go in `support/Brewfile`. Packages for one machine only go in `~/.Brewfile.local` (created by `precheck.sh`, not tracked). `dotfiles brew` installs the shared file first, then the local one.
 6. **VS Code Custom CSS/JS (optional, not installed):** `optional/vscode/{style.css,script.js}` are not symlinked. Point the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension at `$DOTFILES_DIR/optional/vscode/style.css` and `$DOTFILES_DIR/optional/vscode/script.js` if you want the command-palette styling.
 
 ### Repository Configuration

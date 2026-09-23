@@ -78,10 +78,6 @@ cask 'phpmon'                                       # PHP / Valet monitor
 cask '1password'
 cask 'raycast'                                      # Spotlight replacement
 cask 'obsidian'                                     # Notes
-cask 'notion'                                       # Notes / docs (skhd: rcmd-n)
-cask 'linear'                                       # Issue tracker (skhd: rcmd-l)
-cask 'slack'                                        # Team chat (skhd: rcmd-s)
-cask 'chatgpt'                                      # ChatGPT desktop (skhd: rcmd-a)
 cask 'google-chrome'
 
 # Casks — system
