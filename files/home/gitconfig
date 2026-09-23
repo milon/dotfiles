@@ -27,7 +27,9 @@
 
 [pager]
 	branch = false
-	diff = "diff-so-fancy | $PAGER"
+	# -R keeps color; -F quits if one screen; -X avoids blank-flash less init.
+	# Do not use $PAGER here — when unset the pipe swallows all output.
+	diff = diff-so-fancy | less --tabs=4 -RFX
 
 [blame]
 	coloring = highlightRecent
