@@ -1,17 +1,15 @@
-# Homebrew Taps
+# Taps
 tap 'buo/cask-upgrade', trusted: true
 tap 'koekeishiya/formulae', trusted: true
-tap 'milon/macos-unijoy', trusted: true 
+tap 'milon/macos-unijoy', trusted: true
 tap 'nicoverbruggen/homebrew-cask', trusted: true
 tap 'shivammathur/php', trusted: true
 tap 'shivammathur/extensions', trusted: true
 
-# Core System Tools
-brew 'topgrade'                                     # Unified upgrade runner (dotfiles update)
+# Formulae — core
 brew 'bash'
-brew 'coreutils'                                    # Updated GNU core utilities
+brew 'coreutils'                                    # GNU core utilities
 brew 'curl'
-brew 'duti'                                         # Set default URL handler (e.g. Chrome for http/https)
 brew 'git'
 brew 'gnupg'
 brew 'grep'
@@ -19,113 +17,96 @@ brew 'less'
 brew 'openssl'
 brew 'pkg-config'                                   # Needed for imagick build/install
 
-# Shell & Terminal Tools
+# Formulae — shell
 brew 'sheldon'                                      # Zsh plugin manager
 brew 'starship'                                     # Zsh prompt
-brew 'zoxide'                                       # Smarter cd command
+brew 'zoxide'                                       # Smarter cd
 brew 'fzf'                                          # Fuzzy finder
-brew 'eza'                                          # Modern ls replacement
+brew 'eza'                                          # Modern ls
 brew 'bat'                                          # Cat with syntax highlighting
-brew 'ripgrep'                                      # faster grep  
-brew 'fastfetch'                                    # Neofetch replacement
-brew 'gum'                                          # shell scripting utilities
+brew 'ripgrep'                                      # Faster grep
+brew 'fastfetch'                                    # System info
+brew 'gum'                                          # Shell scripting utilities
 brew 'shellcheck'                                   # Bash lint (dotfiles lint / pre-commit / CI)
 
-# Development Tools
+# Formulae — languages
+brew 'mise'                                         # Polyglot version manager (node, python, ruby, java, go, rust)
+brew 'php'                                          # shivammathur/php; global Composer packages in support/php.sh
+brew 'pie'                                          # PHP extension installer
+brew 'composer'
+brew 'luarocks'                                     # Lua package manager
+brew 'nvim'                                         # Neovim
+
+# Formulae — development
 brew 'cmake'
 brew 'sqlite'
 brew 'imagemagick'
-
-# PHP (via shivammathur/php tap; see support/php.sh for global Composer packages)
-brew 'php'
-brew 'pie'                                          # PHP extension installer
-brew 'composer'
-
-# Version Management
-brew 'mise'                                         # Polyglot version manager (node, python, ruby, java, rust)
-brew 'luarocks'                                     # Lua package manager
-
-# Editors
-brew 'nvim'                                         # Neovim
-
-# Development Servers
-brew 'mailpit'                                      # Mail catcher for development
-brew 'meilisearch'                                  # Search engine
-
-# Git Tools
 brew 'diff-so-fancy'                                # Better git diff output
 brew 'gh'                                           # GitHub CLI
+brew 'xh'                                           # HTTP client
+brew 'jq'                                           # JSON processor
+brew 'mailpit'                                      # Mail catcher
+brew 'meilisearch'                                  # Search engine
+brew 'ollama'                                       # Local LLM CLI
 
-# System Utilities
+# Formulae — desktop
+brew 'topgrade'                                     # Unified upgrade runner (dotfiles update)
 brew 'mas'                                          # Mac App Store CLI
 brew 'btop'                                         # System monitor
-brew 'koekeishiya/formulae/skhd'                   # Hotkey daemon
-brew 'koekeishiya/formulae/yabai'                  # Tiling window manager
+brew 'duti'                                         # Default URL handler (Chrome for http/https)
+brew 'koekeishiya/formulae/skhd'                    # Hotkey daemon
+brew 'koekeishiya/formulae/yabai'                   # Window manager
 
-# Media & Content
+# Formulae — media
 brew 'ffmpeg'
 brew 'mpv'                                          # Media player
 brew 'viu'                                          # Terminal image viewer
 brew 'yt-dlp'                                       # YouTube downloader
-brew 'd2'                                           # Diagram language
 brew 'kepubify'                                     # EPUB to Kobo converter
 
-# Web & API Tools
-brew 'xh'                                           # HTTP client (httpie replacement)
-brew 'jq'                                           # JSON processor
-brew 'ollama'                                       # Local LLM CLI
-
-# Fonts
-cask 'font-0xproto-nerd-font'
-cask 'font-annotation-mono'
-cask 'font-fantasque-sans-mono-nerd-font'
-cask 'font-jetbrains-mono-nerd-font'
-cask 'font-monaspice-nerd-font'
-cask 'font-noto-sans'
-cask 'font-noto-sans-bengali'
-cask 'font-noto-sans-bengali-ui'
-cask 'font-noto-serif-bengali'
-cask 'font-sauce-code-pro-nerd-font'
-
-# Development Applications
+# Casks — terminal and editors
+cask 'ghostty'
 cask 'visual-studio-code'
-cask 'dbngin'                                       # Database manager (MySQL, PostgreSQL, Redis)
-cask 'tableplus'                                    # SQL client (skhd: rcmd-z)
-cask 'orbstack'                                     # Docker alternative
-cask 'phpmon'                                       # PHP/Valet monitoring tool
-cask 'jetbrains-toolbox'                            # Installs PhpStorm (skhd: rcmd-p); see manual_steps
 
-# Productivity Applications
+# Casks — development
+cask 'dbngin'                                       # MySQL, PostgreSQL, Redis
+cask 'tableplus'                                    # SQL client (skhd: rcmd-z)
+cask 'orbstack'                                     # Docker
+cask 'phpmon'                                       # PHP / Valet monitor
+
+# Casks — productivity
 cask '1password'
 cask 'raycast'                                      # Spotlight replacement
-cask 'obsidian'                                     # Note-taking
+cask 'obsidian'                                     # Notes
 cask 'notion'                                       # Notes / docs (skhd: rcmd-n)
 cask 'linear'                                       # Issue tracker (skhd: rcmd-l)
 cask 'slack'                                        # Team chat (skhd: rcmd-s)
 cask 'chatgpt'                                      # ChatGPT desktop (skhd: rcmd-a)
+cask 'google-chrome'
+
+# Casks — system
 cask 'bartender'                                    # Menu bar organizer
 cask 'bettercmdtab'                                 # Better cmd+tab
-
-# System Utilities
-cask 'aldente'                                      # Battery charging controller
-cask 'keka'                                         # File archiver
+cask 'aldente'                                      # Battery charge limit
+cask 'keka'                                         # Archives
 cask 'monitorcontrol'                               # External monitor control
 cask 'imageoptim'                                   # Image optimization
-cask 'fluidvoice'                                   # Speech to word converter
+cask 'fluidvoice'                                   # Speech to text
 cask 'latest'                                       # App update checker
-cask 'macos-unijoy'                                 # Unijoy Bengali keyboard layout
+cask 'macos-unijoy'                                 # Unijoy Bengali keyboard
 
-# Media Applications
+# Casks — media
 cask 'iina'                                         # Media player
 cask 'yt-music'                                     # YouTube Music
 
-# Web Browsers
-cask 'google-chrome'
+# Casks — fonts (Ghostty uses 0xProto; Noto covers UI + Bengali)
+cask 'font-0xproto-nerd-font'
+cask 'font-noto-sans'
+cask 'font-noto-sans-bengali'
+cask 'font-noto-sans-bengali-ui'
+cask 'font-noto-serif-bengali'
 
-# Terminal
-cask 'ghostty'                                      # Terminal emulator
-
-# Mac App Store Applications
+# Mac App Store
 mas 'Amphetamine', id: 937984704
 mas 'Dato', id: 1470584107
 mas 'Unsplash', id: 1284863847

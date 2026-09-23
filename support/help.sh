@@ -47,11 +47,6 @@ print_command "$GREEN" "├" "clone" "Clone personal Git repositories"
 print_command "$GREEN" "└" "pull"  "Update all Git repositories"
 echo
 
-# ─── EDITORS ─────────────────────────────────────────────────────────────
-print_section_header "$CYAN" $'\uf489' "EDITORS"
-print_command "$CYAN" "└" "neovim" "Setup Neovim"
-echo
-
 # ─── SYSTEM ──────────────────────────────────────────────────────────────
 print_section_header "$MAGENTA" $'\uf179' "SYSTEM"
 print_command "$MAGENTA" "├" "mac"     "Configure macOS settings"

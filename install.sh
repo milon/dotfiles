@@ -31,9 +31,6 @@ run_step 'GIT CLONE' git_clone.sh
 # Language environments (via mise)
 run_step 'MISE' mise.sh
 
-# Editors
-run_step 'NEOVIM' neovim.sh
-
 # System configuration
 run_step 'MACOS SETTINGS' mac_settings.sh
 run_step 'HOTKEYS'        hotkeys.sh

@@ -1,5 +1,5 @@
-// Optional VS Code Custom JS (not symlinked — see README Customization).
-// Point be5invis.vscode-custom-css at $DOTFILES_DIR/files/vscode/script.js
+// Optional VS Code Custom JS (not installed — see README Customization).
+// Point be5invis.vscode-custom-css at $DOTFILES_DIR/optional/vscode/script.js
 document.addEventListener('DOMContentLoaded', function () {
     const checkElement = setInterval(() => {
         const commandDialog = document.querySelector(".quick-input-widget");

@@ -133,7 +133,7 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 3. **Zsh plugins:** Edit `files/config/sheldon/plugins.toml`, then run `sheldon lock` (or open a new shell — Sheldon locks on source when needed).
 4. **Dotfiles:** Add files to `files/` and a corresponding entry to `support/symlinks_map.sh`.
 5. **Homebrew packages:** Add to `support/Brewfile`.
-6. **VS Code Custom CSS/JS (optional):** `files/vscode/{style.css,script.js}` are not symlinked. Point the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension at `$DOTFILES_DIR/files/vscode/style.css` and `$DOTFILES_DIR/files/vscode/script.js` if you want the command-palette styling.
+6. **VS Code Custom CSS/JS (optional, not installed):** `optional/vscode/{style.css,script.js}` are not symlinked. Point the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension at `$DOTFILES_DIR/optional/vscode/style.css` and `$DOTFILES_DIR/optional/vscode/script.js` if you want the command-palette styling.
 
 ### Repository Configuration
 
