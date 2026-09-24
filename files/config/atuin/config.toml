@@ -1,0 +1,10 @@
+enter_accept = true
+style = "auto"
+inline_height_shell_up_key_binding = 20
+search_mode = "fuzzy"
+search_mode_shell_up_key_binding = "prefix"
+workspaces = true
+
+[theme]
+name = "catppuccin-mocha-mauve"
+

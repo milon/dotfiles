@@ -23,6 +23,7 @@ declare -A COMMAND_SCRIPTS=(
     [php]="php.sh"
     [valet]="valet.sh"
     [git]="git.sh"
+    [atuin]="atuin.sh"
     [clone]="git_clone.sh"
     [pull]="pull.sh"
     [mac]="mac_settings.sh"

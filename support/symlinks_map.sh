@@ -13,6 +13,7 @@ typeset -gA sym_links=(
     [home/yabairc]=$HOME/.yabairc
     # $HOME/.config
     [config/sheldon/plugins.toml]=$HOME/.config/sheldon/plugins.toml
+    [config/atuin]=$HOME/.config/atuin
     [config/nvim]=$HOME/.config/nvim
     [config/ghostty/config]=$HOME/.config/ghostty/config
     [config/ghostty/Ghostty.icns]=$HOME/.config/ghostty/Ghostty.icns

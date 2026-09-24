@@ -97,6 +97,7 @@ Run `dotfiles help` (or `dotfiles`) for the current list. In short:
 - **update** — [Topgrade](https://github.com/topgrade-rs/topgrade) with `files/config/topgrade.toml` (brew, casks, Mac App Store, mise, editor extensions, Composer, etc.; steps can be disabled in that file).
 - **clean** — `brew cleanup`, `brew autoremove` (unused dependency-only formulae), plus npm / Composer / mise cache cleanup where available.
 - **symlinks** — Link tracked files from `files/` into `~` and `~/.config/`.
+- **atuin** — Log in (or register) with [Atuin Hub](https://atuin.sh) and sync shell history. Skips login when this machine is already signed in.
 
 When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIPTS`) and `support/help.sh` so help stays accurate.
 

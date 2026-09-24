@@ -7,6 +7,7 @@ echo
 
 print_step "Open and configure these applications:"
 print_info "  • 1Password - log in to your account"
+print_info "  • Atuin Hub - run: dotfiles atuin"
 print_info "  • Google Chrome - log in to your account"
 print_info "  • Slack / Notion / Linear / ChatGPT - log in if installed (~/.Brewfile.local; skhd launchers)"
 print_info "  • JetBrains Toolbox - install PhpStorm (skhd: rcmd-p)"

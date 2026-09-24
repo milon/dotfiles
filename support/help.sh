@@ -35,6 +35,7 @@ echo
 print_section_header "$BLUE" $'\uf0ad' "SETUP"
 print_command "$BLUE" "├" "brew"  "Install Homebrew and dependencies"
 print_command "$BLUE" "├" "git"   "Configure Git settings"
+print_command "$BLUE" "├" "atuin" "Log in and sync shell history with Atuin Hub"
 print_command "$BLUE" "├" "xcode" "Install Xcode / CLI tools"
 print_command "$BLUE" "├" "mise"  "Setup mise (node, python, ruby, java, go, rust)"
 print_command "$BLUE" "├" "php"   "Setup PHP and Composer"

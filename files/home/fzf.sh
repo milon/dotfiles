@@ -11,7 +11,6 @@ show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head
 
 export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview' --preview-window=right:60%"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200' --preview-window=right:60%"
-export FZF_CTRL_R_OPTS="--preview 'echo {2..} | bat --color=always -pl sh' --preview-window up:3 --bind 'ctrl-/:toggle-preview'"
 
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
