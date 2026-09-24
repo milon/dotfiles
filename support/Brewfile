@@ -22,6 +22,7 @@ brew 'sheldon'                                      # Zsh plugin manager
 brew 'starship'                                     # Zsh prompt
 brew 'zoxide'                                       # Smarter cd
 brew 'fzf'                                          # Fuzzy finder
+brew 'fd'                                           # File search for fzf (Ctrl-T, Alt-C)
 brew 'atuin'                                        # Shell history (synced)
 brew 'eza'                                          # Modern ls
 brew 'bat'                                          # Cat with syntax highlighting
