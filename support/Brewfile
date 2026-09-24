@@ -51,6 +51,7 @@ brew 'jq'                                           # JSON processor
 brew 'mailpit'                                      # Mail catcher
 brew 'meilisearch'                                  # Search engine
 brew 'ollama'                                       # Local LLM CLI
+brew 'typst'                                        # Typesetting
 
 # Formulae — desktop
 brew 'topgrade'                                     # Unified upgrade runner (dotfiles update)
