@@ -11,6 +11,7 @@ brew 'bash'
 brew 'coreutils'                                    # GNU core utilities
 brew 'curl'
 brew 'git'
+brew 'git-lfs'                                      # Git large file storage
 brew 'gnupg'
 brew 'grep'
 brew 'less'

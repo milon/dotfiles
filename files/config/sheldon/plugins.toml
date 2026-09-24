@@ -73,6 +73,7 @@ inline = """
 bindkey -e
 bindkey '^[^?' backward-kill-word
 bindkey '^[[1;3D' backward-word
+# Option+Right accepts one word of the grey suggestion (forward-word is a partial-accept widget).
 bindkey '^[[1;3C' forward-word
 """
 
