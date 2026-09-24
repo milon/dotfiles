@@ -2,38 +2,27 @@
 # Locked clones live under ~/.local/share/sheldon/
 #
 # LOAD ORDER MATTERS — sourced top-to-bottom. Do not reorder casually:
-#   1. env / path / options
-#   2. fzf opts (before fzf init)
-#   3. completion defs on fpath → compinit
+#   1. files/home/zsh/env.zsh
+#   2. files/home/fzf.sh (before fzf init)
+#   3. zsh-completions on fpath, then files/home/zsh/compinit.zsh
 #   4. autosuggestions / other ZLE wrappers
 #   5. syntax-highlighting (last among ZLE wrappers)
-#   6. aliases, mise, fzf, zoxide, starship
-#   7. keybindings (emacs map, word keys)
-#   8. atuin last
+#   6. files/home/zsh/tools.zsh (aliases, mise, fzf, zoxide, starship)
+#   7. files/home/zsh/keybindings.zsh
+#   8. files/home/zsh/atuin.zsh last
 shell = "zsh"
 
-# ── Environment (needs DOTFILES_DIR from ~/.zshrc) ───────────────────────
 [plugins.env]
-inline = """
-setopt AUTO_CD
-export EDITOR='nvim'
-export GREP_OPTIONS='--color=auto'
-export STARSHIP_CONFIG="$DOTFILES_DIR/files/home/starship.toml"
-export PATH="$PATH:$HOME/.composer/vendor/bin:$HOME/.config/composer/vendor/bin"
-export PATH="$PATH:$DOTFILES_DIR/bin"
-export PATH="$PATH:$HOME/bin:$HOME/.config/phpmon/bin:$HOME/.local/bin"
-export PATH="/usr/local/opt/ncurses/bin:$PATH"
-"""
+inline = 'source "$DOTFILES_DIR/files/home/zsh/env.zsh"'
 
 [plugins.fzf-opts]
 inline = 'source "$DOTFILES_DIR/files/home/fzf.sh"'
 
-# ── Completions ──────────────────────────────────────────────────────────
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
 
 [plugins.compinit]
-inline = "autoload -Uz compinit && compinit"
+inline = 'source "$DOTFILES_DIR/files/home/zsh/compinit.zsh"'
 
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
@@ -48,34 +37,11 @@ github = "jessarcher/zsh-artisan"
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
 
-# ── Dotfiles + tools ─────────────────────────────────────────────────────
-[plugins.aliases]
-inline = 'source "$DOTFILES_DIR/files/home/zsh_aliases"'
+[plugins.tools]
+inline = 'source "$DOTFILES_DIR/files/home/zsh/tools.zsh"'
 
-[plugins.mise]
-inline = 'eval "$(mise activate zsh)"'
-
-[plugins.fzf]
-inline = 'eval "$(fzf --zsh)"'
-
-[plugins.zoxide]
-inline = 'eval "$(zoxide init zsh)"'
-
-[plugins.starship]
-inline = 'eval "$(starship init zsh)"'
-
-# ── Keybindings ──────────────────────────────────────────────────────────
 [plugins.keybindings]
-inline = """
-# zsh infers its keymap from $EDITOR when neither bindkey -e nor bindkey -v
-# runs. "nvim" matches "vi", so the env plugin above silently selects vi mode
-# and Option+Backspace (Esc + ^?) drops to vicmd instead of killing a word.
-bindkey -e
-bindkey '^[^?' backward-kill-word
-bindkey '^[[1;3D' backward-word
-# Option+Right accepts one word of the grey suggestion (forward-word is a partial-accept widget).
-bindkey '^[[1;3C' forward-word
-"""
+inline = 'source "$DOTFILES_DIR/files/home/zsh/keybindings.zsh"'
 
 [plugins.atuin]
-inline = 'eval "$(atuin init zsh)"'
+inline = 'source "$DOTFILES_DIR/files/home/zsh/atuin.zsh"'

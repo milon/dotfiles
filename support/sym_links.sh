@@ -17,7 +17,11 @@ for key in ${(ko)sym_links}; do
         print_success "Symlink already correct: $val"
         continue
     fi
-    if ln -sf "$src" "$val"; then
+    # A real directory would make ln -sf nest the link inside it.
+    if [[ -d $val && ! -L $val ]]; then
+        rm -rf "$val"
+    fi
+    if ln -sfn "$src" "$val"; then
         print_success "Created symlink: $val"
     else
         print_error "Failed to create symlink: $val"

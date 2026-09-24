@@ -12,12 +12,11 @@ typeset -gA sym_links=(
     [home/skhdrc]=$HOME/.skhdrc
     [home/yabairc]=$HOME/.yabairc
     # $HOME/.config
-    [config/sheldon/plugins.toml]=$HOME/.config/sheldon/plugins.toml
+    [config/sheldon]=$HOME/.config/sheldon
     [config/atuin]=$HOME/.config/atuin
     [config/nvim]=$HOME/.config/nvim
-    [config/ghostty/config]=$HOME/.config/ghostty/config
-    [config/ghostty/Ghostty.icns]=$HOME/.config/ghostty/Ghostty.icns
-    [config/fastfetch/config.jsonc]=$HOME/.config/fastfetch/config.jsonc
-    [config/mise/config.toml]=$HOME/.config/mise/config.toml
+    [config/ghostty]=$HOME/.config/ghostty
+    [config/fastfetch]=$HOME/.config/fastfetch
+    [config/mise]=$HOME/.config/mise
     [config/topgrade.toml]=$HOME/.config/topgrade.toml
 )
