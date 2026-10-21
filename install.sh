@@ -25,7 +25,7 @@ run_step 'HOMEBREW' brew.sh
 # Development tools
 run_step 'GIT'       git.sh
 run_step 'PHP'       php.sh
-run_step 'VALET'     valet.sh
+run_step 'LERD'      lerd.sh
 run_step 'GIT CLONE' git_clone.sh
 
 # Language environments (via mise)

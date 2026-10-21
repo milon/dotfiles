@@ -39,7 +39,7 @@ print_command "$BLUE" "├" "atuin" "Log in and sync shell history with Atuin Hu
 print_command "$BLUE" "├" "xcode" "Install Xcode / CLI tools"
 print_command "$BLUE" "├" "mise"  "Setup mise (node, python, ruby, java, go, rust)"
 print_command "$BLUE" "├" "php"   "Setup PHP and Composer"
-print_command "$BLUE" "└" "valet" "Setup Laravel Valet"
+print_command "$BLUE" "└" "lerd"  "Setup Lerd (.test sites and dashboard)"
 echo
 
 # ─── REPOS ───────────────────────────────────────────────────────────────

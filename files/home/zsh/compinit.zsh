@@ -2,6 +2,12 @@
 # functions are on fpath (zsh-completions) and before plugins that wrap
 # completion widgets, such as autosuggestions and syntax highlighting.
 # Rebuild the dump once a day. -C skips that check on later shells.
+lerd_completions="$HOME/.local/share/zsh/site-functions"
+if [[ -d $lerd_completions ]]; then
+    fpath=($lerd_completions $fpath)
+fi
+unset lerd_completions
+
 autoload -Uz compinit
 zmodload zsh/datetime
 zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"

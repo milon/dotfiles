@@ -2,7 +2,7 @@
 
 # PHP and Composer themselves are installed via the Brewfile (taps: shivammathur/php,
 # shivammathur/extensions). This script only handles the bits Homebrew can't:
-# global Composer packages used by the rest of the workflow (Valet, Takeout, Psy).
+# global Composer packages used by the rest of the workflow (Takeout, Psy).
 
 source "$support_dir/functions.sh"
 
@@ -26,7 +26,7 @@ print_info "pie version: $(pie --version | head -n 1)"
 print_info "Composer version: $(composer --version | head -n 1)"
 
 print_step "Installing global Composer packages..."
-if composer global require laravel/valet tightenco/takeout:~2.0 psy/psysh; then
+if composer global require tightenco/takeout:~2.0 psy/psysh; then
     print_success "Global Composer packages installed"
 else
     print_error "Some global packages failed to install"

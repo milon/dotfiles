@@ -108,7 +108,7 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 - **Version Manager:** [mise](https://mise.jdx.dev/) (node, python, ruby, java, go, rust)
 - **Languages:** Node.js, Python, PHP, Ruby, Java, Rust
 - **Databases:** SQLite, DBngin (MySQL, PostgreSQL, Redis)
-- **Other:** Git, Composer, Laravel Valet, Mailpit, Meilisearch
+- **Other:** Git, Composer, Lerd (.test sites and dashboard), Mailpit, Meilisearch
 
 ### Applications
 - **Development:** Visual Studio Code, OrbStack (Docker), TablePlus. JetBrains Toolbox (PhpStorm) is per-machine in `~/.Brewfile.local`.

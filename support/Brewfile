@@ -1,5 +1,6 @@
 # Taps
 tap 'buo/cask-upgrade', trusted: true
+tap 'lerd-env/lerd', trusted: true
 tap 'koekeishiya/formulae', trusted: true
 tap 'milon/macos-unijoy', trusted: true
 tap 'nicoverbruggen/homebrew-cask', trusted: true
@@ -48,6 +49,7 @@ brew 'diff-so-fancy'                                # Better git diff output
 brew 'gh'                                           # GitHub CLI
 brew 'xh'                                           # HTTP client
 brew 'jq'                                           # JSON processor
+brew 'lerd'                                         # .test sites and dashboard (depends on Podman)
 brew 'mailpit'                                      # Mail catcher
 brew 'meilisearch'                                  # Search engine
 brew 'ollama'                                       # Local LLM CLI
@@ -76,7 +78,7 @@ cask 'visual-studio-code'
 cask 'dbngin'                                       # MySQL, PostgreSQL, Redis
 cask 'tableplus'                                    # SQL client (skhd: rcmd-z)
 cask 'orbstack'                                     # Docker
-cask 'phpmon'                                       # PHP / Valet monitor
+cask 'phpmon'                                       # Host PHP menu
 
 # Casks — productivity
 cask '1password'

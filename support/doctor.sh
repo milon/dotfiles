@@ -167,7 +167,7 @@ fi
 # Essential commands on PATH
 # ──────────────────────────────────────────────────────────────────────────
 print_section "Essential commands on PATH"
-typeset -a essentials=(zsh git nvim fzf atuin zoxide starship eza bat mise topgrade gum shellcheck sheldon yabai skhd)
+typeset -a essentials=(zsh git nvim fzf atuin zoxide starship eza bat mise topgrade gum shellcheck sheldon yabai skhd lerd)
 for cmd in $essentials; do
     if command_exists "$cmd"; then
         print_success "$cmd"
