@@ -4,7 +4,7 @@
 [tools]
 # Use latest LTS when available, otherwise latest
 bun = "latest"
-node = "lts"
+node = "24"
 pnpm = "latest"
 python = "latest"
 ruby = "latest"
