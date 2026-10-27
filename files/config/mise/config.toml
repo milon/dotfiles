@@ -19,6 +19,3 @@ color_theme = "catppuccin"
 
 [settings.ruby]
 compile = false
-
-[misc]
-disable = ["vscode", "cursor"]
