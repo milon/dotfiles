@@ -1,7 +1,7 @@
 # themes
 theme = Catppuccin Mocha
 macos-icon = custom
-# macos-custom-icon = ~/.config/ghostty/Ghostty.icns
+macos-custom-icon = ~/.config/ghostty/Ghostty.icns
 
 # font
 font-family = "0xProto Nerd Font Propo"
