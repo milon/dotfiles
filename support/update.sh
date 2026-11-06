@@ -18,7 +18,7 @@ else
 fi
 
 if ! command_exists topgrade; then
-    print_info "topgrade not installed (install with: brew install topgrade)"
+    print_error "topgrade not installed — run: brew install topgrade"
     return 1
 fi
 
@@ -28,10 +28,8 @@ if [[ ! -f $TOPGRADE_CONFIG ]]; then
 fi
 
 if HOMEBREW_NO_ASK=1 topgrade --config "$TOPGRADE_CONFIG"; then
-    echo
-    print_success "All package updates completed"
+    print_success "Topgrade finished"
 else
-    echo
     print_error "topgrade reported failures (see output above)"
     return 1
 fi

@@ -23,7 +23,7 @@ fi
 local have_shellcheck=1
 if ! command_exists shellcheck; then
     have_shellcheck=0
-    print_info "shellcheck not installed — skipping bash checks (brew install shellcheck)"
+    print_warn "shellcheck not installed — skipping bash checks (brew install shellcheck)"
 fi
 
 typeset -i zsh_fail=0 sc_fail=0 sc_skipped=0 checked=0
@@ -56,7 +56,7 @@ done
 echo
 if (( zsh_fail == 0 && sc_fail == 0 )); then
     print_success "Lint passed: ${checked} script(s) OK"
-    (( sc_skipped )) && print_info "${sc_skipped} bash script(s) skipped (shellcheck not installed)"
+    (( sc_skipped )) && print_warn "${sc_skipped} bash script(s) skipped (shellcheck not installed)"
     return 0
 fi
 

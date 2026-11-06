@@ -2,18 +2,11 @@
 
 source "$support_dir/functions.sh"
 
-print_info "There are still a few things that need to be done manually:"
-echo
-
-print_step "Open and configure these applications:"
-print_info "  • 1Password - log in to your account"
-print_info "  • Atuin Hub - run: dotfiles atuin"
-print_info "  • Lerd - run: dotfiles lerd. Link each Compose app with proxy.port, then lerd link"
-print_info "  • Google Chrome - log in to your account"
-print_info "  • Slack / Notion / Linear / ChatGPT - log in if installed (~/.Brewfile.local; skhd launchers)"
-print_info "  • JetBrains Toolbox - install PhpStorm (skhd: rcmd-p)"
-print_info "  • Optional: VS Code Custom CSS and JS Loader → optional/vscode/ (see README)"
-print_info "  • Additional apps as needed"
-echo
-
-print_success "Manual steps checklist displayed"
+print_info "Remaining manual setup:"
+print_detail "1Password — log in"
+print_detail "Atuin Hub — run: dotfiles atuin"
+print_detail "Lerd — run: dotfiles lerd; Compose apps need proxy.port then lerd link"
+print_detail "Google Chrome — log in"
+print_detail "Slack / Notion / Linear / ChatGPT — log in if installed (~/.Brewfile.local)"
+print_detail "JetBrains Toolbox — install PhpStorm (skhd: rcmd-p)"
+print_detail "Optional: VS Code Custom CSS/JS Loader → optional/vscode/ (see README)"

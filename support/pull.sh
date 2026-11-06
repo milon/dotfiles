@@ -19,7 +19,7 @@ repo_paths[dotfiles]="$dotfiles_dir"
 # Pull each repo, in its own subshell so cd never leaks across iterations.
 for dir repo_path in ${(kv)repo_paths}; do
     if [[ ! -d $repo_path ]]; then
-        print_info "Skipping ${dir} (directory not found)"
+        print_warn "Skipping ${dir} — directory not found"
         continue
     fi
 
@@ -47,7 +47,7 @@ for dir repo_path in ${(kv)repo_paths}; do
         cd "$repo_path" || exit 1
 
         if [[ ! -f composer.json ]]; then
-            print_info "Skipping ${dir} (not a PHP project)"
+            print_warn "Skipping ${dir} — not a PHP project"
             exit 0
         fi
 

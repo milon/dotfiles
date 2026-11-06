@@ -23,37 +23,37 @@ if dotfiles_noninteractive; then
 fi
 
 # Pre-installation checks
-run_step 'PRECHECK' precheck.sh
+run_step 'Precheck' precheck.sh
 
 # Core setup
-run_step 'XCODE'    xcode.sh
-run_step 'SYMLINKS' sym_links.sh
-run_step 'HOMEBREW' brew.sh
+run_step 'Xcode'    xcode.sh
+run_step 'Symlinks' sym_links.sh
+run_step 'Homebrew' brew.sh
 
 # Development tools
-run_step 'GIT'       git.sh
+run_step 'Git'       git.sh
 run_step 'PHP'       php.sh
-run_step 'LERD'      lerd.sh
-run_step 'GIT CLONE' git_clone.sh
+run_step 'Lerd'      lerd.sh
+run_step 'Git clone' git_clone.sh
 
 # Language environments (via mise)
-run_step 'MISE' mise.sh
+run_step 'Mise' mise.sh
 
 # System configuration
-run_step 'MACOS SETTINGS' mac_settings.sh
-run_step 'HOTKEYS'        hotkeys.sh
+run_step 'Mac settings' mac_settings.sh
+run_step 'Hotkeys'      hotkeys.sh
 
 # Optional Atuin Hub login/sync (skipped entirely in --yes mode)
 if dotfiles_noninteractive; then
-    print_section 'ATUIN'
-    print_info "Skipping Atuin Hub login in noninteractive mode — run: dotfiles atuin"
+    print_section 'Atuin'
+    print_warn "Skipping Atuin Hub login in noninteractive mode — run: dotfiles atuin"
 else
     echo
     if confirm_yn "Set up Atuin Hub login/sync now?"; then
-        run_step 'ATUIN' atuin.sh
+        run_step 'Atuin' atuin.sh
     else
-        print_info "Skipped Atuin — run later: dotfiles atuin"
+        print_warn "Skipping Atuin — run later: dotfiles atuin"
     fi
 fi
 
-run_step 'MANUAL STEPS' manual_steps.sh
+run_step 'Manual steps' manual_steps.sh

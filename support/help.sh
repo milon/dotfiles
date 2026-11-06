@@ -12,18 +12,6 @@ _dotfiles_print_help() {
     echo -e "${BOLD}${CYAN}${ARROW} Usage:${NC} ${YELLOW}${BIN_NAME} [--yes|-y] <command>${NC}"
     echo
 
-    # Helpers — render category header + tree-style command lines.
-    print_section_header() {
-        local color=$1 icon=$2 name=$3
-        echo -e "${BOLD}${color}${icon}  ${name}${NC}"
-    }
-
-    print_command() {
-        local color=$1 prefix=$2 cmd=$3 desc=$4
-        printf "${color}%s${NC} ${BOLD}%-9s${NC} ${BOLD}${color}->${NC} ${CYAN}%s${NC}\n" \
-            "$prefix" "$cmd" "$desc"
-    }
-
     local category cmds_var color icon label cmd prefix desc
     local -a cmds cmd_list
     local -i i last
@@ -36,7 +24,7 @@ _dotfiles_print_help() {
         color=${DOTFILES_CATEGORY_COLOR[$category]}
         icon=${DOTFILES_CATEGORY_ICON[$category]}
         label=${DOTFILES_CATEGORY_LABEL[$category]}
-        print_section_header "$color" "$icon" "$label"
+        print_tree_header "$color" "$icon" "$label"
 
         # help is CORE-only and not in the registry (no script to dispatch)
         if [[ $category == core ]]; then
@@ -55,7 +43,7 @@ _dotfiles_print_help() {
             else
                 desc=${DOTFILES_CMD_DESC[$cmd]}
             fi
-            print_command "$color" "$prefix" "$cmd" "$desc"
+            print_tree_item "$color" "$prefix" "$cmd" "$desc"
         done
         echo
     done

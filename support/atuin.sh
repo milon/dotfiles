@@ -14,13 +14,13 @@ if [[ $logged_in == true ]]; then
     username=$(print -r -- "$status_output" | awk -F': ' '/Username:/ { print $2 }')
     address=$(print -r -- "$status_output" | awk -F': ' '/Address:/ { print $2 }')
     print_info "Already logged in to Atuin Hub"
-    print_info "  username = ${username:-<unknown>}"
-    print_info "  address  = ${address:-$hub}"
+    print_detail "username = ${username:-<unknown>}"
+    print_detail "address  = ${address:-$hub}"
 else
     print_info "Not logged in to Atuin Hub ($hub)"
 
     if dotfiles_noninteractive; then
-        print_info "Skipping Atuin Hub login in noninteractive mode — run: dotfiles atuin"
+        print_warn "Skipping Atuin Hub login in noninteractive mode — run: dotfiles atuin"
         return 0
     fi
 
@@ -42,7 +42,7 @@ else
             atuin register || return 1
             ;;
         3)
-            print_info "Skipped Atuin Hub login"
+            print_warn "Skipping Atuin Hub login"
             return 0
             ;;
     esac
@@ -53,5 +53,5 @@ if confirm_yn "Sync history with Atuin Hub now?"; then
     atuin sync || return 1
     print_success "Synced with Atuin Hub"
 else
-    print_info "Skipped sync"
+    print_warn "Skipping sync"
 fi

@@ -9,7 +9,6 @@ else
     print_info "No software updates available or update failed"
 fi
 
-echo
 print_step "Checking Xcode command line tools..."
 if xcode-select --version &>/dev/null; then
     print_info "Xcode command line tools already installed"

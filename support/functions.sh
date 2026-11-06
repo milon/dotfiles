@@ -6,6 +6,8 @@ if [[ -z "${RED:-}" ]]; then
     export CHECK=$'\uf00c'
     export CROSS=$'\uf00d'
     export INFO=$'\uf129'
+    export WARN=$'\uf071'   # nf-fa-exclamation-triangle
+    export SECTION=$'\uf120' # nf-fa-terminal
     export RED='\033[0;31m'
     export GREEN='\033[0;32m'
     export YELLOW='\033[0;33m'
@@ -16,14 +18,28 @@ if [[ -z "${RED:-}" ]]; then
     export NC='\033[0m'
 fi
 
-# Output helpers
+# Output helpers — match `dotfiles` / run_step style (ICON␠␠message).
+#   print_section      top-level step header (run_step / install)
+#   print_subsection   group label inside a step (no rule; doctor, etc.)
+#   print_step         work starting
+#   print_success      check passed / change applied
+#   print_warn         drift or skip that needs attention
+#   print_error        hard failure
+#   print_info         neutral note
+#   print_detail       indented follow-up under the line above
+#   print_stream       pipe stdin lines through print_detail
 print_section() {
     local title=$1
-    local icon=$'\uf120'  # nf-fa-terminal — "command-line action"
     local rule=$(printf '─%.0s' {1..60})
     echo
-    echo -e "${BOLD}${YELLOW}${icon}  ${title}${NC}"
+    echo -e "${BOLD}${YELLOW}${SECTION}  ${title}${NC}"
     echo -e "${YELLOW}${rule}${NC}"
+}
+
+print_subsection() {
+    local title=$1
+    echo
+    echo -e "${BOLD}${title}${NC}"
 }
 
 print_success() {
@@ -36,6 +52,11 @@ print_error() {
     echo -e "${RED}${CROSS}${NC}  ${message}" >&2
 }
 
+print_warn() {
+    local message=$1
+    echo -e "${YELLOW}${WARN}${NC}  ${message}"
+}
+
 print_info() {
     local message=$1
     echo -e "${BLUE}${INFO}${NC}  ${message}"
@@ -44,6 +65,35 @@ print_info() {
 print_step() {
     local message=$1
     echo -e "${YELLOW}${ARROW}${NC}  ${message}"
+}
+
+print_detail() {
+    local message=$1
+    echo -e "    ${message}"
+}
+
+print_stream() {
+    local line
+    while IFS= read -r line || [[ -n $line ]]; do
+        [[ -z $line ]] && continue
+        print_detail "$line"
+    done
+}
+
+# Tree UI shared by `dotfiles help` and `dotfiles doctor`
+#   print_tree_header  COLOR ICON "Title"
+#   print_tree_item    COLOR PREFIX LABEL "description"
+#   PREFIX is ├ or └; LABEL is left column (command / ok / warn / …)
+print_tree_header() {
+    local color=$1 icon=$2 name=$3
+    echo
+    echo -e "${BOLD}${color}${icon}  ${name}${NC}"
+}
+
+print_tree_item() {
+    local color=$1 prefix=$2 label=$3 desc=$4
+    printf "${color}%s${NC} ${BOLD}%-9s${NC} ${BOLD}${color}->${NC} ${CYAN}%s${NC}\n" \
+        "$prefix" "$label" "$desc"
 }
 
 # Helper functions
@@ -133,7 +183,7 @@ confirm_or_exit() {
         return 0
     else
         echo
-        echo "Quitting..."
+        print_warn "Quitting"
         return 1
     fi
 }

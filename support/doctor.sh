@@ -9,12 +9,12 @@ typeset -i errors=0
 typeset -i warnings=0
 
 note_error()   { errors+=1;   print_error "$1"; }
-note_warning() { warnings+=1; print_info  "$1"; }
+note_warning() { warnings+=1; print_warn  "$1"; }
 
 # ──────────────────────────────────────────────────────────────────────────
 # Operating system
 # ──────────────────────────────────────────────────────────────────────────
-print_section "Operating system"
+print_subsection "Operating system"
 if [[ "$OSTYPE" == darwin* ]]; then
     print_success "macOS detected ($(sw_vers -productVersion 2>/dev/null || echo unknown))"
 else
@@ -24,7 +24,7 @@ fi
 # ──────────────────────────────────────────────────────────────────────────
 # Xcode command line tools
 # ──────────────────────────────────────────────────────────────────────────
-print_section "Xcode command line tools"
+print_subsection "Xcode command line tools"
 if xcode-select -p &>/dev/null; then
     print_success "Installed at $(xcode-select -p)"
 else
@@ -34,7 +34,7 @@ fi
 # ──────────────────────────────────────────────────────────────────────────
 # Homebrew + Brewfile
 # ──────────────────────────────────────────────────────────────────────────
-print_section "Homebrew"
+print_subsection "Homebrew"
 if command_exists brew; then
     print_success "brew on PATH ($(brew --version | head -n 1))"
 
@@ -42,8 +42,8 @@ if command_exists brew; then
     if brew bundle check --file "$support_dir/Brewfile" --no-upgrade &>/dev/null; then
         print_success "Brewfile satisfied"
     else
-        note_warning "Brewfile drift detected — run: dotfiles brew (or brew bundle --file $support_dir/Brewfile)"
-        brew bundle check --file "$support_dir/Brewfile" --no-upgrade --verbose 2>&1 | sed 's/^/    /'
+        note_warning "Brewfile drift detected — run: dotfiles brew"
+        brew bundle check --file "$support_dir/Brewfile" --no-upgrade --verbose 2>&1 | print_stream
     fi
 
     if [[ -f "$HOME/.Brewfile.local" ]]; then
@@ -51,7 +51,7 @@ if command_exists brew; then
             print_success "~/.Brewfile.local satisfied"
         else
             note_warning "Per-machine Brewfile drift — run: dotfiles brew"
-            brew bundle check --file "$HOME/.Brewfile.local" --no-upgrade --verbose 2>&1 | sed 's/^/    /'
+            brew bundle check --file "$HOME/.Brewfile.local" --no-upgrade --verbose 2>&1 | print_stream
         fi
     else
         note_warning "~/.Brewfile.local missing — run: dotfiles precheck"
@@ -63,7 +63,7 @@ fi
 # ──────────────────────────────────────────────────────────────────────────
 # Symlinks
 # ──────────────────────────────────────────────────────────────────────────
-print_section "Symlinks"
+print_subsection "Symlinks"
 source "$support_dir/symlinks_map.sh"
 typeset -i sym_ok=0 sym_total=0
 for key in ${(ko)sym_links}; do
@@ -92,13 +92,12 @@ unset val src
 # ──────────────────────────────────────────────────────────────────────────
 # mise
 # ──────────────────────────────────────────────────────────────────────────
-print_section "mise"
+print_subsection "mise"
 if command_exists mise; then
     print_success "mise installed ($(mise --version))"
     if mise_missing=$(mise ls --missing 2>/dev/null) && [[ -n "$mise_missing" ]]; then
-        note_warning "Some mise tools are not installed:"
-        echo "$mise_missing" | sed 's/^/    /'
-        print_info "Run: dotfiles mise"
+        note_warning "Some mise tools are not installed — run: dotfiles mise"
+        print -r -- "$mise_missing" | print_stream
     else
         print_success "All configured mise tools installed"
     fi
@@ -109,7 +108,7 @@ fi
 # ──────────────────────────────────────────────────────────────────────────
 # Git configuration
 # ──────────────────────────────────────────────────────────────────────────
-print_section "Git"
+print_subsection "Git"
 git_name=$(git config --global --get user.name 2>/dev/null || true)
 git_email=$(git config --global --get user.email 2>/dev/null || true)
 if [[ -n "$git_name" && -n "$git_email" ]]; then
@@ -138,13 +137,11 @@ unset hooks_path
 # ──────────────────────────────────────────────────────────────────────────
 # Per-machine shell overrides
 # ──────────────────────────────────────────────────────────────────────────
-print_section "Shell overrides"
+print_subsection "Shell overrides"
 if [[ -f "$HOME/.zshrc.local" ]]; then
     print_success "~/.zshrc.local present"
-    # Warn when group/other can read (secrets often live here)
     local_mode=$(stat -f '%Lp' "$HOME/.zshrc.local" 2>/dev/null || true)
     if [[ -n $local_mode ]]; then
-        # Last two octal digits are group/other; anything other than 00 is too open
         if [[ "${local_mode[-2,-1]}" != "00" ]]; then
             note_warning "~/.zshrc.local is mode ${local_mode} (group/other readable) — chmod 600 ~/.zshrc.local"
         else
@@ -159,7 +156,7 @@ fi
 # ──────────────────────────────────────────────────────────────────────────
 # Sheldon
 # ──────────────────────────────────────────────────────────────────────────
-print_section "Sheldon"
+print_subsection "Sheldon"
 sheldon_toml="${HOME}/.config/sheldon/plugins.toml"
 sheldon_lock="${HOME}/.local/share/sheldon/plugins.lock"
 if ! command_exists sheldon; then
@@ -178,7 +175,7 @@ unset sheldon_toml sheldon_lock
 # ──────────────────────────────────────────────────────────────────────────
 # Atuin
 # ──────────────────────────────────────────────────────────────────────────
-print_section "Atuin"
+print_subsection "Atuin"
 if ! command_exists atuin; then
     note_warning "atuin not installed — run: dotfiles brew"
 elif atuin status &>/dev/null; then
@@ -190,7 +187,7 @@ fi
 # ──────────────────────────────────────────────────────────────────────────
 # Lerd
 # ──────────────────────────────────────────────────────────────────────────
-print_section "Lerd"
+print_subsection "Lerd"
 if ! command_exists lerd; then
     note_warning "lerd not installed — run: dotfiles brew && dotfiles lerd"
 elif lerd status &>/dev/null; then
@@ -202,7 +199,7 @@ fi
 # ──────────────────────────────────────────────────────────────────────────
 # Window management (yabai + skhd)
 # ──────────────────────────────────────────────────────────────────────────
-print_section "Window management"
+print_subsection "Window management"
 for cmd in yabai skhd; do
     if ! command_exists "$cmd"; then
         note_warning "$cmd not installed — run: dotfiles brew && dotfiles hotkeys"
@@ -218,7 +215,7 @@ done
 # ──────────────────────────────────────────────────────────────────────────
 # SSH key + agent
 # ──────────────────────────────────────────────────────────────────────────
-print_section "SSH key"
+print_subsection "SSH key"
 if ssh_key_type=$(detect_ssh_key); then
     print_success "Found ${ssh_key_type} key at ~/.ssh/id_${ssh_key_type}"
 else
@@ -239,7 +236,7 @@ unset ssh_add_ec
 # ──────────────────────────────────────────────────────────────────────────
 # Essential commands on PATH
 # ──────────────────────────────────────────────────────────────────────────
-print_section "Essential commands on PATH"
+print_subsection "Essential commands on PATH"
 typeset -a essentials=(zsh git nvim fzf atuin zoxide starship eza bat mise topgrade gum shellcheck sheldon yabai skhd lerd)
 for cmd in $essentials; do
     if command_exists "$cmd"; then
@@ -252,12 +249,11 @@ done
 # ──────────────────────────────────────────────────────────────────────────
 # Summary
 # ──────────────────────────────────────────────────────────────────────────
-echo
-print_section "Summary"
+print_subsection "Summary"
 if (( errors == 0 && warnings == 0 )); then
     print_success "All checks passed"
 elif (( errors == 0 )); then
-    print_info "$warnings warning(s); no errors"
+    print_warn "$warnings warning(s); no errors"
 else
     print_error "$errors error(s), $warnings warning(s)"
     return 1

@@ -10,9 +10,9 @@ existing_email=$(git config --global --get user.email 2>/dev/null || true)
 
 configure_user=true
 if [[ -n "$existing_name" || -n "$existing_email" ]]; then
-    print_info "Git identity already configured:"
-    print_info "  user.name  = ${existing_name:-<unset>}"
-    print_info "  user.email = ${existing_email:-<unset>}"
+    print_info "Git identity already configured"
+    print_detail "user.name  = ${existing_name:-<unset>}"
+    print_detail "user.email = ${existing_email:-<unset>}"
     echo
     if confirm_yn "Override existing Git identity?"; then
         :
@@ -82,5 +82,5 @@ if [[ -d "${dotfiles_dir:A}/.githooks" ]]; then
         print_success "Set core.hooksPath -> .githooks"
     fi
 else
-    print_info "No .githooks directory found, skipping hook setup"
+    print_warn "No .githooks directory found — skipping hook setup"
 fi

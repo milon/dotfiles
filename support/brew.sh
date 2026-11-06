@@ -19,7 +19,7 @@ if ! command_exists brew; then
 
     print_success "Homebrew installed (prefix: ${brew_dir})"
 else
-    print_info "Homebrew already installed, skipping installation"
+    print_info "Homebrew already installed"
 fi
 
 echo
@@ -43,5 +43,5 @@ if [[ -f $local_brewfile ]]; then
         return 1
     fi
 else
-    print_info "No ~/.Brewfile.local — skipping per-machine packages"
+    print_warn "No ~/.Brewfile.local — skipping per-machine packages"
 fi
