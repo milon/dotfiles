@@ -18,6 +18,12 @@ if [[ $logged_in == true ]]; then
     print_info "  address  = ${address:-$hub}"
 else
     print_info "Not logged in to Atuin Hub ($hub)"
+
+    if dotfiles_noninteractive; then
+        print_info "Skipping Atuin Hub login in noninteractive mode — run: dotfiles atuin"
+        return 0
+    fi
+
     echo
     print_step "1) Log in to an existing account"
     print_step "2) Register a new account"
@@ -43,11 +49,9 @@ else
 fi
 
 echo
-if read -q "choice?Sync history with Atuin Hub now? (y/n) "; then
-    echo
+if confirm_yn "Sync history with Atuin Hub now?"; then
     atuin sync || return 1
     print_success "Synced with Atuin Hub"
 else
-    echo
     print_info "Skipped sync"
 fi

@@ -54,7 +54,7 @@ if command_exists brew; then
             brew bundle check --file "$HOME/.Brewfile.local" --no-upgrade --verbose 2>&1 | sed 's/^/    /'
         fi
     else
-        note_warning "~/.Brewfile.local missing — re-run precheck, or create it for machine-only packages"
+        note_warning "~/.Brewfile.local missing — run: dotfiles precheck"
     fi
 else
     note_error "brew not on PATH — run: dotfiles brew"
@@ -127,14 +127,76 @@ else
 fi
 unset tracked_gitconfig
 
+hooks_path=$(git -C "$dotfiles_dir" config --local --get core.hooksPath 2>/dev/null || true)
+if [[ "$hooks_path" == ".githooks" ]]; then
+    print_success "core.hooksPath = .githooks (this repo)"
+else
+    note_warning "core.hooksPath not set to .githooks — run: dotfiles git"
+fi
+unset hooks_path
+
 # ──────────────────────────────────────────────────────────────────────────
 # Per-machine shell overrides
 # ──────────────────────────────────────────────────────────────────────────
 print_section "Shell overrides"
 if [[ -f "$HOME/.zshrc.local" ]]; then
     print_success "~/.zshrc.local present"
+    # Warn when group/other can read (secrets often live here)
+    local_mode=$(stat -f '%Lp' "$HOME/.zshrc.local" 2>/dev/null || true)
+    if [[ -n $local_mode ]]; then
+        # Last two octal digits are group/other; anything other than 00 is too open
+        if [[ "${local_mode[-2,-1]}" != "00" ]]; then
+            note_warning "~/.zshrc.local is mode ${local_mode} (group/other readable) — chmod 600 ~/.zshrc.local"
+        else
+            print_success "~/.zshrc.local permissions are private (${local_mode})"
+        fi
+    fi
+    unset local_mode
 else
-    note_warning "~/.zshrc.local missing — run: dotfiles (re-run precheck via ./install.sh) or create it"
+    note_warning "~/.zshrc.local missing — run: dotfiles precheck"
+fi
+
+# ──────────────────────────────────────────────────────────────────────────
+# Sheldon
+# ──────────────────────────────────────────────────────────────────────────
+print_section "Sheldon"
+sheldon_toml="${HOME}/.config/sheldon/plugins.toml"
+sheldon_lock="${HOME}/.local/share/sheldon/plugins.lock"
+if ! command_exists sheldon; then
+    note_warning "sheldon not installed — run: dotfiles brew"
+elif [[ ! -f $sheldon_toml ]]; then
+    note_warning "sheldon plugins.toml missing — run: dotfiles symlinks"
+elif [[ ! -f $sheldon_lock ]]; then
+    note_warning "sheldon lock missing — run: sheldon lock"
+elif [[ $sheldon_toml -nt $sheldon_lock ]]; then
+    note_warning "sheldon plugins.toml newer than lock — run: sheldon lock"
+else
+    print_success "sheldon lock is up to date"
+fi
+unset sheldon_toml sheldon_lock
+
+# ──────────────────────────────────────────────────────────────────────────
+# Atuin
+# ──────────────────────────────────────────────────────────────────────────
+print_section "Atuin"
+if ! command_exists atuin; then
+    note_warning "atuin not installed — run: dotfiles brew"
+elif atuin status &>/dev/null; then
+    print_success "Logged in to Atuin Hub"
+else
+    note_warning "Not logged in to Atuin Hub — run: dotfiles atuin"
+fi
+
+# ──────────────────────────────────────────────────────────────────────────
+# Lerd
+# ──────────────────────────────────────────────────────────────────────────
+print_section "Lerd"
+if ! command_exists lerd; then
+    note_warning "lerd not installed — run: dotfiles brew && dotfiles lerd"
+elif lerd status &>/dev/null; then
+    print_success "lerd status OK"
+else
+    note_warning "lerd status reported problems — run: lerd status / lerd start"
 fi
 
 # ──────────────────────────────────────────────────────────────────────────
@@ -154,7 +216,7 @@ for cmd in yabai skhd; do
 done
 
 # ──────────────────────────────────────────────────────────────────────────
-# SSH key
+# SSH key + agent
 # ──────────────────────────────────────────────────────────────────────────
 print_section "SSH key"
 if ssh_key_type=$(detect_ssh_key); then
@@ -162,6 +224,17 @@ if ssh_key_type=$(detect_ssh_key); then
 else
     note_warning "No SSH key found in ~/.ssh — git/SSH-based clones will fail"
 fi
+
+ssh-add -l >/dev/null 2>&1
+ssh_add_ec=$?
+if (( ssh_add_ec == 0 )); then
+    print_success "ssh-agent has at least one loaded key"
+elif (( ssh_add_ec == 1 )); then
+    note_warning "ssh-agent has no loaded keys — run: ssh-add ~/.ssh/id_ed25519"
+else
+    note_warning "ssh-agent not reachable — start the agent and run ssh-add"
+fi
+unset ssh_add_ec
 
 # ──────────────────────────────────────────────────────────────────────────
 # Essential commands on PATH

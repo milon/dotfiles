@@ -11,25 +11,8 @@ export support_dir="$dotfiles_dir/support"
 # Load functions (includes color constants, output helpers, run_step)
 source "$support_dir/functions.sh"
 
-# Command to script mapping
-declare -A COMMAND_SCRIPTS=(
-    [symlinks]="sym_links.sh"
-    [update]="update.sh"
-    [clean]="clean.sh"
-    [doctor]="doctor.sh"
-    [lint]="lint.sh"
-    [brew]="brew.sh"
-    [mise]="mise.sh"
-    [php]="php.sh"
-    [lerd]="lerd.sh"
-    [git]="git.sh"
-    [atuin]="atuin.sh"
-    [clone]="git_clone.sh"
-    [pull]="pull.sh"
-    [mac]="mac_settings.sh"
-    [xcode]="xcode.sh"
-    [hotkeys]="hotkeys.sh"
-)
+# Shared command registry (COMMAND_SCRIPTS + help metadata)
+source "$support_dir/commands.sh"
 
 # Print usage (sourced; avoids run_step so we do not show "Running Help" / success footer)
 run_help() {
@@ -38,6 +21,10 @@ run_help() {
 
 # Main command dispatcher
 main() {
+    # Global flags before the subcommand: dotfiles --yes doctor
+    dotfiles_consume_yes_args "$@"
+    set -- "${REPLY[@]}"
+
     local command_name=$1
 
     if [[ -z "$command_name" || "$command_name" == "-h" || "$command_name" == "--help" ]]; then

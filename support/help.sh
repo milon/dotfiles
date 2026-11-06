@@ -1,55 +1,68 @@
 #!/bin/zsh
 
+# Help is generated from support/commands.sh — edit that file to add commands.
+
 source "$support_dir/functions.sh"
+source "$support_dir/commands.sh"
 
-ascii_art
-echo
+_dotfiles_print_help() {
+    ascii_art
+    echo
 
-echo -e "${BOLD}${CYAN}${ARROW} Usage:${NC} ${YELLOW}${BIN_NAME} <command>${NC}"
-echo
+    echo -e "${BOLD}${CYAN}${ARROW} Usage:${NC} ${YELLOW}${BIN_NAME} [--yes|-y] <command>${NC}"
+    echo
 
-# Helpers — render category header + tree-style command lines.
-# `->` separator, bold command name, fixed-width padding for alignment.
-print_section_header() {
-    local color=$1 icon=$2 name=$3
-    echo -e "${BOLD}${color}${icon}  ${name}${NC}"
+    # Helpers — render category header + tree-style command lines.
+    print_section_header() {
+        local color=$1 icon=$2 name=$3
+        echo -e "${BOLD}${color}${icon}  ${name}${NC}"
+    }
+
+    print_command() {
+        local color=$1 prefix=$2 cmd=$3 desc=$4
+        printf "${color}%s${NC} ${BOLD}%-9s${NC} ${BOLD}${color}->${NC} ${CYAN}%s${NC}\n" \
+            "$prefix" "$cmd" "$desc"
+    }
+
+    local category cmds_var color icon label cmd prefix desc
+    local -a cmds cmd_list
+    local -i i last
+
+    for category in $DOTFILES_CATEGORIES; do
+        cmds_var="DOTFILES_CMDS_${category}"
+        cmds=( ${(P)cmds_var} )
+        (( ${#cmds} )) || continue
+
+        color=${DOTFILES_CATEGORY_COLOR[$category]}
+        icon=${DOTFILES_CATEGORY_ICON[$category]}
+        label=${DOTFILES_CATEGORY_LABEL[$category]}
+        print_section_header "$color" "$icon" "$label"
+
+        # help is CORE-only and not in the registry (no script to dispatch)
+        if [[ $category == core ]]; then
+            cmd_list=( help $cmds )
+        else
+            cmd_list=( $cmds )
+        fi
+
+        last=${#cmd_list}
+        for (( i = 1; i <= last; i++ )); do
+            cmd=${cmd_list[i]}
+            prefix="├"
+            (( i == last )) && prefix="└"
+            if [[ $cmd == help ]]; then
+                desc="Show this help message"
+            else
+                desc=${DOTFILES_CMD_DESC[$cmd]}
+            fi
+            print_command "$color" "$prefix" "$cmd" "$desc"
+        done
+        echo
+    done
+
+    if dotfiles_noninteractive; then
+        print_info "Noninteractive mode on (--yes / DOTFILES_NONINTERACTIVE=1)"
+    fi
 }
 
-print_command() {
-    local color=$1 prefix=$2 cmd=$3 desc=$4
-    printf "${color}%s${NC} ${BOLD}%-9s${NC} ${BOLD}${color}->${NC} ${CYAN}%s${NC}\n" \
-        "$prefix" "$cmd" "$desc"
-}
-
-# ─── CORE ────────────────────────────────────────────────────────────────
-print_section_header "$YELLOW" $'\ueb45' "CORE"
-print_command "$YELLOW" "├" "help"     "Show this help message"
-print_command "$YELLOW" "├" "doctor"   "Diagnose installation drift"
-print_command "$YELLOW" "├" "lint"     "Lint shell scripts (zsh -n + shellcheck)"
-print_command "$YELLOW" "├" "update"   "Run Topgrade across all package managers"
-print_command "$YELLOW" "├" "clean"    "Clean caches (brew, npm, Composer, mise)"
-print_command "$YELLOW" "└" "symlinks" "Create symlinks for dotfiles"
-echo
-
-# ─── SETUP ───────────────────────────────────────────────────────────────
-print_section_header "$BLUE" $'\uf0ad' "SETUP"
-print_command "$BLUE" "├" "brew"  "Install Homebrew and dependencies"
-print_command "$BLUE" "├" "git"   "Configure Git settings"
-print_command "$BLUE" "├" "atuin" "Log in and sync shell history with Atuin Hub"
-print_command "$BLUE" "├" "xcode" "Install Xcode / CLI tools"
-print_command "$BLUE" "├" "mise"  "Setup mise (node, python, ruby, java, go, rust)"
-print_command "$BLUE" "├" "php"   "Setup PHP and Composer"
-print_command "$BLUE" "└" "lerd"  "Setup Lerd (.test sites and dashboard)"
-echo
-
-# ─── REPOS ───────────────────────────────────────────────────────────────
-print_section_header "$GREEN" $'\uea84' "REPOS"
-print_command "$GREEN" "├" "clone" "Clone personal Git repositories"
-print_command "$GREEN" "└" "pull"  "Update all Git repositories"
-echo
-
-# ─── SYSTEM ──────────────────────────────────────────────────────────────
-print_section_header "$MAGENTA" $'\uf179' "SYSTEM"
-print_command "$MAGENTA" "├" "mac"     "Configure macOS settings"
-print_command "$MAGENTA" "└" "hotkeys" "Start/reload yabai + skhd"
-echo
+_dotfiles_print_help

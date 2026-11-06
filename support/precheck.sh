@@ -19,7 +19,8 @@ if [[ ! -f "$HOME/.zshrc.local" ]]; then
 #   export OPENAI_API_KEY="..."
 #   export PATH="$HOME/work/bin:$PATH"
 EOF
-    print_success "Created ~/.zshrc.local with a getting-started header"
+    chmod 600 "$HOME/.zshrc.local"
+    print_success "Created ~/.zshrc.local with a getting-started header (mode 600)"
 else
     print_info "~/.zshrc.local already exists"
 fi
@@ -47,16 +48,18 @@ else
     print_info "No SSH keys found"
     echo
 
-    if read -q "choice?Would you like to generate a new ED25519 SSH key? (y/n) "; then
-        echo
-        echo
+    if dotfiles_noninteractive; then
+        print_error "SSH keys are required. Generate or copy one before running with --yes."
+        return 1
+    fi
 
+    if confirm_yn "Would you like to generate a new ED25519 SSH key?"; then
         print_step "Creating .ssh directory..."
         mkdir -p "$HOME/.ssh"
         chmod 700 "$HOME/.ssh"
         print_success ".ssh directory created"
 
-        local email=""
+        email=""
         while [[ -z $email ]]; do
             print_step "Enter your email address for the SSH key:"
             read email
@@ -75,7 +78,6 @@ else
             return 1
         fi
     else
-        echo
         print_error "SSH keys are required. Please generate them manually or copy from a previous computer."
         return 1
     fi

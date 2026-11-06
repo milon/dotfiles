@@ -1,16 +1,18 @@
 # mise global configuration
 # https://mise.jdx.dev/configuration.html
+#
+# Languages are pinned to majors (or LTS channels) for reproducible machines.
+# Package managers stay on "latest" so lockfiles drive the exact version.
 
 [tools]
-# Use latest LTS when available, otherwise latest
 bun = "latest"
 node = "26"
 pnpm = "latest"
-python = "latest"
-ruby = "latest"
+python = "3.15"
+ruby = "4.0"
 java = "corretto-25"
-go = "latest"
-rust = "stable"      # Rust stable channel
+go = "1.27"
+rust = "stable"
 
 [settings]
 # Enable idiomatic version files (.nvmrc, .python-version, .go-version, etc.)

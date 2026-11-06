@@ -94,8 +94,39 @@ ascii_art () {
 EOF
 }
 
+# True when install/dotfiles was started with --yes / -y, or the env is set.
+dotfiles_noninteractive() {
+    [[ "${DOTFILES_NONINTERACTIVE:-0}" == 1 ]]
+}
+
+# Consume leading --yes / -y from the caller's "$@".
+# Usage (inside a function, or at top level after set --):
+#   dotfiles_consume_yes_args "$@"
+#   set -- "${REPLY[@]}"
+dotfiles_consume_yes_args() {
+    typeset -ga REPLY=()
+    while (( $# > 0 )); do
+        case "$1" in
+            --yes|-y)
+                export DOTFILES_NONINTERACTIVE=1
+                shift
+                ;;
+            *)
+                REPLY=( "$@" )
+                return 0
+                ;;
+        esac
+    done
+    REPLY=()
+}
+
 confirm_or_exit() {
     local prompt_message=$1
+
+    if dotfiles_noninteractive; then
+        print_info "${prompt_message} — auto-confirmed (--yes)"
+        return 0
+    fi
 
     if read -q "choice?${prompt_message} (y/n) "; then
         echo
@@ -105,6 +136,29 @@ confirm_or_exit() {
         echo "Quitting..."
         return 1
     fi
+}
+
+# Prompt y/n; returns 0 for yes, 1 for no.
+# In noninteractive mode uses $2 as the default ("yes" or "no", default "no").
+confirm_yn() {
+    local prompt_message=$1
+    local default=${2:-no}
+
+    if dotfiles_noninteractive; then
+        if [[ "$default" == yes ]]; then
+            print_info "${prompt_message} — auto-yes (--yes)"
+            return 0
+        fi
+        print_info "${prompt_message} — auto-no (--yes)"
+        return 1
+    fi
+
+    if read -q "choice?${prompt_message} (y/n) "; then
+        echo
+        return 0
+    fi
+    echo
+    return 1
 }
 
 # Run a single dotfiles "step" (a support/ script). Used by both install.sh

@@ -3,6 +3,31 @@
 source "$support_dir/functions.sh"
 source "$support_dir/symlinks_map.sh"
 
+# Move an existing destination aside before replacing it with a symlink.
+# Backups land in ~/.dotfiles-backup/<basename>.<timestamp>.
+backup_existing_dest() {
+    local dest=$1
+    local backup_root="${HOME}/.dotfiles-backup"
+    local stamp base dest_backup
+
+    mkdir -p "$backup_root"
+    stamp=$(date +%Y%m%d%H%M%S)
+    base=$(basename "$dest")
+    dest_backup="${backup_root}/${base}.${stamp}"
+
+    # Avoid colliding with an earlier backup from the same second
+    if [[ -e $dest_backup ]]; then
+        dest_backup="${dest_backup}.$$"
+    fi
+
+    if mv "$dest" "$dest_backup"; then
+        print_info "Backed up existing ${dest} → ${dest_backup}"
+        return 0
+    fi
+    print_error "Failed to back up existing destination: $dest"
+    return 1
+}
+
 symlinks_ok=1
 # (ko): iterate keys in sorted order for stable logs and diffs
 for key in ${(ko)sym_links}; do
@@ -17,10 +42,16 @@ for key in ${(ko)sym_links}; do
         print_success "Symlink already correct: $val"
         continue
     fi
-    # A real directory would make ln -sf nest the link inside it.
-    if [[ -d $val && ! -L $val ]]; then
-        rm -rf "$val"
+
+    # Anything already at the destination (wrong symlink, file, or directory)
+    # is moved aside instead of being deleted in place.
+    if [[ -e $val || -L $val ]]; then
+        if ! backup_existing_dest "$val"; then
+            symlinks_ok=0
+            continue
+        fi
     fi
+
     if ln -sfn "$src" "$val"; then
         print_success "Created symlink: $val"
     else

@@ -69,9 +69,15 @@ Before running the installation, complete these steps:
    ./install.sh
    ```
 
-The installer will guide you through the setup process with interactive prompts.
+   Noninteractive (auto-confirm prompts; skips Atuin login and SSH key generation):
+   ```bash
+   ./install.sh --yes
+   # or: DOTFILES_NONINTERACTIVE=1 ./install.sh
+   ```
 
-**Optional (after install):** Run `dotfiles symlinks` so config (including `files/config/topgrade.toml`) is mirrored under `~/.config/`. `dotfiles update` uses `~/.config/topgrade.toml` when present; otherwise it reads the copy inside the repo.
+The installer will guide you through the setup process with interactive prompts. At the end it offers Atuin Hub login/sync.
+
+**Optional (after install):** Run `dotfiles symlinks` so config (including `files/config/topgrade.toml`) is mirrored under `~/.config/`. `dotfiles update` uses `~/.config/topgrade.toml` when present; otherwise it reads the copy inside the repo. Replacing an existing file/dir backs it up under `~/.dotfiles-backup/`.
 
 ## Usage
 
@@ -89,17 +95,21 @@ or simply:
 dotfiles
 ```
 
+Global flag: `dotfiles --yes <command>` (or `DOTFILES_NONINTERACTIVE=1`) auto-answers confirmations.
+
 ### Command Reference
 
 Run `dotfiles help` (or `dotfiles`) for the current list. In short:
 
-- **doctor** — Read-only health check: Homebrew + Brewfile drift, dotfile symlinks, mise tools, git config + `include.path`, `~/.zshrc.local`, yabai/skhd running, SSH key, essential commands on PATH (including shellcheck). Returns non-zero if anything is broken.
+- **doctor** — Read-only health check: Homebrew + Brewfile drift, dotfile symlinks, mise, git config + hooksPath, Sheldon lock, Atuin login, Lerd status, `~/.zshrc.local` permissions, yabai/skhd, SSH key + agent, essentials on PATH. Returns non-zero if anything is broken.
+- **precheck** — Create `~/.zshrc.local` / `~/.Brewfile.local` if missing; verify SSH key and App Store sign-in.
+- **manual** — Print the remaining manual setup checklist.
 - **update** — [Topgrade](https://github.com/topgrade-rs/topgrade) with `files/config/topgrade.toml` (brew, casks, Mac App Store, mise, editor extensions, Composer, etc.; steps can be disabled in that file).
 - **clean** — `brew cleanup`, `brew autoremove` (unused dependency-only formulae), plus npm / Composer / mise cache cleanup where available.
-- **symlinks** — Link tracked files from `files/` into `~` and `~/.config/`.
+- **symlinks** — Link tracked files from `files/` into `~` and `~/.config/` (backs up conflicts to `~/.dotfiles-backup/`).
 - **atuin** — Log in (or register) with [Atuin Hub](https://atuin.sh) and sync shell history. Skips login when this machine is already signed in.
 
-When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIPTS`) and `support/help.sh` so help stays accurate.
+When you add a `dotfiles` subcommand, edit `support/commands.sh` only (script map, description, and help category). `bin/dotfiles` and `support/help.sh` both read that registry.
 
 ## What Gets Installed
 
@@ -107,8 +117,8 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 - **Editors:** Neovim (Lazy.nvim)
 - **Version Manager:** [mise](https://mise.jdx.dev/) (node, python, ruby, java, go, rust)
 - **Languages:** Node.js, Python, PHP, Ruby, Java, Rust
-- **Databases:** SQLite, DBngin (MySQL, PostgreSQL, Redis)
-- **Other:** Git, Composer, Lerd (.test sites and dashboard), Mailpit, Meilisearch
+- **Databases / data:** SQLite; Lerd services (MySQL/Postgres/Redis as needed per site). DBngin + TablePlus remain available as GUI clients.
+- **Other:** Git, Composer, Lerd (`.test` sites and dashboard), Mailpit, Meilisearch
 
 ### Applications
 - **Development:** Visual Studio Code, OrbStack (Docker), TablePlus. JetBrains Toolbox (PhpStorm) is per-machine in `~/.Brewfile.local`.
@@ -129,12 +139,13 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 
 ### Adding Your Own Configurations
 
-1. **Per-machine overrides:** Edit `~/.zshrc.local` (created automatically by `precheck.sh`). Sourced **last** by `~/.zshrc`, so anything in it wins. Use it for personal aliases, work secrets / API tokens, host-specific `PATH` entries, proxies, AWS profiles, etc. Not tracked.
+1. **Per-machine overrides:** Edit `~/.zshrc.local` (created automatically by `precheck.sh`, mode `600`). Sourced **last** by `~/.zshrc`, so anything in it wins. Use it for personal aliases, work secrets / API tokens, host-specific `PATH` entries, proxies, AWS profiles, etc. Not tracked.
 2. **Tracked aliases:** Aliases shared across all your machines live in `files/home/zsh_aliases`.
 3. **Zsh plugins:** Edit `files/config/sheldon/plugins.toml`, then run `sheldon lock` (or open a new shell — Sheldon locks on source when needed).
-4. **Dotfiles:** Add files to `files/` and a corresponding entry to `support/symlinks_map.sh`.
-5. **Homebrew packages:** Shared packages go in `support/Brewfile`. Packages for one machine only go in `~/.Brewfile.local` (created by `precheck.sh`, not tracked). `dotfiles brew` installs the shared file first, then the local one.
-6. **VS Code Custom CSS/JS (optional, not installed):** `optional/vscode/{style.css,script.js}` are not symlinked. Point the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension at `$DOTFILES_DIR/optional/vscode/style.css` and `$DOTFILES_DIR/optional/vscode/script.js` if you want the command-palette styling.
+4. **Dotfiles (symlinked):** Add files to `files/` and a corresponding entry to `support/symlinks_map.sh`.
+5. **Sourced (not symlinked):** `files/home/starship.toml`, `files/home/zsh_aliases`, `files/home/fzf.sh`, and `files/home/zsh/*.zsh` are loaded through Sheldon via `$DOTFILES_DIR`. Do not add them to `symlinks_map.sh` — that would fight the current load order.
+6. **Homebrew packages:** Shared packages go in `support/Brewfile`. Packages for one machine only go in `~/.Brewfile.local` (created by `precheck.sh`, not tracked). `dotfiles brew` installs the shared file first, then the local one.
+7. **VS Code Custom CSS/JS (optional, not installed):** `optional/vscode/{style.css,script.js}` are not symlinked. Point the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension at `$DOTFILES_DIR/optional/vscode/style.css` and `$DOTFILES_DIR/optional/vscode/script.js` if you want the command-palette styling.
 
 ### Repository Configuration
 
@@ -155,6 +166,10 @@ When you add a `dotfiles` subcommand, update both `bin/dotfiles` (`COMMAND_SCRIP
 # Re-run a specific setup step
 dotfiles brew
 
+# Re-run precheck / see leftover manual tasks
+dotfiles precheck
+dotfiles manual
+
 # Check what will be installed
 cat support/Brewfile
 
@@ -165,9 +180,9 @@ cat support/Brewfile
 
 ## Notes
 
-- The installer will prompt you for confirmation at various steps
+- The installer will prompt you for confirmation at various steps (`./install.sh --yes` skips prompts)
 - Some steps require manual intervention (e.g., signing into apps)
-- The `manual_steps.sh` script will remind you of remaining manual tasks
+- The `manual` command (and install’s final step) reminds you of remaining manual tasks
 
 
 ## Contributing

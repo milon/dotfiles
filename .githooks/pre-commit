@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 # Pre-commit hook — keeps shell scripts and symlinks_map.sh honest.
+# New `dotfiles` subcommands belong in support/commands.sh (help + dispatch).
 #
 # Installed by pointing git at this directory:
 #   git config core.hooksPath .githooks

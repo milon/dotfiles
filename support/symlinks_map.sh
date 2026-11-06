@@ -4,6 +4,10 @@
 # Sourced by support/sym_links.sh (creates them) and support/doctor.sh (verifies them).
 # Key  = path inside files/   (e.g. home/zshrc)
 # Value = absolute destination on disk (e.g. $HOME/.zshrc)
+#
+# Intentionally NOT listed here (loaded via Sheldon + $DOTFILES_DIR instead):
+#   home/starship.toml, home/zsh_aliases, home/fzf.sh, home/zsh/*.zsh
+# Adding those as symlinks would fight the current shell load order.
 
 typeset -gA sym_links=(
     # $HOME root

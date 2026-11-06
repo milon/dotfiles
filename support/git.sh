@@ -14,13 +14,15 @@ if [[ -n "$existing_name" || -n "$existing_email" ]]; then
     print_info "  user.name  = ${existing_name:-<unset>}"
     print_info "  user.email = ${existing_email:-<unset>}"
     echo
-    if read -q "choice?Override existing Git identity? (y/n) "; then
-        echo
+    if confirm_yn "Override existing Git identity?"; then
+        :
     else
-        echo
         print_info "Keeping existing Git identity"
         configure_user=false
     fi
+elif dotfiles_noninteractive; then
+    print_error "Git user.name / user.email not set — configure them before --yes, or run: dotfiles git"
+    return 1
 fi
 
 if [[ $configure_user == true ]]; then
