@@ -117,7 +117,7 @@ When you add a `dotfiles` subcommand, edit `support/commands.sh` only (script ma
 - **Editors:** Neovim (Lazy.nvim)
 - **Version Manager:** [mise](https://mise.jdx.dev/) (node, python, ruby, java, go, rust)
 - **Languages:** Node.js, Python, PHP, Ruby, Java, Rust
-- **Databases / data:** SQLite; Lerd services (MySQL/Postgres/Redis as needed per site). DBngin + TablePlus remain available as GUI clients.
+- **Databases / data:** SQLite; Lerd services (MySQL/Postgres/Redis as needed per site). TablePlus as the SQL GUI.
 - **Other:** Git, Composer, Lerd (`.test` sites and dashboard)
 
 ### Applications
