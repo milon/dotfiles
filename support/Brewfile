@@ -45,14 +45,11 @@ brew 'nvim'                                         # Neovim
 brew 'cmake'
 brew 'sqlite'
 brew 'imagemagick'
-brew 'diff-so-fancy'                                # Better git diff output
+brew 'git-delta'                                    # Better git diff output
 brew 'gh'                                           # GitHub CLI
 brew 'xh'                                           # HTTP client
-brew 'jq'                                           # JSON processor
+brew 'jaq'                                          # JSON processor (jq-compatible)
 brew 'lerd'                                         # .test sites and dashboard (depends on Podman)
-brew 'mailpit'                                      # Mail catcher
-brew 'meilisearch'                                  # Search engine
-brew 'ollama'                                       # Local LLM CLI
 brew 'typst'                                        # Typesetting
 
 # Formulae — desktop
@@ -83,7 +80,6 @@ cask 'phpmon'                                       # Host PHP menu
 # Casks — productivity
 cask '1password'
 cask 'raycast'                                      # Spotlight replacement
-cask 'obsidian'                                     # Notes
 cask 'google-chrome'
 
 # Casks — system
@@ -92,9 +88,7 @@ cask 'bettercmdtab'                                 # Better cmd+tab
 cask 'aldente'                                      # Battery charge limit
 cask 'keka'                                         # Archives
 cask 'monitorcontrol'                               # External monitor control
-cask 'imageoptim'                                   # Image optimization
 cask 'fluidvoice'                                   # Speech to text
-cask 'latest'                                       # App update checker
 cask 'macos-unijoy'                                 # Unijoy Bengali keyboard
 
 # Casks — media

@@ -39,6 +39,9 @@ function kill-port() {
 # xh (httpie replacement, cli http client)
 alias http="xh"
 
+# jaq (faster jq-compatible JSON processor)
+alias jq="jaq"
+
 # nvim to vim
 alias vim="nvim"
 

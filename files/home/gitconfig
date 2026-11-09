@@ -27,9 +27,12 @@
 
 [pager]
 	branch = false
-	# -R keeps color; -F quits if one screen; -X avoids blank-flash less init.
-	# Do not use $PAGER here — when unset the pipe swallows all output.
-	diff = diff-so-fancy | less --tabs=4 -RFX
+	diff = delta
+
+[delta]
+	navigate = true
+	line-numbers = true
+	side-by-side = false
 
 [blame]
 	coloring = highlightRecent
@@ -39,7 +42,7 @@
 	abbrevCommit = true
 
 [interactive]
-	diffFilter = "diff-so-fancy --patch"
+	diffFilter = delta --color-only
 	singlekey = true
 
 [color]

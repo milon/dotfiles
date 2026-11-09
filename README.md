@@ -118,12 +118,12 @@ When you add a `dotfiles` subcommand, edit `support/commands.sh` only (script ma
 - **Version Manager:** [mise](https://mise.jdx.dev/) (node, python, ruby, java, go, rust)
 - **Languages:** Node.js, Python, PHP, Ruby, Java, Rust
 - **Databases / data:** SQLite; Lerd services (MySQL/Postgres/Redis as needed per site). DBngin + TablePlus remain available as GUI clients.
-- **Other:** Git, Composer, Lerd (`.test` sites and dashboard), Mailpit, Meilisearch
+- **Other:** Git, Composer, Lerd (`.test` sites and dashboard)
 
 ### Applications
 - **Development:** Visual Studio Code, OrbStack (Docker), TablePlus. JetBrains Toolbox (PhpStorm) is per-machine in `~/.Brewfile.local`.
-- **Productivity:** 1Password, Raycast, Obsidian, Bartender. Notion, Linear, Slack, and ChatGPT are per-machine in `~/.Brewfile.local`.
-- **System:** Aldente, MonitorControl, Latest
+- **Productivity:** 1Password, Raycast, Bartender. Notion, Linear, Slack, and ChatGPT are per-machine in `~/.Brewfile.local`.
+- **System:** Aldente, MonitorControl
 - **Media:** IINA, YouTube Music
 - **Terminal:** Ghostty
 
