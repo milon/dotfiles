@@ -13,3 +13,7 @@ eval "$(sheldon source)"
 
 # Per-machine overrides (untracked) — must stay last.
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+
+# Lerd completions
+fpath=(/Users/milon/.local/share/zsh/site-functions $fpath)
+autoload -Uz compinit && compinit
