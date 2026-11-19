@@ -77,7 +77,7 @@ Before running the installation, complete these steps:
 
 The installer will guide you through the setup process with interactive prompts. At the end it offers Atuin Hub login/sync.
 
-**Optional (after install):** Run `dotfiles symlinks` so config (including `files/config/topgrade.toml`) is mirrored under `~/.config/`. `dotfiles update` uses `~/.config/topgrade.toml` when present; otherwise it reads the copy inside the repo. Replacing an existing file/dir backs it up under `~/.dotfiles-backup/`.
+`install.sh` already runs **symlinks** as part of setup (including `files/config/topgrade.toml` → `~/.config/`). Re-run `dotfiles symlinks` later if you add entries to `support/symlinks_map.sh`. Replacing an existing file/dir backs it up under `~/.dotfiles-backup/`. `dotfiles update` uses `~/.config/topgrade.toml` when present; otherwise it reads the copy inside the repo.
 
 ## Usage
 
@@ -99,29 +99,34 @@ Global flag: `dotfiles --yes <command>` (or `DOTFILES_NONINTERACTIVE=1`) auto-an
 
 ### Command Reference
 
-Run `dotfiles help` (or `dotfiles`) for the current list. In short:
+Run `dotfiles help` (or `dotfiles`) for the full list and categories. Highlights:
 
-- **doctor** — Read-only health check: Homebrew + Brewfile drift, dotfile symlinks, mise, git config + hooksPath, Sheldon lock, Atuin login, Lerd status, `~/.zshrc.local` permissions, yabai/skhd, SSH key + agent, essentials on PATH. Returns non-zero if anything is broken.
+- **doctor** — Read-only health check: Homebrew + Brewfile drift, symlinks, mise, PHP/Composer/pie, Podman + Lerd, git config + hooksPath, Sheldon lock, Atuin, yabai/skhd, SSH, essentials on PATH. Returns non-zero if anything is broken.
+- **lint** — `zsh -n` + shellcheck on scripts (also runs in CI / pre-commit).
 - **precheck** — Create `~/.zshrc.local` / `~/.Brewfile.local` if missing; verify SSH key and App Store sign-in.
 - **manual** — Print the remaining manual setup checklist.
 - **update** — [Topgrade](https://github.com/topgrade-rs/topgrade) with `files/config/topgrade.toml` (brew, casks, Mac App Store, mise, editor extensions, Composer, etc.; steps can be disabled in that file).
-- **clean** — `brew cleanup`, `brew autoremove` (unused dependency-only formulae), plus npm / Composer / mise cache cleanup where available.
+- **clean** — `brew cleanup`, `brew autoremove`, plus npm / Composer / mise cache cleanup where available.
 - **symlinks** — Link tracked files from `files/` into `~` and `~/.config/` (backs up conflicts to `~/.dotfiles-backup/`).
+- **brew** / **git** / **xcode** / **mise** / **php** / **lerd** / **mac** / **hotkeys** — Re-run individual setup steps.
+- **clone** / **pull** — Clone or update repos from `support/repos.sh`.
 - **atuin** — Log in (or register) with [Atuin Hub](https://atuin.sh) and sync shell history. Skips login when this machine is already signed in.
+
+**Footgun:** `dotfiles pull --update` runs `composer update` in each PHP repo and, if the lockfile changed, **commits and pushes** with message `Updates dependencies`. Use only when you intend that.
 
 When you add a `dotfiles` subcommand, edit `support/commands.sh` only (script map, description, and help category). `bin/dotfiles` and `support/help.sh` both read that registry.
 
 ## What Gets Installed
 
 ### Development Tools
-- **Editors:** Neovim (Lazy.nvim)
+- **Editors:** Neovim (Lazy.nvim; `files/config/nvim/lazy-lock.json` is tracked)
 - **Version Manager:** [mise](https://mise.jdx.dev/) (node, python, ruby, java, go, rust)
-- **Languages:** Node.js, Python, PHP, Ruby, Java, Rust
+- **Languages:** Node.js, Python, PHP (host CLI via Homebrew), Ruby, Java, Rust
 - **Databases / data:** SQLite; Lerd services (MySQL/Postgres/Redis as needed per site). TablePlus as the SQL GUI.
-- **Other:** Git, Composer, Lerd (`.test` sites and dashboard)
+- **Other:** Git, Composer, [Lerd](https://lerd.dev) (`.test` sites on **Podman**)
 
 ### Applications
-- **Development:** Visual Studio Code, OrbStack (Docker), TablePlus. JetBrains Toolbox (PhpStorm) is per-machine in `~/.Brewfile.local`.
+- **Development:** Visual Studio Code, TablePlus. **OrbStack** is Docker Desktop–compatible Compose; **Lerd** uses Podman — keep OrbStack only if you still need Docker workflows. JetBrains Toolbox (PhpStorm) is per-machine in `~/.Brewfile.local`.
 - **Productivity:** 1Password, Raycast, Bartender. Notion, Linear, Slack, and ChatGPT are per-machine in `~/.Brewfile.local`.
 - **System:** Aldente, MonitorControl
 - **Media:** IINA, YouTube Music
@@ -183,6 +188,8 @@ cat support/Brewfile
 - The installer will prompt you for confirmation at various steps (`./install.sh --yes` skips prompts)
 - Some steps require manual intervention (e.g., signing into apps)
 - The `manual` command (and install’s final step) reminds you of remaining manual tasks
+- **`support/*.sh` are sourced** into `install.sh` / `bin/dotfiles` (not executed as subprocesses), so they must not use `set -euo pipefail` — that would alter or exit the parent shell. Standalone scripts under `bin/yabai-*` correctly use `set -euo pipefail`.
+- **Brewfile lock:** `support/Brewfile.lock.json` is gitignored. The Brewfile is the source of truth; do not commit a lock.
 
 
 ## Contributing

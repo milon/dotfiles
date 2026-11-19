@@ -6,6 +6,8 @@ source "$support_dir/repos.sh"
 mkdir -p "$CODE_DIR"
 cd "$CODE_DIR" || return 1
 
+typeset -i clone_failures=0
+
 for dir repo in ${(kv)git_repos}; do
     print_step "Cloning ${dir}..."
     if [[ -d "$dir/.git" ]]; then
@@ -14,12 +16,16 @@ for dir repo in ${(kv)git_repos}; do
             print_success "Updated ${dir}"
         else
             print_error "Failed to update ${dir}"
+            clone_failures+=1
         fi
     elif git clone "$repo" "$dir" > /dev/null 2>&1; then
         print_success "Cloned ${dir}"
     else
         print_error "Failed to clone ${dir}"
+        clone_failures+=1
     fi
 done
 
 cd "$dotfiles_dir" 2>/dev/null || true
+
+(( clone_failures == 0 )) || return 1

@@ -1,5 +1,8 @@
+# Homebrew lock is not the source of truth — Brewfile is. Do not commit.
 support/Brewfile.lock.json
-ssh/id_rsa
-ssh/id_rsa.pub
-files/config/nvim/lazy-lock.json
+
+# Local / secrets / junk
+.DS_Store
+*.pem
+.env
 .codeidx

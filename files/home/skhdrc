@@ -33,20 +33,22 @@ hyper - m : yabai -m window --grid 20:20:1:1:18:18 # Almost maximize (~90%, cent
 #   left/right : half → 2/3 → 1/3 → …
 #   up/down    : full → 2/3 → 1/2 → …  (centered)
 # Absolute paths: skhd's LaunchAgent PATH is not your interactive shell PATH.
+# Resolve the repo via the ~/.skhdrc symlink (files/home/skhdrc → three dirs up),
+# so any checkout path works — do not hardcode ~/.dotfiles.
 # Explicit mods (not the `hyper` keyword) avoid some skhd/arrow edge cases.
-cmd + alt + ctrl + shift - left  : "$HOME/.dotfiles/bin/yabai-cycle-grid" left
-cmd + alt + ctrl + shift - right : "$HOME/.dotfiles/bin/yabai-cycle-grid" right
-cmd + alt + ctrl + shift - up    : "$HOME/.dotfiles/bin/yabai-cycle-grid" center
-cmd + alt + ctrl + shift - down  : "$HOME/.dotfiles/bin/yabai-cycle-grid" center
+cmd + alt + ctrl + shift - left  : "$(dirname "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")")/bin/yabai-cycle-grid" left
+cmd + alt + ctrl + shift - right : "$(dirname "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")")/bin/yabai-cycle-grid" right
+cmd + alt + ctrl + shift - up    : "$(dirname "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")")/bin/yabai-cycle-grid" center
+cmd + alt + ctrl + shift - down  : "$(dirname "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")")/bin/yabai-cycle-grid" center
 
 # ── Focus window (cmd + ctrl + shift + arrows) ───────────────────────────
-cmd + ctrl + shift - left  : "$HOME/.dotfiles/bin/yabai-focus-direction" west
-cmd + ctrl + shift - right : "$HOME/.dotfiles/bin/yabai-focus-direction" east
-cmd + ctrl + shift - up    : "$HOME/.dotfiles/bin/yabai-focus-direction" north
-cmd + ctrl + shift - down  : "$HOME/.dotfiles/bin/yabai-focus-direction" south
+cmd + ctrl + shift - left  : "$(dirname "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")")/bin/yabai-focus-direction" west
+cmd + ctrl + shift - right : "$(dirname "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")")/bin/yabai-focus-direction" east
+cmd + ctrl + shift - up    : "$(dirname "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")")/bin/yabai-focus-direction" north
+cmd + ctrl + shift - down  : "$(dirname "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")")/bin/yabai-focus-direction" south
 
 # ── Move to display (ctrl + alt + shift + arrows) ────────────────────────
-ctrl + alt + shift - left  : "$HOME/.dotfiles/bin/yabai-move-display" west
-ctrl + alt + shift - right : "$HOME/.dotfiles/bin/yabai-move-display" east
-ctrl + alt + shift - up    : "$HOME/.dotfiles/bin/yabai-move-display" north
-ctrl + alt + shift - down  : "$HOME/.dotfiles/bin/yabai-move-display" south
+ctrl + alt + shift - left  : "$(dirname "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")")/bin/yabai-move-display" west
+ctrl + alt + shift - right : "$(dirname "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")")/bin/yabai-move-display" east
+ctrl + alt + shift - up    : "$(dirname "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")")/bin/yabai-move-display" north
+ctrl + alt + shift - down  : "$(dirname "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")")/bin/yabai-move-display" south

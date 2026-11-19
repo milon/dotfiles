@@ -185,9 +185,33 @@ else
 fi
 
 # ──────────────────────────────────────────────────────────────────────────
-# Lerd
+# PHP / Composer (host CLI; site runtime is Lerd)
+# ──────────────────────────────────────────────────────────────────────────
+print_subsection "PHP / Composer"
+for cmd in php composer pie; do
+    if command_exists "$cmd"; then
+        print_success "$cmd on PATH"
+    else
+        note_warning "$cmd not on PATH — run: dotfiles brew && dotfiles php"
+    fi
+done
+if command_exists composer; then
+    if composer global show tightenco/takeout &>/dev/null; then
+        note_warning "tightenco/takeout still installed globally — remove with: composer global remove tightenco/takeout (Lerd replaced it)"
+    fi
+fi
+
+# ──────────────────────────────────────────────────────────────────────────
+# Lerd (+ Podman)
 # ──────────────────────────────────────────────────────────────────────────
 print_subsection "Lerd"
+if ! command_exists podman; then
+    note_warning "podman not on PATH — Lerd needs Podman (installed with lerd / brew)"
+elif podman info &>/dev/null; then
+    print_success "podman reachable"
+else
+    note_warning "podman not reachable — run: lerd start (or podman machine start)"
+fi
 if ! command_exists lerd; then
     note_warning "lerd not installed — run: dotfiles brew && dotfiles lerd"
 elif lerd status &>/dev/null; then
@@ -237,7 +261,7 @@ unset ssh_add_ec
 # Essential commands on PATH
 # ──────────────────────────────────────────────────────────────────────────
 print_subsection "Essential commands on PATH"
-typeset -a essentials=(zsh git nvim fzf atuin zoxide starship eza bat mise topgrade gum shellcheck sheldon yabai skhd lerd)
+typeset -a essentials=(zsh git nvim fzf atuin zoxide starship eza bat mise topgrade gum shellcheck sheldon yabai skhd lerd php composer pie podman)
 for cmd in $essentials; do
     if command_exists "$cmd"; then
         print_success "$cmd"

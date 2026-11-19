@@ -16,6 +16,8 @@ for dir repo in ${(kv)git_repos}; do
 done
 repo_paths[dotfiles]="$dotfiles_dir"
 
+typeset -i pull_failures=0
+
 # Pull each repo, in its own subshell so cd never leaks across iterations.
 for dir repo_path in ${(kv)repo_paths}; do
     if [[ ! -d $repo_path ]]; then
@@ -28,10 +30,11 @@ for dir repo_path in ${(kv)repo_paths}; do
         print_success "Updated ${dir}"
     else
         print_error "Failed to update ${dir}"
+        pull_failures+=1
     fi
 done
 
-[[ $UPDATE != true ]] && return 0
+[[ $UPDATE != true ]] && { (( pull_failures == 0 )) || return 1; return 0; }
 
 echo
 print_step "Updating Composer Dependencies"
@@ -68,5 +71,7 @@ for dir repo_path in ${(kv)repo_paths}; do
             print_error "Failed to commit or push dependencies for ${dir}"
             exit 1
         fi
-    )
+    ) || pull_failures+=1
 done
+
+(( pull_failures == 0 )) || return 1

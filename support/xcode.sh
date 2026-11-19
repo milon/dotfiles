@@ -10,9 +10,9 @@ else
 fi
 
 print_step "Checking Xcode command line tools..."
-if xcode-select --version &>/dev/null; then
+if xcode-select -p &>/dev/null; then
     print_info "Xcode command line tools already installed"
-    print_info "Version: $(xcode-select --version)"
+    print_info "Path: $(xcode-select -p)"
 else
     print_step "Installing Xcode command line tools..."
     print_info "Please follow the installation prompt that appears"

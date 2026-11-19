@@ -4,7 +4,11 @@ source "$support_dir/functions.sh"
 
 if ! command_exists brew; then
     print_step "Homebrew not found, installing..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    if dotfiles_noninteractive; then
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    else
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
 
     brew_dir=$(brew_prefix) || {
         print_error "Homebrew install completed but brew binary not found at /opt/homebrew or /usr/local"
