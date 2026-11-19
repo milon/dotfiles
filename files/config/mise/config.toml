@@ -13,6 +13,7 @@ ruby = "4.0"
 java = "corretto-25"
 go = "1.27"
 rust = "stable"
+air = "latest"
 
 [settings]
 # Enable idiomatic version files (.nvmrc, .python-version, .go-version, etc.)
