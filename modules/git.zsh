@@ -41,11 +41,6 @@ cmd_apply() {
     if git config --global --get-all include.path 2>/dev/null | grep -qxF "$tracked_gitconfig"; then
         print_info "include.path already set"
     else
-        # Drop legacy files/home/gitconfig include if present
-        local old="${DOTFILES_ROOT}/files/home/gitconfig"
-        if git config --global --get-all include.path 2>/dev/null | grep -qxF "$old"; then
-            git config --global --unset-all include.path "$old" 2>/dev/null || true
-        fi
         git config --global --add include.path "$tracked_gitconfig"
         print_success "Added include.path -> config/gitconfig"
     fi
