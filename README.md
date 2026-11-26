@@ -28,17 +28,19 @@ git checkout greenfield   # while testing the rewrite
 
 ## CLI
 
+Same command surface and output style as the former `dotfiles` tool:
+
 ```bash
-dot help
-dot apply [module...]    # idempotent setup
-dot check [module...]    # health check (doctor)
-dot link                 # symlink config/ only
-dot update               # topgrade
-dot clone / dot pull     # personal repos
-dot atuin / dot clean / dot lint / dot manual
+dot help                 # categorized tree (CORE / SETUP / REPOS / SYSTEM)
+dot doctor               # health check (also: dot check)
+dot lint / update / clean / symlinks / precheck
+dot brew / git / atuin / xcode / mise / php / lerd
+dot clone / pull
+dot mac / hotkeys / manual
+dot apply                # full idempotent setup (install uses this)
 ```
 
-Global flag: `dot --yes …` or `DOT_NONINTERACTIVE=1`.
+Global flag: `dot --yes` / `-y` (or `DOT_NONINTERACTIVE=1`).
 
 Modules run as **subprocesses** (`set -euo pipefail`). They are never sourced into the dispatcher.
 

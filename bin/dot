@@ -1,145 +1,200 @@
 #!/bin/zsh
 set -euo pipefail
 
+readonly BIN_NAME=$(basename "$0")
+
 export DOTFILES_ROOT=${DOTFILES_ROOT:-$(cd "$(dirname "$(realpath "$0")")/.." && pwd)}
 source "$DOTFILES_ROOT/lib/root.zsh"
 source "$DOTFILES_ROOT/lib/ui.zsh"
+source "$DOTFILES_ROOT/lib/commands.zsh"
 
-# Module apply order for `dot apply` with no args
+# Full install order for `dot apply` (no args)
 typeset -a DOT_APPLY_ORDER=(
     precheck brew link shell git mise php lerd mac wm repos
 )
 
-typeset -A DOT_MODULE_DESC=(
-    [precheck]="Create local overrides; verify SSH / App Store"
-    [brew]="Install Homebrew + Brewfile inventory"
-    [link]="Symlink config/ onto ~ and ~/.config"
-    [shell]="Sheldon lock / shell overrides"
-    [git]="Git identity, include.path, hooks"
-    [mise]="Install mise tools from config/mise"
-    [php]="Host PHP / Composer globals"
-    [lerd]="Lerd install + park ~/Code"
-    [mac]="macOS defaults"
-    [wm]="yabai + skhd (+ generated bin stub)"
-    [repos]="Clone personal repos"
-    [atuin]="Atuin Hub login/sync"
-    [clean]="Clean brew/npm/composer/mise caches"
-    [update]="Run topgrade"
-    [manual]="Print remaining manual checklist"
-)
+# Display name: capitalize first letter (matches old bin/dotfiles)
+dot_display_name() {
+    local name=$1
+    local first=${name[1]}
+    local rest=${name[2,-1]}
+    print -r -- "${(U)first}${rest}"
+}
 
 run_module() {
     local name=$1
     shift
+    local action=${1:-apply}
+    (( $# > 0 )) && shift
+
     local script="$DOT_MODULES_DIR/${name}.zsh"
     if [[ ! -f $script ]]; then
         print_error "Unknown module: $name"
         return 1
     fi
-    print_section "${(C)name}"
-    # Capture exit code before any other command — `if cmd` resets $? to 0.
+
+    local display
+    display=$(dot_display_name "$name")
+    # Special-case: doctor keeps the old "Doctor" section title
+    [[ $name == doctor ]] && display="Doctor"
+    [[ $name == link ]] && display="Symlinks"
+    [[ $name == wm ]] && display="Hotkeys"
+    [[ $name == repos && $action == apply ]] && display="Clone"
+    [[ $name == repos && $action == pull ]] && display="Pull"
+    [[ $name == lint ]] && display="Lint"
+
+    print_section "$display"
     set +e
-    zsh "$script" "$@"
+    zsh "$script" "$action" "$@"
     local ec=$?
     set -e
     if (( ec == 0 )); then
         echo
-        print_success "${(C)name} completed successfully"
+        print_success "${display} completed successfully"
         return 0
     fi
     echo
-    print_error "${(C)name} failed (exit code: ${ec})"
+    print_error "${display} failed (exit code: ${ec})"
     return "$ec"
 }
 
 cmd_help() {
     ascii_art
     echo
-    print_info "Usage: dot [--yes] <command> [args]"
+    echo -e "${BOLD}${CYAN}${ARROW} Usage:${NC} ${YELLOW}${BIN_NAME} [--yes|-y] <command>${NC}"
     echo
-    print_subsection "Commands"
-    print_detail "apply [module...]   Idempotent setup (default: all core modules)"
-    print_detail "check [module...]   Health check (default: all checkable modules)"
-    print_detail "link                Alias for: apply link"
-    print_detail "update              Run topgrade"
-    print_detail "clone               Clone repos from inventory/repos.toml"
-    print_detail "pull                Pull repos (+ optional --update for composer bumps)"
-    print_detail "clean               Clean package manager caches"
-    print_detail "manual              Remaining manual checklist"
-    print_detail "atuin               Atuin Hub login/sync"
-    print_detail "lint                Lint shell scripts"
-    print_detail "help                This help"
-    echo
-    print_subsection "Modules"
-    local m
-    for m in ${(k)DOT_MODULE_DESC}; do
-        printf "  %-10s %s\n" "$m" "$DOT_MODULE_DESC[$m]"
-    done | sort
+
+    local category cmds_var color icon label cmd prefix desc
+    local -a cmds cmd_list
+    local -i i last
+
+    for category in $DOT_CATEGORIES; do
+        cmds_var="DOT_CMDS_${category}"
+        cmds=( ${(P)cmds_var} )
+        (( ${#cmds} )) || continue
+
+        color=${DOT_CATEGORY_COLOR[$category]}
+        icon=${DOT_CATEGORY_ICON[$category]}
+        label=${DOT_CATEGORY_LABEL[$category]}
+        print_tree_header "$color" "$icon" "$label"
+
+        if [[ $category == core ]]; then
+            cmd_list=( help $cmds )
+        else
+            cmd_list=( $cmds )
+        fi
+
+        last=${#cmd_list}
+        for (( i = 1; i <= last; i++ )); do
+            cmd=${cmd_list[i]}
+            prefix="├"
+            (( i == last )) && prefix="└"
+            if [[ $cmd == help ]]; then
+                desc="Show this help message"
+            else
+                desc=${DOT_CMD_DESC[$cmd]}
+            fi
+            print_tree_item "$color" "$prefix" "$cmd" "$desc"
+        done
+        echo
+    done
+
+    if dot_noninteractive; then
+        print_info "Noninteractive mode on (--yes / DOT_NONINTERACTIVE=1)"
+    fi
 }
 
-cmd_apply() {
-    local -a mods
-    if (( $# == 0 )); then
-        mods=( "${DOT_APPLY_ORDER[@]}" )
-        if ! dot_noninteractive; then
-            mods+=( atuin )
-        else
-            print_warn "Skipping Atuin in noninteractive mode — run: dot atuin"
-        fi
-        mods+=( manual )
+cmd_apply_all() {
+    local -a mods=( "${DOT_APPLY_ORDER[@]}" )
+    if ! dot_noninteractive; then
+        mods+=( atuin )
     else
-        mods=( "$@" )
+        print_warn "Skipping Atuin in noninteractive mode — run: dot atuin"
     fi
+    mods+=( manual )
     local m
     for m in $mods; do
         run_module "$m" apply || return $?
     done
 }
 
-cmd_check() {
-    local -a mods
-    if (( $# == 0 )); then
-        mods=( brew link shell git mise php lerd mac wm repos )
-    else
-        mods=( "$@" )
+cmd_lint() {
+    print_section "Lint"
+    set +e
+    zsh "$DOTFILES_ROOT/tests/lint.zsh"
+    local ec=$?
+    set -e
+    if (( ec == 0 )); then
+        echo
+        print_success "Lint completed successfully"
+        return 0
     fi
-    typeset -i fail=0
-    local m
-    for m in $mods; do
-        run_module "$m" check || fail=1
-    done
-    (( fail == 0 ))
+    echo
+    print_error "Lint failed (exit code: ${ec})"
+    return "$ec"
+}
+
+dispatch_command() {
+    local command_name=$1
+    shift
+
+    case "$command_name" in
+        help) cmd_help; return 0 ;;
+        apply)
+            if (( $# == 0 )); then
+                cmd_apply_all
+            else
+                local m
+                for m in "$@"; do
+                    run_module "$m" apply || return $?
+                done
+            fi
+            return $?
+            ;;
+        check)
+            # Alias for doctor (aggregated report)
+            run_module doctor apply
+            return $?
+            ;;
+        lint) cmd_lint; return $? ;;
+    esac
+
+    local spec=${DOT_CMD_MODULE[$command_name]:-}
+    if [[ -z $spec ]]; then
+        print_error "Unknown command: '${command_name}'"
+        echo
+        cmd_help
+        return 1
+    fi
+
+    local module=${spec%%:*}
+    local action=apply
+    if [[ $spec == *:* ]]; then
+        action=${spec#*:}
+    fi
+
+    # pull forwards args (--update)
+    if [[ $command_name == pull ]]; then
+        run_module repos pull "$@"
+        return $?
+    fi
+
+    run_module "$module" "$action" "$@"
 }
 
 main() {
     dot_consume_yes_args "$@"
     set -- "${REPLY[@]}"
 
-    local cmd=${1:-help}
-    (( $# > 0 )) && shift
+    local command_name=${1:-}
 
-    case "$cmd" in
-        help|-h|--help) cmd_help ;;
-        apply)          cmd_apply "$@" ;;
-        check)          cmd_check "$@" ;;
-        link)           run_module link apply ;;
-        update)         run_module update apply ;;
-        clone)          run_module repos apply ;;
-        pull)           run_module repos pull "$@" ;;
-        clean)          run_module clean apply ;;
-        manual)         run_module manual apply ;;
-        atuin)          run_module atuin apply ;;
-        lint)           zsh "$DOTFILES_ROOT/tests/lint.zsh" ;;
-        precheck|brew|shell|git|mise|php|lerd|mac|wm|repos)
-            run_module "$cmd" apply "$@"
-            ;;
-        *)
-            print_error "Unknown command: $cmd"
-            echo
-            cmd_help
-            exit 1
-            ;;
-    esac
+    if [[ -z "$command_name" || "$command_name" == "-h" || "$command_name" == "--help" ]]; then
+        cmd_help
+        exit 0
+    fi
+
+    shift
+    dispatch_command "$command_name" "$@"
 }
 
 main "$@"
