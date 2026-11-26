@@ -40,14 +40,15 @@ cmd_pull() {
     repo_paths[dotfiles]="$DOTFILES_ROOT"
 
     typeset -i failures=0
-    local path
-    for dir path in ${(kv)repo_paths}; do
-        if [[ ! -d $path ]]; then
+    # Never name a local `path` — in zsh it is tied to PATH and clears the PATH.
+    local repo_path
+    for dir repo_path in ${(kv)repo_paths}; do
+        if [[ ! -d $repo_path ]]; then
             print_warn "Skipping ${dir} — not found"
             continue
         fi
         print_step "Pulling ${dir}..."
-        if ( cd "$path" && git pull --rebase ); then
+        if ( cd "$repo_path" && git pull --rebase ); then
             print_success "Updated ${dir}"
         else
             print_error "Failed to update ${dir}"
@@ -61,11 +62,11 @@ cmd_pull() {
     fi
 
     print_step "Composer dependency bumps (no auto-commit)"
-    for dir path in ${(kv)repo_paths}; do
-        [[ ! -d $path || ! -f "${path}/composer.json" ]] && continue
+    for dir repo_path in ${(kv)repo_paths}; do
+        [[ ! -d $repo_path || ! -f "${repo_path}/composer.json" ]] && continue
         print_step "composer update in ${dir}..."
-        if ( cd "$path" && composer update ); then
-            if [[ -n "$(cd "$path" && git status --porcelain)" ]]; then
+        if ( cd "$repo_path" && composer update ); then
+            if [[ -n "$(cd "$repo_path" && git status --porcelain)" ]]; then
                 print_warn "${dir} has lockfile changes — commit manually if desired"
             else
                 print_info "No dependency updates for ${dir}"

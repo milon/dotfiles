@@ -1,85 +1,171 @@
 # .dotfiles
 
 ```
-   _     _   ___ _ _         
- _| |___| |_|  _|_| |___ ___ 
-| . | . |  _|  _| | | -_|_ -|
-|___|___|_| |_| |_|_|___|___|
+     ▀▄▄▄        ▀▄▄▄
+      ▐▄▄▌  ▄▄▄  ▐ █▌▄▄
+ ▄ ▄▄▄▄▄█▌▄▄▄▄█▄▌▐ █▀▀▀▀
+▐▐██▌▐▐██▌▐█▌▄▄█▌▐ █▌ ▄▌
+ ░▀▀▀▀▀▀▀░▀▀▀▀▀▀ ▀▀▀▀▀▀▌
 ```
 
-Personal macOS bootstrap: Homebrew, mise, Lerd/Podman, yabai/skhd, Ghostty, Neovim.
+Personal **macOS** bootstrap and day-to-day maintenance CLI (`dot`). Automates Homebrew, mise, Lerd/Podman, yabai/skhd, Ghostty, Neovim, and related tooling.
 
-> Testing the rewrite? Stay on branch `greenfield`. `master` is the previous system until you cut over.
+> Shell scripts target **Zsh** (macOS default). Run `./install` and `dot` from Zsh.
 
 ## Quick start
 
-1. Sign in to the Mac App Store, install CLT (`xcode-select --install`), set up SSH keys.
-2. Clone to the canonical path:
+### Prerequisites
+
+1. **Sign in to the Mac App Store** (needed for `mas` packages in the Brewfile).
+2. **Update macOS** via System Settings → Software Update.
+3. **Rosetta** (Apple Silicon only): `softwareupdate --install-rosetta`
+4. **SSH keys** in `~/.ssh` (ed25519 preferred), added to GitHub — clones use SSH remotes.
+5. **Xcode Command Line Tools**: `xcode-select --install`
+
+### Install
 
 ```bash
 git clone git@github.com:milon/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-git checkout greenfield   # while testing the rewrite
 ./install
-# or: ./install --yes
 ```
 
-`./install` ensures Homebrew/CLT, then runs `dot apply`.
+Noninteractive (auto-confirms prompts; skips Atuin login and SSH key generation):
+
+```bash
+./install --yes
+# or: DOT_NONINTERACTIVE=1 ./install
+```
+
+`./install` ensures Homebrew and CLT when needed, then runs `dot apply` (full setup). Config is symlinked as part of that apply via the `link` module — you do not need a separate post-install symlink step.
+
+Canonical checkout path is `~/.dotfiles`. `DOTFILES_ROOT` is still discovered from the repo, so another path works, but docs and skhd helpers assume this location.
 
 ## CLI
 
-Same command surface and output style as the former `dotfiles` tool:
+After install, `bin/dot` is on your `PATH` (via shell env). Entry points:
 
 ```bash
-dot help                 # categorized tree (CORE / SETUP / REPOS / SYSTEM)
-dot doctor               # health check (also: dot check)
-dot lint / update / clean / symlinks / precheck
-dot brew / git / atuin / xcode / mise / php / lerd
-dot clone / pull
-dot mac / hotkeys / manual
-dot apply                # full idempotent setup (install uses this)
+dot                 # same as: dot help
+dot help
+dot --yes <command> # or -y / DOT_NONINTERACTIVE=1
 ```
 
-Global flag: `dot --yes` / `-y` (or `DOT_NONINTERACTIVE=1`).
+### Command reference
 
-Modules run as **subprocesses** (`set -euo pipefail`). They are never sourced into the dispatcher.
+Run `dot help` for the live categorized tree. Summary:
+
+| Category | Commands | Purpose |
+|----------|----------|---------|
+| **CORE** | `doctor`, `lint`, `update`, `clean`, `symlinks`, `precheck`, `apply` | Health, maintenance, full setup |
+| **SETUP** | `brew`, `git`, `atuin`, `xcode`, `mise`, `php`, `lerd` | Tooling install/configure |
+| **REPOS** | `clone`, `pull` | Personal git repos from inventory |
+| **SYSTEM** | `mac`, `hotkeys`, `manual` | macOS defaults, yabai/skhd, checklist |
+
+Notable details:
+
+- **doctor** — Read-only drift check (Homebrew, symlinks, mise, PHP, Podman/Lerd, git, Sheldon, Atuin, yabai/skhd, SSH, PATH). Non-zero if anything is broken. Alias: `dot check`.
+- **apply** — Idempotent full setup (what `./install` finishes with). Optional module list: `dot apply brew link`.
+- **symlinks** — Link `config/` onto `~` / `~/.config` per `inventory/links.toml`. Backups go to `~/.local/share/dot/backup/`.
+- **update** — [Topgrade](https://github.com/topgrade-rs/topgrade) using `~/.config/topgrade.toml` when present, else the repo copy.
+- **pull --update** — Runs `composer update` in PHP repos and **does not** auto-commit; commit lockfile bumps yourself.
+- **hotkeys** — Start/reload yabai + skhd; writes `generated/skhd-bin`.
+
+Adding a command: edit [`lib/commands.zsh`](lib/commands.zsh) (registry + help). Dispatch and help both read that file.
+
+### Architecture note
+
+`modules/*.zsh` run as **subprocesses** with `set -euo pipefail`. They are never sourced into `bin/dot`, so a module failure cannot leak `cd`/`set -e` into the dispatcher. Standalone helpers under `bin/yabai-*` also use `set -euo pipefail`.
 
 ## Layout
 
 ```text
 ~/.dotfiles/
-  install            bootstrap
-  bin/dot            CLI
-  config/            all tracked config (one tree)
-  inventory/         Brewfile, links.toml, repos.toml, packages.toml
-  modules/           apply|check scripts
-  lib/               shared helpers
-  generated/         gitignored stubs (from `dot wm`)
+  install                 Bootstrap → brew/CLT → dot apply
+  bin/dot                 User CLI
+  bin/yabai-*             Window-manager helpers (skhd)
+  config/                 All tracked config (one tree)
+  inventory/
+    Brewfile              Homebrew formulae, casks, MAS
+    links.toml            Symlink map (config/ → disk)
+    repos.toml            Personal git clones
+    packages.toml         Composer globals (+ mise notes)
+  modules/                apply|check scripts
+  lib/                    Shared UI, inventory parsers, command registry
+  generated/              Gitignored stubs (e.g. skhd-bin)
+  tests/lint.zsh          Shell lint (also CI / pre-commit)
+  optional/vscode/        Optional VS Code CSS/JS (not symlinked)
 ```
 
 ### One `config/` folder
 
-On disk, apps still use `~` and `~/.config`. In the repo everything lives under `config/`. Destinations are declared in `inventory/links.toml`.
+Apps still split destinations between `~` and `~/.config`. In the **repo**, everything lives under `config/`. Only paths listed in `inventory/links.toml` are symlinked:
 
-Unlisted paths under `config/` (zsh fragments, starship, aliases) are sourced via `$DOTFILES_ROOT`, not symlinked.
+| In repo | On disk |
+|---------|---------|
+| `config/zshrc` | `~/.zshrc` |
+| `config/gitignore` | `~/.gitignore` |
+| `config/skhdrc` | `~/.skhdrc` |
+| `config/yabairc` | `~/.yabairc` |
+| `config/sheldon/` | `~/.config/sheldon/` |
+| `config/atuin/` | `~/.config/atuin/` |
+| `config/nvim/` | `~/.config/nvim/` |
+| `config/ghostty/` | `~/.config/ghostty/` |
+| `config/fastfetch/` | `~/.config/fastfetch/` |
+| `config/mise/` | `~/.config/mise/` |
+| `config/topgrade.toml` | `~/.config/topgrade.toml` |
 
-### Inventory
+Not linked (sourced via `$DOTFILES_ROOT`): `config/zsh/*.zsh`, `config/zsh_aliases`, `config/fzf.sh`, `config/starship.toml`, `config/gitconfig` (included by `git config --global include.path`).
 
-| File | Role |
-|------|------|
-| `inventory/Brewfile` | Homebrew formulae, casks, MAS |
-| `inventory/links.toml` | Symlink map |
-| `inventory/repos.toml` | Personal git clones |
-| `inventory/packages.toml` | Composer globals (+ mise notes) |
-| `~/.Brewfile.local` | Per-machine brew extras (untracked) |
+## What gets installed
 
-## Notes
+Driven by [`inventory/Brewfile`](inventory/Brewfile) and mise:
 
-- Checkout is `~/.dotfiles`; `DOTFILES_ROOT` is still discovered so other paths work.
-- Secrets stay in `~/.zshrc.local` (mode 600).
-- `dot pull --update` runs `composer update` and **does not** auto-commit; commit lockfile bumps yourself.
-- Roll back to the old system: `git checkout master` (old `bin/dotfiles` lives only on master).
+- **Shell:** Sheldon, Starship, Atuin, zoxide, fzf, eza, bat, …
+- **Languages:** mise (node, python, ruby, java, go, rust, …); host PHP/Composer via Homebrew; site runtime is **Lerd on Podman**
+- **Editors / terminal:** Neovim, Ghostty, VS Code
+- **Desktop:** yabai + skhd, Raycast, 1Password, Chrome, TablePlus, …
+- **OrbStack** remains available for Docker Desktop–compatible Compose; Lerd does not use it
+
+Per-machine extras go in untracked `~/.Brewfile.local` (created by `dot precheck`).
+
+## Customization
+
+1. **Secrets / machine overrides:** `~/.zshrc.local` (mode `600`, sourced last). Not tracked.
+2. **Shared aliases:** `config/zsh_aliases`.
+3. **Zsh plugins:** `config/sheldon/plugins.toml`, then `sheldon lock` (or `dot shell`).
+4. **New symlinks:** add files under `config/` and a row in `inventory/links.toml`, then `dot symlinks`.
+5. **Homebrew:** shared packages → `inventory/Brewfile`; one-off machine packages → `~/.Brewfile.local`.
+6. **Personal repos:** `inventory/repos.toml` (`dot clone` / `dot pull`).
+7. **VS Code Custom CSS/JS (optional):** point the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension at `$DOTFILES_ROOT/optional/vscode/style.css` and `script.js`.
+
+## Day-to-day
+
+```bash
+dot doctor          # drift / health
+dot brew            # refresh Brewfile packages
+dot update          # topgrade
+dot clean           # brew/npm/composer/mise caches
+dot pull            # update tracked repos
+dot hotkeys         # reload yabai + skhd
+```
+
+Pre-commit (this repo): `dot lint` + symlink source checks (via `.githooks`).
+
+## Troubleshooting
+
+- **SSH / clone failures:** ensure a key exists and is loaded (`ssh-add -l`), and is on GitHub.
+- **Brewfile drift:** `dot brew` (shared + `~/.Brewfile.local`).
+- **Broken symlinks after path moves:** `dot symlinks` (conflicts backed up under `~/.local/share/dot/backup/`).
+- **Prompt / plugins odd after updates:** open a new shell; run `dot shell` (Sheldon lock) and confirm `STARSHIP_CONFIG` points at `$DOTFILES_ROOT/config/starship.toml`.
+- **Lerd / Podman:** `lerd status` / `lerd start`; doctor checks Podman reachability.
+- **Unknown command:** `dot help` — registry lives in `lib/commands.zsh`.
 
 ## License
 
 See [LICENSE](LICENSE).
+
+## Contact
+
+- Twitter: [@to_milon](https://milon.im/twitter)
+- Email: contact[@]milon[.]im
