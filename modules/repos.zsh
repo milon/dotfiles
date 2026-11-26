@@ -2,17 +2,42 @@
 set -euo pipefail
 source "${0:A:h}/_common.zsh"
 
+# True when the worktree has tracked modifications (blocks pull.rebase).
+# Untracked-only trees are fine — git rebase does not refuse those.
+repo_is_dirty() {
+    local repo_path=$1
+    [[ -n "$(git -C "$repo_path" status --porcelain -uno 2>/dev/null)" ]]
+}
+
+# pull.rebase=true (global here) turns every `git pull` into a rebase, which
+# refuses dirty trees. Skip with a clear warn instead of a cryptic git error.
+repo_pull() {
+    local repo_path=$1
+    if repo_is_dirty "$repo_path"; then
+        print_warn "Uncommitted changes — commit, stash, or discard, then re-run"
+        return 2
+    fi
+    git -C "$repo_path" pull --rebase --autostash
+}
+
 cmd_apply() {
     dot_load_repos
     mkdir -p "$reply_code_dir"
     typeset -i failures=0
-    local dir repo
+    local dir repo ec
     for dir repo in ${(kv)reply_repos}; do
         print_step "Cloning ${dir}..."
         if [[ -d "${reply_code_dir}/${dir}/.git" ]]; then
             print_info "${dir} exists — pulling..."
-            if ( cd "${reply_code_dir}/${dir}" && git pull ); then
+            set +e
+            repo_pull "${reply_code_dir}/${dir}"
+            ec=$?
+            set -e
+            if (( ec == 0 )); then
                 print_success "Updated ${dir}"
+            elif (( ec == 2 )); then
+                # Repo is present; dirty skip is not a clone failure.
+                print_info "Left ${dir} unchanged"
             else
                 print_error "Failed to update ${dir}"
                 failures+=1
@@ -41,15 +66,22 @@ cmd_pull() {
 
     typeset -i failures=0
     # Never name a local `path` — in zsh it is tied to PATH and clears the PATH.
-    local repo_path
+    local repo_path ec
     for dir repo_path in ${(kv)repo_paths}; do
         if [[ ! -d $repo_path ]]; then
             print_warn "Skipping ${dir} — not found"
             continue
         fi
         print_step "Pulling ${dir}..."
-        if ( cd "$repo_path" && git pull --rebase ); then
+        set +e
+        repo_pull "$repo_path"
+        ec=$?
+        set -e
+        if (( ec == 0 )); then
             print_success "Updated ${dir}"
+        elif (( ec == 2 )); then
+            # Dirty skip is a warn, not a hard failure — other repos still pull.
+            :
         else
             print_error "Failed to update ${dir}"
             failures+=1
