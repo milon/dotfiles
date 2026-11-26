@@ -36,9 +36,6 @@ cmd_check() {
             err=1
         fi
     done
-    if command_exists composer && composer global show tightenco/takeout &>/dev/null; then
-        print_warn "tightenco/takeout still installed — remove with: composer global remove tightenco/takeout"
-    fi
     (( err == 0 ))
 }
 

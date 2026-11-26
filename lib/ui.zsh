@@ -97,7 +97,7 @@ EOF
 }
 
 dot_noninteractive() {
-    [[ "${DOT_NONINTERACTIVE:-0}" == 1 || "${DOTFILES_NONINTERACTIVE:-0}" == 1 ]]
+    [[ "${DOT_NONINTERACTIVE:-0}" == 1 ]]
 }
 
 dot_consume_yes_args() {
@@ -106,7 +106,6 @@ dot_consume_yes_args() {
         case "$1" in
             --yes|-y)
                 export DOT_NONINTERACTIVE=1
-                export DOTFILES_NONINTERACTIVE=1
                 shift
                 ;;
             *)

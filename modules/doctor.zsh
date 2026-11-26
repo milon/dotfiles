@@ -158,9 +158,6 @@ doctor_main() {
             note_warning "$cmd not on PATH — run: dot brew && dot php"
         fi
     done
-    if command_exists composer && composer global show tightenco/takeout &>/dev/null; then
-        note_warning "tightenco/takeout still installed globally — remove with: composer global remove tightenco/takeout"
-    fi
 
     print_subsection "Lerd"
     if ! command_exists podman; then

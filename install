@@ -2,7 +2,6 @@
 set -euo pipefail
 
 export DOTFILES_ROOT=$(cd "$(dirname "$(realpath "$0")")" && pwd)
-export DOT_EXIT_ON_FAILURE=1
 
 source "$DOTFILES_ROOT/lib/root.zsh"
 source "$DOTFILES_ROOT/lib/ui.zsh"

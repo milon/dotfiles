@@ -18,7 +18,7 @@ repo_pull() {
         print_warn "${repo_name}: uncommitted changes — commit, stash, or discard, then re-run"
         return 2
     fi
-    git -C "$repo_path" pull --rebase --autostash
+    git -C "$repo_path" pull --rebase
 }
 
 cmd_apply() {
@@ -80,10 +80,7 @@ cmd_pull() {
         set -e
         if (( ec == 0 )); then
             print_success "Updated ${dir}"
-        elif (( ec == 2 )); then
-            # Dirty skip is a warn, not a hard failure — other repos still pull.
-            :
-        else
+        elif (( ec != 2 )); then
             print_error "Failed to update ${dir}"
             failures+=1
         fi

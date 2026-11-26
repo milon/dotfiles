@@ -35,7 +35,6 @@ typeset -ga DOT_CMDS_system=(mac hotkeys manual)
 typeset -gA DOT_CMD_MODULE=(
     [doctor]="doctor"
     [check]="doctor"
-    [lint]="lint"
     [update]="update"
     [clean]="clean"
     [symlinks]="symlinks"

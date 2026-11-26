@@ -35,11 +35,9 @@ run_module() {
 
     local display
     display=$(dot_display_name "$name")
-    # Special-case section titles that differ from the module filename
-    [[ $name == doctor ]] && display="Doctor"
+    # repos is the module behind both clone and pull
     [[ $name == repos && $action == apply ]] && display="Clone"
     [[ $name == repos && $action == pull ]] && display="Pull"
-    [[ $name == lint ]] && display="Lint"
 
     print_section "$display"
     set +e
@@ -102,23 +100,15 @@ cmd_help() {
     fi
 }
 
-# Map a public command name (clone, hotkeys, …) or module filename to
-# module + action for `dot apply <name>`.
+# Map a public command name (clone, hotkeys, …) or module filename for `dot apply`.
 dot_resolve_apply_target() {
     local name=$1
-    local spec module action
     if [[ -n ${DOT_CMD_MODULE[$name]:-} ]]; then
-        spec=${DOT_CMD_MODULE[$name]}
-        module=${spec%%:*}
-        action=apply
-        [[ $spec == *:* ]] && action=${spec#*:}
-        REPLY_MODULE=$module
-        REPLY_ACTION=$action
+        REPLY_MODULE=${${DOT_CMD_MODULE[$name]}%%:*}
         return 0
     fi
     if [[ -f ${DOT_MODULES_DIR}/${name}.zsh ]]; then
         REPLY_MODULE=$name
-        REPLY_ACTION=apply
         return 0
     fi
     return 1
@@ -202,16 +192,7 @@ dispatch_command() {
 
     local module=${spec%%:*}
     local action=apply
-    if [[ $spec == *:* ]]; then
-        action=${spec#*:}
-    fi
-
-    # pull forwards args (--update)
-    if [[ $command_name == pull ]]; then
-        run_module repos pull "$@"
-        return $?
-    fi
-
+    [[ $spec == *:* ]] && action=${spec#*:}
     run_module "$module" "$action" "$@"
 }
 

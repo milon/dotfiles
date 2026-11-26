@@ -1,10 +1,6 @@
 # Tracked git configuration shared across machines.
-#
-# Activated by support/git.sh via:
-#   git config --global --add include.path <path-to-this-file>
-#
-# Personal identity (user.name / user.email) is intentionally NOT here — it is
-# written to ~/.gitconfig directly by support/git.sh so machines can differ.
+# Wired by `dot git` via: git config --global --add include.path <this-file>
+# Personal identity (user.name / user.email) stays in ~/.gitconfig only.
 
 [core]
 	excludesfile = ~/.gitignore
