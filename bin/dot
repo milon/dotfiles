@@ -166,6 +166,10 @@ dispatch_command() {
             else
                 local m
                 for m in "$@"; do
+                    if [[ $m == pull ]]; then
+                        print_error "pull is not an apply target — run: dot pull"
+                        return 1
+                    fi
                     if [[ $m == lint ]]; then
                         cmd_lint || return $?
                         continue
@@ -174,7 +178,8 @@ dispatch_command() {
                         print_error "Unknown module or command: '${m}'"
                         return 1
                     fi
-                    run_module "$REPLY_MODULE" "$REPLY_ACTION" || return $?
+                    # `dot apply` always runs apply — never alternate actions (e.g. repos:pull)
+                    run_module "$REPLY_MODULE" apply || return $?
                 done
             fi
             return $?
