@@ -71,7 +71,7 @@ Notable details:
 - **pull --update** — Runs `composer update` in PHP repos and **does not** auto-commit; commit lockfile bumps yourself.
 - **hotkeys** — Start/reload yabai + skhd; writes `generated/skhd-bin`.
 
-Adding a command: edit [`lib/commands.zsh`](lib/commands.zsh) (registry + help). Dispatch and help both read that file.
+Adding a command: edit [`lib/commands.zsh`](lib/commands.zsh) (registry + help). Dispatch, help, and tab-completion (`config/zsh/completions/_dot`) all read that file.
 
 ### Architecture note
 

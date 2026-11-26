@@ -1,0 +1,62 @@
+#compdef dot
+
+# Completions for bin/dot. Command list comes from lib/commands.zsh so help
+# and tab-complete stay in sync when the registry changes.
+
+_dot() {
+    local root=${DOTFILES_ROOT:-}
+    if [[ -z $root ]]; then
+        # this file: config/zsh/completions/_dot → repo root
+        root=${${(%):-%x}:A:h:h:h:h}
+    fi
+
+    if [[ -f $root/lib/commands.zsh ]]; then
+        source "$root/lib/commands.zsh"
+    fi
+
+    local -a cmds
+    local name desc
+    for name in ${(k)DOT_CMD_MODULE}; do
+        desc=${DOT_CMD_DESC[$name]:-}
+        cmds+=( "${name}:${desc}" )
+    done
+    cmds+=(
+        'help:Show this help message'
+        'apply:Run full idempotent setup'
+    )
+
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments -C \
+        '(-y --yes)'{-y,--yes}'[Noninteractive / assume yes]' \
+        '(-h --help)'{-h,--help}'[Show help]' \
+        '1:command:->command' \
+        '*::arg:->args' && return 0
+
+    case $state in
+        command)
+            _describe -t commands 'dot command' cmds
+            ;;
+        args)
+            case $words[1] in
+                apply)
+                    local -a modules
+                    local f
+                    for f in "$root"/modules/*.zsh(N); do
+                        name=${f:t:r}
+                        [[ $name == _* ]] && continue
+                        modules+=( "$name" )
+                    done
+                    _describe -t modules 'module' modules
+                    ;;
+                pull)
+                    _arguments \
+                        '(-u --update)'{-u,--update}'[Run composer update in PHP repos]'
+                    ;;
+            esac
+            ;;
+    esac
+}
+
+_dot "$@"
