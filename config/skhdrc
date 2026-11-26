@@ -1,0 +1,53 @@
+# Modifiers (built into skhd — no Karabiner remap required):
+#   rcmd  = right Command
+#   hyper = cmd + alt + ctrl + shift
+#
+# Window arrows:
+#   hyper + arrows              → cycle size (left / right / center)
+#   cmd + ctrl + shift + arrows → focus window that way
+#   ctrl + alt + shift + arrows → move window to that display (+ focus)
+#
+# macOS Mission Control steals Ctrl+Arrow (spaces / Mission Control) unless
+# those shortcuts are disabled — required for any chord that includes Ctrl+Arrow.
+# skhd auto-reloads this file on save.
+
+# ── App launcher (right Command + letter) ────────────────────────────────
+rcmd - g : open -b "com.google.Chrome"            # Google Chrome
+rcmd - t : open -b "com.mitchellh.ghostty"        # Ghostty
+rcmd - c : open -b "com.microsoft.VSCode"         # Visual Studio Code
+rcmd - m : open -b "com.apple.MobileSMS"          # Messages
+rcmd - w : open -b "net.whatsapp.WhatsApp"        # WhatsApp
+rcmd - s : open -b "com.tinyspeck.slackmacgap"    # Slack
+rcmd - a : open -b "com.openai.codex"             # ChatGPT
+rcmd - l : open -b "com.linear"                   # Linear
+rcmd - p : open -b "com.jetbrains.PhpStorm"       # PhpStorm
+rcmd - n : open -b "notion.id"                    # Notion
+rcmd - z : open -b "com.tinyapp.TablePlus"        # TablePlus
+rcmd - f : open -b "com.apple.finder"             # Finder
+
+# ── Size presets ─────────────────────────────────────────────────────────
+hyper - r : yabai -m window --grid 10:10:2:2:6:6   # Reasonable (~60%, centered)
+hyper - m : yabai -m window --grid 20:20:1:1:18:18 # Almost maximize (~90%, centered)
+
+# ── Size cycle (hyper + arrows) — repeat to advance ──────────────────────
+#   left/right : half → 2/3 → 1/3 → …
+#   up/down    : full → 2/3 → 1/2 → …  (centered)
+# Absolute paths: skhd's LaunchAgent PATH is not your interactive shell PATH.
+# Resolve repo via ~/.skhdrc → config/skhdrc (two dirs up). Never hardcode ~/.dotfiles.
+# Explicit mods (not the `hyper` keyword) avoid some skhd/arrow edge cases.
+cmd + alt + ctrl + shift - left  : "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")/bin/yabai-cycle-grid" left
+cmd + alt + ctrl + shift - right : "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")/bin/yabai-cycle-grid" right
+cmd + alt + ctrl + shift - up    : "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")/bin/yabai-cycle-grid" center
+cmd + alt + ctrl + shift - down  : "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")/bin/yabai-cycle-grid" center
+
+# ── Focus window (cmd + ctrl + shift + arrows) ───────────────────────────
+cmd + ctrl + shift - left  : "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")/bin/yabai-focus-direction" west
+cmd + ctrl + shift - right : "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")/bin/yabai-focus-direction" east
+cmd + ctrl + shift - up    : "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")/bin/yabai-focus-direction" north
+cmd + ctrl + shift - down  : "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")/bin/yabai-focus-direction" south
+
+# ── Move to display (ctrl + alt + shift + arrows) ────────────────────────
+ctrl + alt + shift - left  : "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")/bin/yabai-move-display" west
+ctrl + alt + shift - right : "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")/bin/yabai-move-display" east
+ctrl + alt + shift - up    : "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")/bin/yabai-move-display" north
+ctrl + alt + shift - down  : "$(dirname "$(dirname "$(realpath "$HOME/.skhdrc")")")/bin/yabai-move-display" south

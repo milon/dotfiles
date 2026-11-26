@@ -1,0 +1,107 @@
+# Taps
+tap 'buo/cask-upgrade', trusted: true
+tap 'lerd-env/lerd', trusted: true
+tap 'koekeishiya/formulae', trusted: true
+tap 'milon/macos-unijoy', trusted: true
+tap 'shivammathur/php', trusted: true
+tap 'shivammathur/extensions', trusted: true
+
+# Formulae — core
+brew 'bash'
+brew 'coreutils'                                    # GNU core utilities
+brew 'curl'
+brew 'git'
+brew 'git-lfs'                                      # Git large file storage
+brew 'gnupg'
+brew 'grep'
+brew 'less'
+brew 'openssl'
+brew 'pkg-config'                                   # Needed for imagick build/install
+
+# Formulae — shell
+brew 'sheldon'                                      # Zsh plugin manager
+brew 'starship'                                     # Zsh prompt
+brew 'zoxide'                                       # Smarter cd
+brew 'fzf'                                          # Fuzzy finder
+brew 'fd'                                           # File search for fzf (Ctrl-T, Alt-C)
+brew 'atuin'                                        # Shell history (synced)
+brew 'eza'                                          # Modern ls
+brew 'bat'                                          # Cat with syntax highlighting
+brew 'ripgrep'                                      # Faster grep
+brew 'fastfetch'                                    # System info
+brew 'gum'                                          # Shell scripting utilities
+brew 'shellcheck'                                   # Bash lint (dotfiles lint / pre-commit / CI)
+
+# Formulae — languages
+brew 'mise'                                         # Polyglot version manager (node, python, ruby, java, go, rust)
+brew 'php'                                          # shivammathur/php; global Composer packages via `dot php`
+brew 'pie'                                          # PHP extension installer
+brew 'composer'
+brew 'luarocks'                                     # Lua package manager
+brew 'nvim'                                         # Neovim
+
+# Formulae — development
+brew 'cmake'
+brew 'sqlite'
+brew 'imagemagick'
+brew 'git-delta'                                    # Better git diff output
+brew 'gh'                                           # GitHub CLI
+brew 'xh'                                           # HTTP client
+brew 'jaq'                                          # JSON processor (jq-compatible)
+brew 'lerd'                                         # .test sites and dashboard (depends on Podman)
+brew 'typst'                                        # Typesetting
+
+# Formulae — desktop
+brew 'topgrade'                                     # Unified upgrade runner (dotfiles update)
+brew 'mas'                                          # Mac App Store CLI
+brew 'btop'                                         # System monitor
+brew 'duti'                                         # Default URL handler (Chrome for http/https)
+brew 'koekeishiya/formulae/skhd'                    # Hotkey daemon
+brew 'koekeishiya/formulae/yabai'                   # Window manager
+
+# Formulae — media
+brew 'ffmpeg'
+brew 'mpv'                                          # Media player
+brew 'viu'                                          # Terminal image viewer
+brew 'yt-dlp'                                       # YouTube downloader
+brew 'kepubify'                                     # EPUB to Kobo converter
+
+# Casks — terminal and editors
+cask 'ghostty'
+cask 'visual-studio-code'
+
+# Casks — development
+cask 'tableplus'                                    # SQL client for Lerd DBs (skhd: rcmd-z)
+cask 'orbstack'                                     # Docker
+
+# Casks — productivity
+cask '1password'
+cask 'raycast'                                      # Spotlight replacement
+cask 'google-chrome'
+
+# Casks — system
+cask 'bartender'                                    # Menu bar organizer
+cask 'bettercmdtab'                                 # Better cmd+tab
+cask 'aldente'                                      # Battery charge limit
+cask 'keka'                                         # Archives
+cask 'monitorcontrol'                               # External monitor control
+cask 'fluidvoice'                                   # Speech to text
+cask 'macos-unijoy'                                 # Unijoy Bengali keyboard
+
+# Casks — media
+cask 'iina'                                         # Media player
+cask 'yt-music'                                     # YouTube Music
+
+# Casks — fonts (Ghostty uses 0xProto; Noto covers UI + Bengali)
+cask 'font-0xproto-nerd-font'
+cask 'font-noto-sans'
+cask 'font-noto-sans-bengali'
+cask 'font-noto-sans-bengali-ui'
+cask 'font-noto-serif-bengali'
+
+# Mac App Store
+mas 'Amphetamine', id: 937984704
+mas 'Dato', id: 1470584107
+mas 'Unsplash', id: 1284863847
+mas 'WhatsApp', id: 310633997
+mas 'Xcode', id: 497799835

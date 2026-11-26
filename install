@@ -1,0 +1,31 @@
+#!/bin/zsh
+set -euo pipefail
+
+export DOTFILES_ROOT=$(cd "$(dirname "$(realpath "$0")")" && pwd)
+export DOT_EXIT_ON_FAILURE=1
+
+source "$DOTFILES_ROOT/lib/root.zsh"
+source "$DOTFILES_ROOT/lib/ui.zsh"
+
+dot_consume_yes_args "$@"
+set -- "${REPLY[@]}"
+
+ascii_art
+echo
+if dot_noninteractive; then
+    print_info "Noninteractive install (--yes)"
+fi
+
+# Ensure bin/dot is executable
+chmod +x "$DOTFILES_ROOT/bin/dot" "$DOTFILES_ROOT/bin/yabai-"* 2>/dev/null || true
+
+print_section "Bootstrap"
+if ! command_exists brew; then
+    print_step "Installing Homebrew first..."
+    zsh "$DOTFILES_ROOT/modules/brew.zsh" apply
+fi
+
+# Xcode CLT before the rest
+zsh "$DOTFILES_ROOT/modules/xcode.zsh" apply
+
+exec "$DOTFILES_ROOT/bin/dot" apply

@@ -1,0 +1,15 @@
+# Symlink map: keys are paths relative to config/, values are destinations.
+# Entries not listed under config/ are repo-sourced only (shell fragments, etc.).
+
+[links]
+zshrc = "~/.zshrc"
+gitignore = "~/.gitignore"
+skhdrc = "~/.skhdrc"
+yabairc = "~/.yabairc"
+sheldon = "~/.config/sheldon"
+atuin = "~/.config/atuin"
+nvim = "~/.config/nvim"
+ghostty = "~/.config/ghostty"
+fastfetch = "~/.config/fastfetch"
+mise = "~/.config/mise"
+"topgrade.toml" = "~/.config/topgrade.toml"

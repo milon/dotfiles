@@ -7,201 +7,77 @@
 |___|___|_| |_| |_|_|___|___|
 ```
 
-Personal dotfiles configuration for macOS. Automates the setup of development environment, system preferences, and development tools.
+Personal macOS bootstrap: Homebrew, mise, Lerd/Podman, yabai/skhd, Ghostty, Neovim.
 
-> Inspired by [dotfiles.github.io](https://dotfiles.github.io/)
+> Testing the rewrite? Stay on branch `greenfield`. `master` is the previous system until you cut over.
 
+## Quick start
 
-## Quick Start
-
-### Prerequisites
-
-> **Shell:** These scripts target **Zsh** (macOS default). Run `./install.sh` and `dotfiles` from Zsh.
-
-Before running the installation, complete these steps:
-
-1. **Sign in to Mac App Store**
-   - Open App Store and sign in with your Apple ID
-
-2. **Update macOS**
-   - Go to System Settings → Software Update
-   - Install the latest macOS version
-
-3. **Install Rosetta (Apple Silicon only)**
-   ```bash
-   softwareupdate --install-rosetta
-   ```
-
-4. **Set up SSH keys**
-   ```bash
-   mkdir -p ~/.ssh && cd ~/.ssh
-   ```
-
-   - **Option A:** Copy SSH keys from another machine:
-     ```bash
-     # Copy id_ed25519 and id_ed25519.pub (or id_rsa/id_ecdsa)
-     chmod 600 ~/.ssh/id_ed25519
-     chmod 644 ~/.ssh/id_ed25519.pub
-     ```
-
-   - **Option B:** [Generate a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
-     - The installer will prompt you to create one if none are found
-
-   Add the public key to GitHub (and any other forge / server) before continuing — `git_clone` and friends use SSH remotes.
-
-5. **Install Command Line Tools**
-   ```bash
-   xcode-select --install
-   ```
-   - Follow the prompts to install Xcode Command Line Tools
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone git@github.com:milon/dotfiles.git ~/.dotfiles
-   ```
-   `~/.dotfiles` is conventional; any path works — `zshrc` and the installer resolve the repo root from the checkout itself.
-
-2. **Run the installer**
-   ```bash
-   cd ~/.dotfiles
-   ./install.sh
-   ```
-
-   Noninteractive (auto-confirm prompts; skips Atuin login and SSH key generation):
-   ```bash
-   ./install.sh --yes
-   # or: DOTFILES_NONINTERACTIVE=1 ./install.sh
-   ```
-
-The installer will guide you through the setup process with interactive prompts. At the end it offers Atuin Hub login/sync.
-
-`install.sh` already runs **symlinks** as part of setup (including `files/config/topgrade.toml` → `~/.config/`). Re-run `dotfiles symlinks` later if you add entries to `support/symlinks_map.sh`. Replacing an existing file/dir backs it up under `~/.dotfiles-backup/`. `dotfiles update` uses `~/.config/topgrade.toml` when present; otherwise it reads the copy inside the repo.
-
-## Usage
-
-After installation, you'll have a `dotfiles` command available in your terminal.
-
-### View Available Commands
+1. Sign in to the Mac App Store, install CLT (`xcode-select --install`), set up SSH keys.
+2. Clone to the canonical path:
 
 ```bash
-dotfiles help
+git clone git@github.com:milon/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+git checkout greenfield   # while testing the rewrite
+./install
+# or: ./install --yes
 ```
 
-or simply:
+`./install` ensures Homebrew/CLT, then runs `dot apply`.
+
+## CLI
 
 ```bash
-dotfiles
+dot help
+dot apply [module...]    # idempotent setup
+dot check [module...]    # health check (doctor)
+dot link                 # symlink config/ only
+dot update               # topgrade
+dot clone / dot pull     # personal repos
+dot atuin / dot clean / dot lint / dot manual
 ```
 
-Global flag: `dotfiles --yes <command>` (or `DOTFILES_NONINTERACTIVE=1`) auto-answers confirmations.
+Global flag: `dot --yes …` or `DOT_NONINTERACTIVE=1`.
 
-### Command Reference
+Modules run as **subprocesses** (`set -euo pipefail`). They are never sourced into the dispatcher.
 
-Run `dotfiles help` (or `dotfiles`) for the full list and categories. Highlights:
+## Layout
 
-- **doctor** — Read-only health check: Homebrew + Brewfile drift, symlinks, mise, PHP/Composer/pie, Podman + Lerd, git config + hooksPath, Sheldon lock, Atuin, yabai/skhd, SSH, essentials on PATH. Returns non-zero if anything is broken.
-- **lint** — `zsh -n` + shellcheck on scripts (also runs in CI / pre-commit).
-- **precheck** — Create `~/.zshrc.local` / `~/.Brewfile.local` if missing; verify SSH key and App Store sign-in.
-- **manual** — Print the remaining manual setup checklist.
-- **update** — [Topgrade](https://github.com/topgrade-rs/topgrade) with `files/config/topgrade.toml` (brew, casks, Mac App Store, mise, editor extensions, Composer, etc.; steps can be disabled in that file).
-- **clean** — `brew cleanup`, `brew autoremove`, plus npm / Composer / mise cache cleanup where available.
-- **symlinks** — Link tracked files from `files/` into `~` and `~/.config/` (backs up conflicts to `~/.dotfiles-backup/`).
-- **brew** / **git** / **xcode** / **mise** / **php** / **lerd** / **mac** / **hotkeys** — Re-run individual setup steps.
-- **clone** / **pull** — Clone or update repos from `support/repos.sh`.
-- **atuin** — Log in (or register) with [Atuin Hub](https://atuin.sh) and sync shell history. Skips login when this machine is already signed in.
-
-**Footgun:** `dotfiles pull --update` runs `composer update` in each PHP repo and, if the lockfile changed, **commits and pushes** with message `Updates dependencies`. Use only when you intend that.
-
-When you add a `dotfiles` subcommand, edit `support/commands.sh` only (script map, description, and help category). `bin/dotfiles` and `support/help.sh` both read that registry.
-
-## What Gets Installed
-
-### Development Tools
-- **Editors:** Neovim (Lazy.nvim; `files/config/nvim/lazy-lock.json` is tracked)
-- **Version Manager:** [mise](https://mise.jdx.dev/) (node, python, ruby, java, go, rust)
-- **Languages:** Node.js, Python, PHP (host CLI via Homebrew), Ruby, Java, Rust
-- **Databases / data:** SQLite; Lerd services (MySQL/Postgres/Redis as needed per site). TablePlus as the SQL GUI.
-- **Other:** Git, Composer, [Lerd](https://lerd.dev) (`.test` sites on **Podman**)
-
-### Applications
-- **Development:** Visual Studio Code, TablePlus. **OrbStack** is Docker Desktop–compatible Compose; **Lerd** uses Podman — keep OrbStack only if you still need Docker workflows. JetBrains Toolbox (PhpStorm) is per-machine in `~/.Brewfile.local`.
-- **Productivity:** 1Password, Raycast, Bartender. Notion, Linear, Slack, and ChatGPT are per-machine in `~/.Brewfile.local`.
-- **System:** Aldente, MonitorControl
-- **Media:** IINA, YouTube Music
-- **Terminal:** Ghostty
-
-### System Configuration
-- Shell configuration (Zsh with Sheldon)
-- Git configuration with aliases and colors
-- macOS system preferences
-- Window management (yabai + skhd hotkeys)
-- Symlinks for dotfiles
-
-
-## Customization
-
-### Adding Your Own Configurations
-
-1. **Per-machine overrides:** Edit `~/.zshrc.local` (created automatically by `precheck.sh`, mode `600`). Sourced **last** by `~/.zshrc`, so anything in it wins. Use it for personal aliases, work secrets / API tokens, host-specific `PATH` entries, proxies, AWS profiles, etc. Not tracked.
-2. **Tracked aliases:** Aliases shared across all your machines live in `files/home/zsh_aliases`.
-3. **Zsh plugins:** Edit `files/config/sheldon/plugins.toml`, then run `sheldon lock` (or open a new shell — Sheldon locks on source when needed).
-4. **Dotfiles (symlinked):** Add files to `files/` and a corresponding entry to `support/symlinks_map.sh`.
-5. **Sourced (not symlinked):** `files/home/starship.toml`, `files/home/zsh_aliases`, `files/home/fzf.sh`, and `files/home/zsh/*.zsh` are loaded through Sheldon via `$DOTFILES_DIR`. Do not add them to `symlinks_map.sh` — that would fight the current load order.
-6. **Homebrew packages:** Shared packages go in `support/Brewfile`. Packages for one machine only go in `~/.Brewfile.local` (created by `precheck.sh`, not tracked). `dotfiles brew` installs the shared file first, then the local one.
-7. **VS Code Custom CSS/JS (optional, not installed):** `optional/vscode/{style.css,script.js}` are not symlinked. Point the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension at `$DOTFILES_DIR/optional/vscode/style.css` and `$DOTFILES_DIR/optional/vscode/script.js` if you want the command-palette styling.
-
-### Repository Configuration
-
-- **Personal repos:** Edit `support/repos.sh` — both `dotfiles clone` and `dotfiles pull` read from this single manifest.
-
-
-## Troubleshooting
-
-### Installation Issues
-
-- **SSH key errors:** Ensure your SSH keys are properly configured and added to GitHub
-- **Homebrew errors:** Make sure you have admin privileges and internet connection
-- **Permission errors:** Some scripts may require `sudo` for system-level changes
-
-### Common Commands
-
-```bash
-# Re-run a specific setup step
-dotfiles brew
-
-# Re-run precheck / see leftover manual tasks
-dotfiles precheck
-dotfiles manual
-
-# Check what will be installed
-cat support/Brewfile
-
-# View installation logs
-# Check the output from install.sh for specific errors
+```text
+~/.dotfiles/
+  install            bootstrap
+  bin/dot            CLI
+  config/            all tracked config (one tree)
+  inventory/         Brewfile, links.toml, repos.toml, packages.toml
+  modules/           apply|check scripts
+  lib/               shared helpers
+  generated/         gitignored stubs (from `dot wm`)
 ```
 
+### One `config/` folder
+
+On disk, apps still use `~` and `~/.config`. In the repo everything lives under `config/`. Destinations are declared in `inventory/links.toml`.
+
+Unlisted paths under `config/` (zsh fragments, starship, aliases) are sourced via `$DOTFILES_ROOT`, not symlinked.
+
+### Inventory
+
+| File | Role |
+|------|------|
+| `inventory/Brewfile` | Homebrew formulae, casks, MAS |
+| `inventory/links.toml` | Symlink map |
+| `inventory/repos.toml` | Personal git clones |
+| `inventory/packages.toml` | Composer globals (+ mise notes) |
+| `~/.Brewfile.local` | Per-machine brew extras (untracked) |
 
 ## Notes
 
-- The installer will prompt you for confirmation at various steps (`./install.sh --yes` skips prompts)
-- Some steps require manual intervention (e.g., signing into apps)
-- The `manual` command (and install’s final step) reminds you of remaining manual tasks
-- **`support/*.sh` are sourced** into `install.sh` / `bin/dotfiles` (not executed as subprocesses), so they must not use `set -euo pipefail` — that would alter or exit the parent shell. Standalone scripts under `bin/yabai-*` correctly use `set -euo pipefail`.
-- **Brewfile lock:** `support/Brewfile.lock.json` is gitignored. The Brewfile is the source of truth; do not commit a lock.
-
-
-## Contributing
-
-This is a personal dotfiles repository, but suggestions and improvements are welcome!
-
-## Contact
-
-- Twitter: [@to_milon](https://milon.im/twitter)
-- Email: contact[@]milon[.]im
-
+- Checkout is `~/.dotfiles`; `DOTFILES_ROOT` is still discovered so other paths work.
+- Secrets stay in `~/.zshrc.local` (mode 600).
+- `dot pull --update` runs `composer update` and **does not** auto-commit; commit lockfile bumps yourself.
+- Roll back to the old system: `git checkout master` (old `bin/dotfiles` lives only on master).
 
 ## License
 
-See [LICENSE](LICENSE) file for details.
+See [LICENSE](LICENSE).

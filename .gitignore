@@ -1,5 +1,9 @@
-# Homebrew lock is not the source of truth — Brewfile is. Do not commit.
-support/Brewfile.lock.json
+# Homebrew lock is not the source of truth — inventory/Brewfile is.
+**/Brewfile.lock.json
+
+# Generated at apply time (skhd bin stub, etc.)
+generated/*
+!generated/.gitkeep
 
 # Local / secrets / junk
 .DS_Store

@@ -1,0 +1,5 @@
+source "$DOTFILES_ROOT/config/zsh_aliases"
+eval "$(mise activate zsh)"
+eval "$(fzf --zsh)"
+eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"

@@ -2,7 +2,7 @@ name: Lint
 
 on:
   push:
-    branches: [master, main]
+    branches: [master, main, greenfield]
   pull_request:
   workflow_dispatch:
 
@@ -15,8 +15,6 @@ jobs:
 
       - name: Install zsh
         run: sudo apt-get update && sudo apt-get install -y zsh
-        # shellcheck is preinstalled on ubuntu-latest runners.
 
-      # Runs the same checks as `dotfiles lint` locally, so CI and dev match.
       - name: Lint shell scripts
-        run: ./bin/dotfiles lint
+        run: ./bin/dot lint

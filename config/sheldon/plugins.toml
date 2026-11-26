@@ -1,0 +1,47 @@
+# Sheldon — https://sheldon.cli.rs
+# Locked clones live under ~/.local/share/sheldon/
+#
+# LOAD ORDER MATTERS — sourced top-to-bottom. Do not reorder casually:
+#   1. config/zsh/env.zsh
+#   2. config/fzf.sh (before fzf init)
+#   3. zsh-completions on fpath, then config/zsh/compinit.zsh
+#   4. autosuggestions / other ZLE wrappers
+#   5. syntax-highlighting (last among ZLE wrappers)
+#   6. config/zsh/tools.zsh (aliases, mise, fzf, zoxide, starship)
+#   7. config/zsh/keybindings.zsh
+#   8. config/zsh/atuin.zsh last
+shell = "zsh"
+
+[plugins.env]
+inline = 'source "$DOTFILES_ROOT/config/zsh/env.zsh"'
+
+[plugins.fzf-opts]
+inline = 'source "$DOTFILES_ROOT/config/fzf.sh"'
+
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+
+[plugins.compinit]
+inline = 'source "$DOTFILES_ROOT/config/zsh/compinit.zsh"'
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+
+[plugins.ohmyzsh-git]
+github = "ohmyzsh/ohmyzsh"
+dir = "plugins/git"
+
+[plugins.zsh-artisan]
+github = "jessarcher/zsh-artisan"
+
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+
+[plugins.tools]
+inline = 'source "$DOTFILES_ROOT/config/zsh/tools.zsh"'
+
+[plugins.keybindings]
+inline = 'source "$DOTFILES_ROOT/config/zsh/keybindings.zsh"'
+
+[plugins.atuin]
+inline = 'source "$DOTFILES_ROOT/config/zsh/atuin.zsh"'
