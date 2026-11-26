@@ -28,28 +28,16 @@ cmd_apply() {
     defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
     print_success "Full keyboard access enabled"
 
+    # Default browser via duti (one http/https prompt is fine). Do NOT mass-assign
+    # media types to IINA — each bind fights QuickTime and pops "Use IINA / Keep
+    # QuickTime". Set IINA once in Finder Get Info → Open with → Change All.
     if command_exists duti; then
         if [[ -d "/Applications/Google Chrome.app" ]]; then
-            duti -s com.google.Chrome http https html htm xhtml public.html
+            duti -s com.google.Chrome http
+            duti -s com.google.Chrome https
             print_success "Default browser set to Chrome"
         else
             print_warn "Google Chrome.app not found — skipping"
-        fi
-        if [[ -d "/Applications/IINA.app" ]]; then
-            typeset -a iina_ext=(
-                3g2 3gp asf avi bik divx flv gifv m1v m2t m2ts m2v m4v mkv mod mov mp2 mp4 mpe mpeg mpg mpv mts mxf
-                nsv ogm ogv qt ram rec rm rmvb tod ts vob webm wmv y4m
-                3ga a52 aac ac3 adt adts aif aifc aiff alac amr ape au caf dts eac3 flac m4a m4b mka mpc ogg opus pcm
-                ra shn spx tta wav wma wv
-            )
-            typeset -a iina_uti=(
-                public.audio public.movie public.video public.audiovisual-content
-                public.mpeg-4 public.mpeg-4-audio com.apple.quicktime-movie org.matroska.mkv
-            )
-            duti -s com.colliderli.iina "${iina_ext[@]}" "${iina_uti[@]}"
-            print_success "Default media handler set to IINA"
-        else
-            print_warn "IINA.app not found — skipping"
         fi
     else
         print_warn "duti not in PATH — run: dot brew"

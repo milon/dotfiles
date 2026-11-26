@@ -8,6 +8,7 @@ cmd_apply() {
     print_detail "Atuin Hub — run: dot atuin"
     print_detail "Lerd — run: dot lerd; Compose apps need proxy then lerd link"
     print_detail "Google Chrome — log in"
+    print_detail "IINA — set default player once via Finder Get Info → Open with → Change All"
     print_detail "Slack / Notion / Linear / ChatGPT — log in if installed (~/.Brewfile.local)"
     print_detail "JetBrains Toolbox — install PhpStorm (skhd: rcmd-p)"
     print_detail "Optional: VS Code Custom CSS/JS Loader → optional/vscode/"
