@@ -1,7 +1,8 @@
 #compdef dot
 
-# Completions for bin/dot. Command list comes from lib/commands.zsh so help
-# and tab-complete stay in sync when the registry changes.
+# Completions for bin/dot. Help commands come from lib/commands.zsh
+# (DOT_CMDS_*), so Tab matches `dot help` and skips internal aliases
+# like `check`.
 
 _dot() {
     local root=${DOTFILES_ROOT:-}
@@ -15,15 +16,17 @@ _dot() {
     fi
 
     local -a cmds
-    local name desc
-    for name in ${(k)DOT_CMD_MODULE}; do
-        desc=${DOT_CMD_DESC[$name]:-}
-        cmds+=( "${name}:${desc}" )
+    local category cmds_var name desc
+    local -a cat_cmds
+    cmds+=( 'help:Show this help message' )
+    for category in $DOT_CATEGORIES; do
+        cmds_var="DOT_CMDS_${category}"
+        cat_cmds=( ${(P)cmds_var} )
+        for name in $cat_cmds; do
+            desc=${DOT_CMD_DESC[$name]:-}
+            cmds+=( "${name}:${desc}" )
+        done
     done
-    cmds+=(
-        'help:Show this help message'
-        'apply:Run full idempotent setup'
-    )
 
     local curcontext="$curcontext" state line
     typeset -A opt_args
@@ -41,12 +44,16 @@ _dot() {
         args)
             case $words[1] in
                 apply)
+                    # Public command names (same as help), minus meta apply/help.
                     local -a modules
-                    local f
-                    for f in "$root"/modules/*.zsh(N); do
-                        name=${f:t:r}
-                        [[ $name == _* ]] && continue
-                        modules+=( "$name" )
+                    for category in $DOT_CATEGORIES; do
+                        cmds_var="DOT_CMDS_${category}"
+                        cat_cmds=( ${(P)cmds_var} )
+                        for name in $cat_cmds; do
+                            [[ $name == apply || $name == help ]] && continue
+                            desc=${DOT_CMD_DESC[$name]:-}
+                            modules+=( "${name}:${desc}" )
+                        done
                     done
                     _describe -t modules 'module' modules
                     ;;

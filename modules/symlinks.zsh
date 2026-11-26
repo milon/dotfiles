@@ -71,7 +71,7 @@ cmd_check() {
             print_error "Exists but not a symlink: $dest"
             errors+=1
         else
-            print_error "Missing: $dest (run: dot link)"
+            print_error "Missing: $dest (run: dot symlinks)"
             errors+=1
         fi
     done
@@ -82,5 +82,5 @@ cmd_check() {
 case "${1:-}" in
     apply) cmd_apply ;;
     check) cmd_check ;;
-    *) print_error "Usage: link.zsh apply|check"; exit 1 ;;
+    *) print_error "Usage: symlinks.zsh apply|check"; exit 1 ;;
 esac

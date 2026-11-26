@@ -42,18 +42,18 @@ cmd_check() {
     if [[ -f $stub ]]; then
         print_success "generated/skhd-bin present"
     else
-        print_warn "generated/skhd-bin missing — run: dot wm"
+        print_warn "generated/skhd-bin missing — run: dot hotkeys"
     fi
     local cmd
     for cmd in yabai skhd; do
         if ! command_exists "$cmd"; then
-            print_warn "$cmd not installed — run: dot brew && dot wm"
+            print_warn "$cmd not installed — run: dot brew && dot hotkeys"
             continue
         fi
         if pgrep -x "$cmd" >/dev/null 2>&1; then
             print_success "$cmd running"
         else
-            print_warn "$cmd installed but not running — run: dot wm"
+            print_warn "$cmd installed but not running — run: dot hotkeys"
         fi
     done
 }
@@ -61,5 +61,5 @@ cmd_check() {
 case "${1:-}" in
     apply) cmd_apply ;;
     check) cmd_check ;;
-    *) print_error "Usage: wm.zsh apply|check"; exit 1 ;;
+    *) print_error "Usage: hotkeys.zsh apply|check"; exit 1 ;;
 esac

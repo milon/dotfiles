@@ -24,7 +24,7 @@ cmd_check() {
         return 0
     fi
     if [[ ! -f $sheldon_toml ]]; then
-        print_warn "sheldon plugins.toml missing — run: dot link"
+        print_warn "sheldon plugins.toml missing — run: dot symlinks"
         return 0
     fi
     if [[ ! -f $sheldon_lock ]]; then

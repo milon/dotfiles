@@ -10,7 +10,7 @@ source "$DOTFILES_ROOT/lib/commands.zsh"
 
 # Full install order for `dot apply` (no args)
 typeset -a DOT_APPLY_ORDER=(
-    precheck brew link shell git mise php lerd mac wm repos
+    precheck brew symlinks shell git mise php lerd mac hotkeys repos
 )
 
 # Display name: capitalize first letter (matches old bin/dotfiles)
@@ -35,10 +35,8 @@ run_module() {
 
     local display
     display=$(dot_display_name "$name")
-    # Special-case: doctor keeps the old "Doctor" section title
+    # Special-case section titles that differ from the module filename
     [[ $name == doctor ]] && display="Doctor"
-    [[ $name == link ]] && display="Symlinks"
-    [[ $name == wm ]] && display="Hotkeys"
     [[ $name == repos && $action == apply ]] && display="Clone"
     [[ $name == repos && $action == pull ]] && display="Pull"
     [[ $name == lint ]] && display="Lint"
@@ -104,6 +102,28 @@ cmd_help() {
     fi
 }
 
+# Map a public command name (clone, hotkeys, …) or module filename to
+# module + action for `dot apply <name>`.
+dot_resolve_apply_target() {
+    local name=$1
+    local spec module action
+    if [[ -n ${DOT_CMD_MODULE[$name]:-} ]]; then
+        spec=${DOT_CMD_MODULE[$name]}
+        module=${spec%%:*}
+        action=apply
+        [[ $spec == *:* ]] && action=${spec#*:}
+        REPLY_MODULE=$module
+        REPLY_ACTION=$action
+        return 0
+    fi
+    if [[ -f ${DOT_MODULES_DIR}/${name}.zsh ]]; then
+        REPLY_MODULE=$name
+        REPLY_ACTION=apply
+        return 0
+    fi
+    return 1
+}
+
 cmd_apply_all() {
     local -a mods=( "${DOT_APPLY_ORDER[@]}" )
     if ! dot_noninteractive; then
@@ -146,7 +166,15 @@ dispatch_command() {
             else
                 local m
                 for m in "$@"; do
-                    run_module "$m" apply || return $?
+                    if [[ $m == lint ]]; then
+                        cmd_lint || return $?
+                        continue
+                    fi
+                    if ! dot_resolve_apply_target "$m"; then
+                        print_error "Unknown module or command: '${m}'"
+                        return 1
+                    fi
+                    run_module "$REPLY_MODULE" "$REPLY_ACTION" || return $?
                 done
             fi
             return $?

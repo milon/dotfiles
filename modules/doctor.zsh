@@ -133,9 +133,9 @@ doctor_main() {
     elif [[ ! -f $sheldon_toml ]]; then
         note_warning "sheldon plugins.toml missing — run: dot symlinks"
     elif [[ ! -f $sheldon_lock ]]; then
-        note_warning "sheldon lock missing — run: sheldon lock"
+        note_warning "sheldon lock missing — run: dot shell"
     elif [[ $sheldon_toml -nt $sheldon_lock ]]; then
-        note_warning "sheldon plugins.toml newer than lock — run: sheldon lock"
+        note_warning "sheldon plugins.toml newer than lock — run: dot shell"
     else
         print_success "sheldon lock is up to date"
     fi

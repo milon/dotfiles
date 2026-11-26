@@ -26,7 +26,7 @@ typeset -gA DOT_CATEGORY_ICON=(
 
 # Help display order within each category
 typeset -ga DOT_CMDS_core=(doctor lint update clean symlinks precheck apply)
-typeset -ga DOT_CMDS_setup=(brew git atuin xcode mise php lerd)
+typeset -ga DOT_CMDS_setup=(brew shell git atuin xcode mise php lerd)
 typeset -ga DOT_CMDS_repos=(clone pull)
 typeset -ga DOT_CMDS_system=(mac hotkeys manual)
 
@@ -38,8 +38,7 @@ typeset -gA DOT_CMD_MODULE=(
     [lint]="lint"
     [update]="update"
     [clean]="clean"
-    [symlinks]="link"
-    [link]="link"
+    [symlinks]="symlinks"
     [precheck]="precheck"
     [brew]="brew"
     [git]="git"
@@ -51,11 +50,9 @@ typeset -gA DOT_CMD_MODULE=(
     [clone]="repos"
     [pull]="repos:pull"
     [mac]="mac"
-    [hotkeys]="wm"
-    [wm]="wm"
+    [hotkeys]="hotkeys"
     [manual]="manual"
     [shell]="shell"
-    [repos]="repos"
 )
 
 typeset -gA DOT_CMD_DESC=(
@@ -67,6 +64,7 @@ typeset -gA DOT_CMD_DESC=(
     [precheck]="Create local overrides; verify SSH / App Store"
     [apply]="Run full idempotent setup"
     [brew]="Install Homebrew and dependencies"
+    [shell]="Refresh Sheldon lock for zsh plugins"
     [git]="Configure Git settings"
     [atuin]="Log in and sync shell history with Atuin Hub"
     [xcode]="Install Xcode / CLI tools"

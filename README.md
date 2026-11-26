@@ -37,7 +37,7 @@ Noninteractive (auto-confirms prompts; skips Atuin login and SSH key generation)
 # or: DOT_NONINTERACTIVE=1 ./install
 ```
 
-`./install` ensures Homebrew and CLT when needed, then runs `dot apply` (full setup). Config is symlinked as part of that apply via the `link` module — you do not need a separate post-install symlink step.
+`./install` ensures Homebrew and CLT when needed, then runs `dot apply` (full setup). Config is symlinked as part of that apply via the `symlinks` module — you do not need a separate post-install symlink step.
 
 Canonical checkout path is `~/.dotfiles`. `DOTFILES_ROOT` is still discovered from the repo, so another path works, but docs and skhd helpers assume this location.
 
@@ -58,18 +58,19 @@ Run `dot help` for the live categorized tree. Summary:
 | Category | Commands | Purpose |
 |----------|----------|---------|
 | **CORE** | `doctor`, `lint`, `update`, `clean`, `symlinks`, `precheck`, `apply` | Health, maintenance, full setup |
-| **SETUP** | `brew`, `git`, `atuin`, `xcode`, `mise`, `php`, `lerd` | Tooling install/configure |
+| **SETUP** | `brew`, `shell`, `git`, `atuin`, `xcode`, `mise`, `php`, `lerd` | Tooling install/configure |
 | **REPOS** | `clone`, `pull` | Personal git repos from inventory |
 | **SYSTEM** | `mac`, `hotkeys`, `manual` | macOS defaults, yabai/skhd, checklist |
 
 Notable details:
 
 - **doctor** — Read-only drift check (Homebrew, symlinks, mise, PHP, Podman/Lerd, git, Sheldon, Atuin, yabai/skhd, SSH, PATH). Non-zero if anything is broken. Alias: `dot check`.
-- **apply** — Idempotent full setup (what `./install` finishes with). Optional module list: `dot apply brew link`.
+- **apply** — Idempotent full setup (what `./install` finishes with). Optional module list accepts public names: `dot apply brew symlinks clone`.
 - **symlinks** — Link `config/` onto `~` / `~/.config` per `inventory/links.toml`. Backups go to `~/.local/share/dot/backup/`.
 - **update** — [Topgrade](https://github.com/topgrade-rs/topgrade) using `~/.config/topgrade.toml` when present, else the repo copy.
 - **pull --update** — Runs `composer update` in PHP repos and **does not** auto-commit; commit lockfile bumps yourself.
 - **hotkeys** — Start/reload yabai + skhd; writes `generated/skhd-bin`.
+- **shell** — Runs `sheldon lock` after `plugins.toml` changes so new zsh plugins load.
 
 Adding a command: edit [`lib/commands.zsh`](lib/commands.zsh) (registry + help). Dispatch, help, and tab-completion (`config/zsh/completions/_dot`) all read that file.
 
@@ -89,7 +90,7 @@ Adding a command: edit [`lib/commands.zsh`](lib/commands.zsh) (registry + help).
     Brewfile              Homebrew formulae, casks, MAS
     links.toml            Symlink map (config/ → disk)
     repos.toml            Personal git clones
-    packages.toml         Composer globals (+ mise notes)
+    packages.toml         Composer globals (mise lives in config/mise/)
   modules/                apply|check scripts
   lib/                    Shared UI, inventory parsers, command registry
   generated/              Gitignored stubs (e.g. skhd-bin)

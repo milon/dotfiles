@@ -1,17 +1,5 @@
 # Non-Homebrew package pins. Brew formulae/casks/mas live in inventory/Brewfile.
-# mise tools are declared in config/mise/config.toml (mise-native); listed here
-# for documentation and doctor cross-checks.
+# mise tools are declared only in config/mise/config.toml (source of truth).
 
 [composer.global]
 packages = ["psy/psysh"]
-
-[mise.tools]
-bun = "latest"
-node = "24"
-pnpm = "latest"
-python = "3.15"
-ruby = "4.0"
-java = "corretto-25"
-go = "1.27"
-rust = "stable"
-air = "latest"

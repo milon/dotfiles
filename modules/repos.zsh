@@ -13,8 +13,9 @@ repo_is_dirty() {
 # refuses dirty trees. Skip with a clear warn instead of a cryptic git error.
 repo_pull() {
     local repo_path=$1
+    local repo_name=${2:-${repo_path:t}}
     if repo_is_dirty "$repo_path"; then
-        print_warn "Uncommitted changes — commit, stash, or discard, then re-run"
+        print_warn "${repo_name}: uncommitted changes — commit, stash, or discard, then re-run"
         return 2
     fi
     git -C "$repo_path" pull --rebase --autostash
@@ -30,7 +31,7 @@ cmd_apply() {
         if [[ -d "${reply_code_dir}/${dir}/.git" ]]; then
             print_info "${dir} exists — pulling..."
             set +e
-            repo_pull "${reply_code_dir}/${dir}"
+            repo_pull "${reply_code_dir}/${dir}" "$dir"
             ec=$?
             set -e
             if (( ec == 0 )); then
@@ -74,7 +75,7 @@ cmd_pull() {
         fi
         print_step "Pulling ${dir}..."
         set +e
-        repo_pull "$repo_path"
+        repo_pull "$repo_path" "$dir"
         ec=$?
         set -e
         if (( ec == 0 )); then
