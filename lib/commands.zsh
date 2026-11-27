@@ -82,7 +82,7 @@ typeset -gA DOT_CMD_DESC=(
 typeset -gA DOT_CMD_HELP=(
     [doctor]="Checks Homebrew, symlinks, mise, PHP, Lerd/Podman, git, Sheldon, Atuin, yabai/skhd, SSH, and PATH."
     [apply]="With no arguments, runs the full install order. With names, runs only those modules (public command names accepted)."
-    [pull]="Fetches updates for inventory repos plus this dotfiles checkout. Dirty worktrees are skipped with a warning."
+    [pull]="Fetches updates for inventory repos plus this dotfiles checkout. Dirty worktrees are skipped with a warning. With --update, also runs composer update and commits/pushes lockfile bumps."
     [clone]="Clones missing repos from inventory/repos.toml into ~/Code (or code_dir). Existing repos are pulled."
     [symlinks]="Links config/ onto ~ and ~/.config per inventory/links.toml. Conflicts are backed up under ~/.local/share/dot/backup/."
     [lerd]="Installs Lerd (once), parks ~/Code, refreshes completions, and keeps tracked ~/.zshrc free of Lerd snippets."
@@ -113,5 +113,5 @@ typeset -gA DOT_CMD_OPTS=(
     [git]=$'y|yes\tNoninteractive / assume yes (skip identity override prompts)'
     [atuin]=$'y|yes\tNoninteractive / assume yes (skip Hub login/sync prompts)'
     [precheck]=$'y|yes\tNoninteractive / assume yes (fail if SSH keys missing)'
-    [pull]=$'u|update\tRun composer update in PHP repos (does not auto-commit)'
+    [pull]=$'u|update\tRun composer update in PHP repos; commit and push lockfile bumps'
 )

@@ -82,7 +82,7 @@ _dot() {
                 pull)
                     _arguments \
                         '(-h --help)'{-h,--help}'[Display help for the command]' \
-                        '(-u --update)'{-u,--update}'[Run composer update in PHP repos]'
+                        '(-u --update)'{-u,--update}'[composer update; commit and push lockfile bumps]'
                     ;;
                 *)
                     _arguments \

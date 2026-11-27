@@ -69,7 +69,7 @@ Notable details:
 - **apply** — Idempotent full setup (what `./install` finishes with). Optional module list accepts public names: `dot apply brew symlinks clone`.
 - **symlinks** — Link `config/` onto `~` / `~/.config` per `inventory/links.toml`. Backups go to `~/.local/share/dot/backup/`.
 - **update** — [Topgrade](https://github.com/topgrade-rs/topgrade) using `~/.config/topgrade.toml` when present, else the repo copy.
-- **pull --update** — Runs `composer update` in PHP repos and **does not** auto-commit; commit lockfile bumps yourself.
+- **pull --update** — Runs `composer update` in PHP repos, then commits and pushes lockfile bumps (`Updates dependencies`).
 - **hotkeys** — Start/reload yabai + skhd; writes `generated/skhd-bin`.
 - **shell** — Runs `sheldon lock` after `plugins.toml` changes so new zsh plugins load.
 

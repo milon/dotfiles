@@ -91,20 +91,28 @@ cmd_pull() {
         return $?
     fi
 
-    print_step "Composer dependency bumps (no auto-commit)"
+    print_step "Updating Composer dependencies"
     for dir repo_path in ${(kv)repo_paths}; do
         [[ ! -d $repo_path || ! -f "${repo_path}/composer.json" ]] && continue
-        print_step "composer update in ${dir}..."
-        if ( cd "$repo_path" && composer update ); then
-            if [[ -n "$(cd "$repo_path" && git status --porcelain)" ]]; then
-                print_warn "${dir} has lockfile changes — commit manually if desired"
-            else
+        print_step "Updating dependencies for ${dir}..."
+        set +e
+        (
+            cd "$repo_path" || exit 1
+            composer update || exit 1
+            if [[ -z "$(git status --porcelain)" ]]; then
                 print_info "No dependency updates for ${dir}"
+                exit 0
             fi
-        else
-            print_error "composer update failed for ${dir}"
-            failures+=1
-        fi
+            if git add . && git commit -m "Updates dependencies" && git push; then
+                print_success "Dependencies updated and pushed for ${dir}"
+                exit 0
+            fi
+            print_error "Failed to commit or push dependencies for ${dir}"
+            exit 1
+        )
+        ec=$?
+        set -e
+        (( ec == 0 )) || failures+=1
     done
     (( failures == 0 ))
 }
