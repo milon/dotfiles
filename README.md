@@ -49,8 +49,9 @@ After install, `bin/dot` is on your `PATH` (via shell env). Entry points:
 dot                 # same as: dot help
 dot help
 dot help pull       # per-command help (also: dot pull --help / -h)
-dot --yes <command> # apply/brew/git/atuin/precheck only (or DOT_NONINTERACTIVE=1)
+dot --yes <command> # commands that opt into shared `yes` (see Shared options)
 ```
+
 
 ### Command reference
 
@@ -73,7 +74,47 @@ Notable details:
 - **hotkeys** — Start/reload yabai + skhd; writes `generated/skhd-bin`.
 - **shell** — Runs `sheldon lock` after `plugins.toml` changes so new zsh plugins load.
 
-Adding a command: edit [`lib/commands.zsh`](lib/commands.zsh) (registry: module map, descriptions, usage/args/options). Dispatch, list help, per-command `--help`, and tab-completion (`config/zsh/completions/_dot`) all read that file. Help rendering lives in [`lib/help.zsh`](lib/help.zsh).
+### Adding a command
+
+Edit [`lib/commands.zsh`](lib/commands.zsh) — the registry for dispatch, `dot help`, per-command `--help`/`-h`, and tab-completion (`config/zsh/completions/_dot`). Help rendering lives in [`lib/help.zsh`](lib/help.zsh).
+
+Typical checklist:
+
+1. Put the command in a `DOT_CMDS_<category>` list and set `DOT_CMD_MODULE` / `DOT_CMD_DESC` (optional `DOT_CMD_HELP`, `DOT_CMD_USAGE`, `DOT_CMD_ARGS`).
+2. Implement `modules/<name>.zsh` (or reuse an existing module + action).
+3. Opt into shared flags and/or add command-only options (below).
+
+### Shared options (Symfony-style)
+
+Common flags are defined **once** and reused — same idea as Symfony Console shared `InputOption`s.
+
+| Piece | Role |
+|-------|------|
+| `DOT_SHARED_OPTS` | Catalogue: key → `short\|long<TAB>description` (e.g. `help`, `yes`) |
+| `DOT_CMD_SHARED` | Per-command opt-in: space-separated keys from the catalogue |
+| `DOT_CMD_OPTS` | Command-**only** options (never repeat shared ones here) |
+
+`-h`/`--help` is always attached; do **not** list `help` in `DOT_CMD_SHARED`.
+
+```zsh
+# Opt into --yes for a prompting command:
+DOT_CMD_SHARED[mycommand]="yes"
+
+# Command-specific flag (pull's -u):
+DOT_CMD_OPTS[pull]=$'u|update\tRun composer update…'
+
+# New shared flag for everyone who opts in:
+DOT_SHARED_OPTS[force]=$'f|force\toverwrite without asking'
+DOT_CMD_SHARED[symlinks]="force"   # or "yes force" to combine
+```
+
+Helpers (also used by help + completions):
+
+- `dot_cmd_has_shared <cmd> <key>` — whether the command accepts that shared option
+- `dot_cmd_option_lines <cmd>` — merged lines: shared → specific → help
+- `dot_cmds_with_shared <key>` — command names that opted in (help-display order)
+
+`--yes` / `-y` is parsed once in `lib/ui.zsh` (`dot_consume_yes_args`) and sets `DOT_NONINTERACTIVE=1`. Modules call `dot_noninteractive` / `confirm_or_exit` — they do not re-parse flags.
 
 ### Architecture note
 

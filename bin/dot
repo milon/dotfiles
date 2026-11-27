@@ -58,9 +58,14 @@ run_module() {
 cmd_help() {
     ascii_art
     echo
+    local -a yes_cmds
+    yes_cmds=( ${(f)"$(dot_cmds_with_shared yes)"} )
+
     echo -e "${BOLD}${CYAN}${ARROW} Usage:${NC} ${YELLOW}${BIN_NAME} <command>${NC}"
     echo -e "         ${YELLOW}${BIN_NAME} help <command>${NC}  or  ${YELLOW}${BIN_NAME} <command> --help${NC}"
-    echo -e "         ${YELLOW}${BIN_NAME} [--yes|-y] <command>${NC}  when the command prompts (apply, brew, git, atuin, precheck)"
+    if (( ${#yes_cmds} )); then
+        echo -e "         ${YELLOW}${BIN_NAME} [--yes|-y] <command>${NC}  when the command prompts (${(j:, :)yes_cmds})"
+    fi
     echo
 
     local category cmds_var color icon label cmd prefix desc

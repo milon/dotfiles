@@ -105,13 +105,94 @@ typeset -gA DOT_CMD_ARGS=(
     [apply]=$'modules\tOptional public command or module names (e.g. brew symlinks clone). Not: pull.'
 )
 
-# Options: lines of short|long<TAB>description (or long only).
-# -h/--help is always implied. Only list -y/--yes on commands that prompt.
+# ---------------------------------------------------------------------------
+# Shared options (Symfony-style): define once, opt in per command.
+#
+# Easy use:
+#   1. Add a shared flag to DOT_SHARED_OPTS (key → short|long<TAB>desc).
+#   2. Opt a command in:  DOT_CMD_SHARED[cmd]="yes"   (space-separated keys)
+#   3. Command-only flags stay in DOT_CMD_OPTS (never repeat shared ones).
+#
+# `help` is always attached — do not list it in DOT_CMD_SHARED.
+# Help, completions, and `dot help` all read these tables via the helpers below.
+# ---------------------------------------------------------------------------
+typeset -gA DOT_SHARED_OPTS=(
+    [help]=$'h|help\tDisplay help for the command'
+    [yes]=$'y|yes\tNoninteractive / assume yes'
+)
+
+# Space-separated shared option keys this command accepts (besides help).
+typeset -gA DOT_CMD_SHARED=(
+    [apply]="yes"
+    [brew]="yes"
+    [git]="yes"
+    [atuin]="yes"
+    [precheck]="yes"
+)
+
+# Command-specific options only (short|long<TAB>desc, or long<TAB>desc; one per line).
 typeset -gA DOT_CMD_OPTS=(
-    [apply]=$'y|yes\tNoninteractive / assume yes (skips Atuin login during full apply)'
-    [brew]=$'y|yes\tNoninteractive Homebrew install (NONINTERACTIVE=1)'
-    [git]=$'y|yes\tNoninteractive / assume yes (skip identity override prompts)'
-    [atuin]=$'y|yes\tNoninteractive / assume yes (skip Hub login/sync prompts)'
-    [precheck]=$'y|yes\tNoninteractive / assume yes (fail if SSH keys missing)'
     [pull]=$'u|update\tRun composer update in PHP repos; commit and push lockfile bumps'
 )
+
+# True if command $1 opts into shared option $2. `help` is always true.
+dot_cmd_has_shared() {
+    local cmd=$1 key=$2
+    [[ $key == help ]] && return 0
+    [[ " ${DOT_CMD_SHARED[$cmd]:-} " == *" $key "* ]]
+}
+
+# Print merged option lines for command $1: shared (minus help), then specific, then help.
+# Each line: short|long<TAB>desc  or  long<TAB>desc
+dot_cmd_option_lines() {
+    local cmd=$1
+    local key line
+    for key in ${(s: :)DOT_CMD_SHARED[$cmd]:-}; do
+        [[ $key == help ]] && continue
+        line=${DOT_SHARED_OPTS[$key]:-}
+        [[ -n $line ]] && print -r -- "$line"
+    done
+    local specific=${DOT_CMD_OPTS[$cmd]:-}
+    if [[ -n $specific ]]; then
+        local row
+        for row in ${(f)specific}; do
+            print -r -- "$row"
+        done
+    fi
+    print -r -- "${DOT_SHARED_OPTS[help]}"
+}
+
+# Canonical command names that opt into shared option $1, in help-display order.
+dot_cmds_with_shared() {
+    local key=$1
+    local category cmds_var name
+    local -a cmds
+    for category in $DOT_CATEGORIES; do
+        cmds_var="DOT_CMDS_${category}"
+        cmds=( ${(P)cmds_var} )
+        for name in $cmds; do
+            if [[ " ${DOT_CMD_SHARED[$name]:-} " == *" $key "* ]]; then
+                print -r -- "$name"
+            fi
+        done
+    done
+    return 0
+}
+
+# Print zsh `_arguments` specs for one option line (safe for dynamic arrays).
+# Input: short|long<TAB>desc  or  long<TAB>desc
+# Output: one or two lines, e.g.  (-y --yes)-y[desc]  and  (-y --yes)--yes[desc]
+dot_opt_comp_spec() {
+    local line=$1
+    local keys=${line%%	*}
+    local desc=${line#*	}
+    local short long
+    if [[ $keys == *\|* ]]; then
+        short=${keys%%\|*}
+        long=${keys#*\|}
+        print -r -- "(-${short} --${long})-${short}[${desc}]"
+        print -r -- "(-${short} --${long})--${long}[${desc}]"
+    else
+        print -r -- "--${keys}[${desc}]"
+    fi
+}

@@ -2,7 +2,8 @@
 
 # Completions for bin/dot. Help commands come from lib/commands.zsh
 # (DOT_CMDS_*), so Tab matches `dot help` and skips internal aliases
-# like `check`.
+# like `check`. Shared options (-h, -y, …) come from DOT_SHARED_OPTS /
+# DOT_CMD_SHARED via dot_cmd_option_lines — do not hardcode them here.
 
 _dot() {
     local root=${DOTFILES_ROOT:-}
@@ -31,9 +32,12 @@ _dot() {
     local curcontext="$curcontext" state line
     typeset -A opt_args
 
+    local yes_desc=${${DOT_SHARED_OPTS[yes]#*$'\t'}:-Noninteractive / assume yes}
+    local help_desc=${${DOT_SHARED_OPTS[help]#*$'\t'}:-Show help}
+
     _arguments -C \
-        '(-y --yes)'{-y,--yes}'[Noninteractive / assume yes (prompting commands only)]' \
-        '(-h --help)'{-h,--help}'[Show help]' \
+        "(-y --yes)"{-y,--yes}"[${yes_desc}]" \
+        "(-h --help)"{-h,--help}"[${help_desc}]" \
         '1:command:->command' \
         '*::arg:->args' && return 0
 
@@ -67,26 +71,35 @@ _dot() {
                         done
                     done
                     if [[ ${words[CURRENT]} == -* ]]; then
-                        _arguments \
-                            '(-h --help)'{-h,--help}'[Display help for the command]' \
-                            '(-y --yes)'{-y,--yes}'[Noninteractive / assume yes]'
+                        local -a apply_opts
+                        local opt_line
+                        for opt_line in ${(f)"$(dot_cmd_option_lines apply)"}; do
+                            apply_opts+=( ${(f)"$(dot_opt_comp_spec "$opt_line")"} )
+                        done
+                        _arguments "${apply_opts[@]}"
                     else
                         _describe -t modules 'module' modules
                     fi
                     ;;
-                brew|git|atuin|precheck)
-                    _arguments \
-                        '(-h --help)'{-h,--help}'[Display help for the command]' \
-                        '(-y --yes)'{-y,--yes}'[Noninteractive / assume yes]'
-                    ;;
-                pull)
-                    _arguments \
-                        '(-h --help)'{-h,--help}'[Display help for the command]' \
-                        '(-u --update)'{-u,--update}'[composer update; commit and push lockfile bumps]'
-                    ;;
                 *)
-                    _arguments \
-                        '(-h --help)'{-h,--help}'[Display help for the command]'
+                    local cmd=$words[1]
+                    # Aliases (e.g. check → doctor) resolve via module map for shared opts.
+                    if [[ -z ${DOT_CMD_DESC[$cmd]:-} && -n ${DOT_CMD_MODULE[$cmd]:-} ]]; then
+                        local spec=${DOT_CMD_MODULE[$cmd]}
+                        local canon
+                        for canon in ${(k)DOT_CMD_DESC}; do
+                            if [[ ${DOT_CMD_MODULE[$canon]:-} == "$spec" ]]; then
+                                cmd=$canon
+                                break
+                            fi
+                        done
+                    fi
+                    local -a cmd_opts
+                    local opt_line
+                    for opt_line in ${(f)"$(dot_cmd_option_lines "$cmd")"}; do
+                        cmd_opts+=( ${(f)"$(dot_opt_comp_spec "$opt_line")"} )
+                    done
+                    _arguments "${cmd_opts[@]}"
                     ;;
             esac
             ;;

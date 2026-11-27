@@ -21,6 +21,22 @@ dot_help_canonical() {
     return 1
 }
 
+# Print a formatted option row from short|long<TAB>desc (or long<TAB>desc).
+dot_help_print_opt() {
+    local line=$1
+    local keys=${line%%	*}
+    local desc=${line#*	}
+    local short long padded
+    if [[ $keys == *\|* ]]; then
+        short=${keys%%\|*}
+        long=${keys#*\|}
+        padded="-${short}, --${long}"
+    else
+        padded="--${keys}"
+    fi
+    printf "  ${GREEN}%-18s${NC} %s\n" "$padded" "$desc"
+}
+
 # Print help for one command.
 dot_cmd_help() {
     local requested=${1:?}
@@ -35,9 +51,8 @@ dot_cmd_help() {
     local desc=${DOT_CMD_DESC[$cmd]}
     local usage_suffix=${DOT_CMD_USAGE[$cmd]:-}
     local args_blob=${DOT_CMD_ARGS[$cmd]:-}
-    local opts_blob=${DOT_CMD_OPTS[$cmd]:-}
     local has_yes=0
-    [[ "$opts_blob" == y\|yes$'\t'* || "$opts_blob" == *$'\n'y\|yes$'\t'* ]] && has_yes=1
+    dot_cmd_has_shared "$cmd" yes && has_yes=1
 
     echo
     echo -e "${BOLD}Description:${NC}"
@@ -93,21 +108,9 @@ dot_cmd_help() {
 
     echo
     echo -e "${BOLD}Options:${NC}"
-    local opt_line opt_keys opt_desc short long padded
-    if [[ -n $opts_blob ]]; then
-        for opt_line in ${(f)opts_blob}; do
-            opt_keys=${opt_line%%	*}
-            opt_desc=${opt_line#*	}
-            if [[ $opt_keys == *\|* ]]; then
-                short=${opt_keys%%\|*}
-                long=${opt_keys#*\|}
-                padded="-${short}, --${long}"
-            else
-                padded="--${opt_keys}"
-            fi
-            printf "  ${GREEN}%-18s${NC} %s\n" "$padded" "$opt_desc"
-        done
-    fi
-    printf "  ${GREEN}%-18s${NC} %s\n" "-h, --help" "Display help for the command"
+    local opt_line
+    for opt_line in ${(f)"$(dot_cmd_option_lines "$cmd")"}; do
+        dot_help_print_opt "$opt_line"
+    done
     echo
 }
