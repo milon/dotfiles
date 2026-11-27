@@ -48,7 +48,8 @@ After install, `bin/dot` is on your `PATH` (via shell env). Entry points:
 ```bash
 dot                 # same as: dot help
 dot help
-dot --yes <command> # or -y / DOT_NONINTERACTIVE=1
+dot help pull       # per-command help (also: dot pull --help / -h)
+dot --yes <command> # apply/brew/git/atuin/precheck only (or DOT_NONINTERACTIVE=1)
 ```
 
 ### Command reference
@@ -72,7 +73,7 @@ Notable details:
 - **hotkeys** — Start/reload yabai + skhd; writes `generated/skhd-bin`.
 - **shell** — Runs `sheldon lock` after `plugins.toml` changes so new zsh plugins load.
 
-Adding a command: edit [`lib/commands.zsh`](lib/commands.zsh) (registry + help). Dispatch, help, and tab-completion (`config/zsh/completions/_dot`) all read that file.
+Adding a command: edit [`lib/commands.zsh`](lib/commands.zsh) (registry: module map, descriptions, usage/args/options). Dispatch, list help, per-command `--help`, and tab-completion (`config/zsh/completions/_dot`) all read that file. Help rendering lives in [`lib/help.zsh`](lib/help.zsh).
 
 ### Architecture note
 

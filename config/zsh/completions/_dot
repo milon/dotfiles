@@ -18,7 +18,7 @@ _dot() {
     local -a cmds
     local category cmds_var name desc
     local -a cat_cmds
-    cmds+=( 'help:Show this help message' )
+    cmds+=( 'help:Show help (list or per-command)' )
     for category in $DOT_CATEGORIES; do
         cmds_var="DOT_CMDS_${category}"
         cat_cmds=( ${(P)cmds_var} )
@@ -32,7 +32,7 @@ _dot() {
     typeset -A opt_args
 
     _arguments -C \
-        '(-y --yes)'{-y,--yes}'[Noninteractive / assume yes]' \
+        '(-y --yes)'{-y,--yes}'[Noninteractive / assume yes (prompting commands only)]' \
         '(-h --help)'{-h,--help}'[Show help]' \
         '1:command:->command' \
         '*::arg:->args' && return 0
@@ -43,8 +43,19 @@ _dot() {
             ;;
         args)
             case $words[1] in
+                help)
+                    local -a help_cmds
+                    for category in $DOT_CATEGORIES; do
+                        cmds_var="DOT_CMDS_${category}"
+                        cat_cmds=( ${(P)cmds_var} )
+                        for name in $cat_cmds; do
+                            desc=${DOT_CMD_DESC[$name]:-}
+                            help_cmds+=( "${name}:${desc}" )
+                        done
+                    done
+                    _describe -t commands 'command' help_cmds
+                    ;;
                 apply)
-                    # Public command names (same as help), minus meta apply/help.
                     local -a modules
                     for category in $DOT_CATEGORIES; do
                         cmds_var="DOT_CMDS_${category}"
@@ -55,11 +66,27 @@ _dot() {
                             modules+=( "${name}:${desc}" )
                         done
                     done
-                    _describe -t modules 'module' modules
+                    if [[ ${words[CURRENT]} == -* ]]; then
+                        _arguments \
+                            '(-h --help)'{-h,--help}'[Display help for the command]' \
+                            '(-y --yes)'{-y,--yes}'[Noninteractive / assume yes]'
+                    else
+                        _describe -t modules 'module' modules
+                    fi
+                    ;;
+                brew|git|atuin|precheck)
+                    _arguments \
+                        '(-h --help)'{-h,--help}'[Display help for the command]' \
+                        '(-y --yes)'{-y,--yes}'[Noninteractive / assume yes]'
                     ;;
                 pull)
                     _arguments \
+                        '(-h --help)'{-h,--help}'[Display help for the command]' \
                         '(-u --update)'{-u,--update}'[Run composer update in PHP repos]'
+                    ;;
+                *)
+                    _arguments \
+                        '(-h --help)'{-h,--help}'[Display help for the command]'
                     ;;
             esac
             ;;
